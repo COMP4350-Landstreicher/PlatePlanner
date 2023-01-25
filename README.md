@@ -46,8 +46,8 @@ Health enthusiasts want to make sticking to their diet as frictionless as possib
 
 1. Account Management
     - Users can create an account and use it to log in to the web app.
-2. View and Choose Recipes
-    - Users can view, search, sort, filter, and choose from all available recipes to put in a shopping cart.
+2. View and Search Recipes
+    - Users can view, search, sort, filter all available recipes.
 3. Add and Modify Recipes
     - Users can upload new recipes, and they can modify them afterwards.
 4. Shopping list
