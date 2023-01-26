@@ -71,10 +71,9 @@ Health enthusiasts want to make sticking to their diet as frictionless as possib
 
 #### View and Search Recipes
 
-- As a user, I want to be able to view all available recipes on the website.
-- As a user, I want to be able to search for recipes using its name and author's name.
-- As a user, I want to be able to use filters (i.e.: by cuisine, cooking method, diet, etc.) to narrow down my search.
-- As a user, I want to be able to sort recipes by ratings and alphabetically.
+- As a user, I want to be able to view all available recipes on my homepage.
+- As a user, I want to be able to search for recipes by names.
+- As a user, I want to be able to sort recipes alphabetically and by date added.
 
 #### Recipes Management
 
