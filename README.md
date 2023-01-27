@@ -11,6 +11,10 @@ Repository for the COMP4350 W23 Group Project "PlatePlanner"
 | Tuan Le         | ledt@myumanitoba.ca     | TuanDinhLe      |
 | David Dyck      | dyckd349@myumanitoba.ca | davidndyck      |
 
+## Documentation:
+
+[Meeting Minutes](https://github.com/COMP4350-Landstreicher/PlatePlanner/wiki/Meeting-Minutes)
+
 ## Project Proposal
 
 ### Vision
@@ -43,13 +47,13 @@ Health enthusiasts want to make sticking to their diet as frictionless as possib
 
 ### Core Features
 
-1. Account Management
+1. Account Management:
     - Users can create an account and use it to log in to the web app.
-2. View and Retrieve Recipes
+2. View and Retrieve Recipes:
     - Users can view all available recipes and retrieve a specific recipe with its name.
-3. Recipes Management
+3. Recipes Management:
     - Users can upload new recipes and modify them afterwards.
-4. Shopping list
+4. Shopping list:
     - Users can choose recipes and generate an ingredient shopping list from the chosen recipes.
 5. Non-functional feature:
     - The web app can concurrently support 100 users with 1000 requests per minute.
@@ -61,6 +65,7 @@ Health enthusiasts want to make sticking to their diet as frictionless as possib
 4. MySQL (potential) - for storing our data
 
 ### Architecture Diagram
+
 ![Architecture Diagram](./Architecture%20Diagram.png?raw=true "Diagram")
 
 ### User Stories for Core Features:
