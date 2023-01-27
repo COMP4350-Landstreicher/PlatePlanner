@@ -47,7 +47,7 @@ Health enthusiasts want to make sticking to their diet as frictionless as possib
     - Users can create an account and use it to log in to the web app.
 2. View and Retrieve Recipes
     - Users can view all available recipes and retrieve a specific recipe with its name.
-3. Add and Modify Recipes
+3. Recipes Management
     - Users can upload new recipes and modify them afterwards.
 4. Shopping list
     - Users can choose recipes and generate an ingredient shopping list from the chosen recipes.
