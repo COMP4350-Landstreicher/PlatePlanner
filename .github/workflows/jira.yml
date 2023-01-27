@@ -6,7 +6,7 @@ on:
 
 jobs:
   create-story-ticket:
-    if: ${{ contains( github.event.issue.labels.*.name, 'story') }}
+    if: ${{ contains( github.event.issue.labels.*.name, 'user story') }}
     runs-on: ubuntu-latest
     name: Jira Story Workflow
     steps:
@@ -32,6 +32,29 @@ jobs:
     if: ${{ contains( github.event.issue.labels.*.name, 'bug') }}
     runs-on: ubuntu-latest
     name: Jira Bug Workflow
+    steps:
+    - name: Login
+      uses: atlassian/gajira-login@v3
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+
+    - name: Create
+      id: create
+      uses: atlassian/gajira-create@v3
+      with:
+        project: PLATE
+        issuetype: Bug
+        summary: ${{ github.event.issue.title }}
+        description: ${{ github.event.issue.body }}
+
+    - name: Log created issue
+      run: echo "Issue ${{ steps.create.outputs.issue }} was created"
+  create-task-ticket:
+    if: ${{ contains( github.event.issue.labels.*.name, 'task') }}
+    runs-on: ubuntu-latest
+    name: Jira Task Workflow
     steps:
     - name: Login
       uses: atlassian/gajira-login@v3
