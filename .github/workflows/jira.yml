@@ -6,7 +6,7 @@ on:
 
 jobs:
   create-story-ticket:
-    if: ${{ github.event.label.name == 'task' && github.event.label.name != 'bug' }}
+    if: ${{ contains( github.event.issue.labels.*.name, 'story') }}
     runs-on: ubuntu-latest
     name: Jira Story Workflow
     steps:
@@ -29,7 +29,7 @@ jobs:
     - name: Log created issue
       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
   create-bug-ticket:
-    if: ${{ github.event.label.name == 'task' && github.event.label.name == 'bug' }}
+    if: ${{ contains( github.event.issue.labels.*.name, 'bug') }}
     runs-on: ubuntu-latest
     name: Jira Bug Workflow
     steps:
