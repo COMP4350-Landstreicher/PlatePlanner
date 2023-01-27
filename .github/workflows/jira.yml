@@ -68,7 +68,7 @@ jobs:
       uses: atlassian/gajira-create@v3
       with:
         project: PLATE
-        issuetype: Bug
+        issuetype: Task
         summary: ${{ github.event.issue.title }}
         description: ${{ github.event.issue.body }}
 
