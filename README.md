@@ -60,6 +60,9 @@ Health enthusiasts want to make sticking to their diet as frictionless as possib
 3. Express.js (potential) - a framework to implement the back-end API
 4. MySQL (potential) - for storing our data
 
+### Architecture Diagram
+![Architecture Diagram](./Architecture%20Diagram.png?raw=true "Diagram")
+
 ### User Stories for Core Features:
 
 #### Account Management
