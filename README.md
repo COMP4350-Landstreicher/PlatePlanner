@@ -31,6 +31,7 @@ The main feature of our application is the ability to plan out your meals for th
 
 Since the meal plan is fully customizable and the grocery list is automatically generated, we are confident that this will be an easy system to add to the lives of our users. As a result, our user base will be able to create personalized meal plans with an associated grocery list that minimizes food waste.
 
+
 ### Stakeholders
 
 #### Grocery Shoppers
