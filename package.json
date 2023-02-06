@@ -1,0 +1,13 @@
+{
+  "name": "PlatePlanner",
+  "version": "0.0.1",
+  "description": "PlatePlanner Main Application",
+  "author": "Landstreicher",
+  "main": "PlatePlannerServer.js",
+  "scripts": {
+    "start": "node PlatePlannerServer.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
