@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>Plate Planner</title>
+</head>
+<body>
+    <main>
+        <label>Recipe Name:</label>
+        <input type="text" id="recipe-input">
+        <button id="add-name-btn">Add Recipe</button>
+
+        <br><br><br>
+        <div>
+           <input placeholder="search by name" id="search-input">
+           <button id="search-btn">Search</button>
+        </div>
+
+        <table id="table">
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Ingredients</th>
+                <th>Instructions</th>
+                <th>Last Updated</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <section hidden id="update-row">
+            <label>Name:</label>
+            <input type="text" id="update-recipe-input">
+            <button id="update-row-btn">Update</button>
+        </section>
+    </main>
+    <script src="index.js"></script>
+</body>
+</html>
