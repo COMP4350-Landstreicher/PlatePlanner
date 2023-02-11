@@ -67,26 +67,30 @@ updateBtn.onclick = function() {
     })
 }
 
-
-const addBtn = document.querySelector('#add-name-btn');
+const addBtn = document.querySelector('#add-recipe-btn');
 
 addBtn.onclick = function () {
-    const nameInput = document.querySelector('#recipe-input');
-    const name = nameInput.value;
-    nameInput.value = "";
+    const name = document.querySelector('#recipe_name').value;
+    const description = document.querySelector('#description').value;
+    const ingredients = document.querySelector('#ingredients').value;
+    const instructions = document.querySelector('#instruction').value;
+
+    document.querySelector("#form-id").reset();
+    console.log(document.querySelector('#recipe-input'))
 
     fetch('http://localhost:5000/insert', {
         headers: {
             'Content-type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify({ name : name})
+        body: JSON.stringify({ name : name, description: description, ingredients: ingredients, instructions: instructions})
     })
     .then(response => response.json())
     .then(data => insertRowIntoTable(data['data']));
 }
 
 function insertRowIntoTable(data) {
+    console.log("here");
     console.log(data);
     const table = document.querySelector('table tbody');
     const isTableData = table.querySelector('.no-data');
@@ -117,19 +121,20 @@ function insertRowIntoTable(data) {
 
 function loadHTMLTable(data) {
     const table = document.querySelector('table tbody');
-
+    //console.log(data);
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='6'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
         return;
     }
-
     let tableHtml = "";
-
-    data.forEach(function ({id, name, date_added}) {
+    data.forEach(function ({id, name, description, ingredients, instructions, last_updated}) {
         tableHtml += "<tr>";
         tableHtml += `<td>${id}</td>`;
         tableHtml += `<td>${name}</td>`;
-        tableHtml += `<td>${new Date(date_added).toLocaleString()}</td>`;
+        tableHtml += `<td>${description}</td>`;
+        tableHtml += `<td>${ingredients}</td>`;
+        tableHtml += `<td>${instructions}</td>`;
+        tableHtml += `<td>${new Date(last_updated).toLocaleString()}</td>`;
         tableHtml += `<td><button class="delete-row-btn" data-id=${id}>Delete</td>`;
         tableHtml += `<td><button class="edit-row-btn" data-id=${id}>Edit</td>`;
         tableHtml += "</tr>";

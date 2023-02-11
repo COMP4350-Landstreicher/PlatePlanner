@@ -8,9 +8,17 @@
 </head>
 <body>
     <main>
-        <label>Recipe Name:</label>
-        <input type="text" id="recipe-input">
-        <button id="add-name-btn">Add Recipe</button>
+        <form id="form-id">
+            <label>Recipe Name:</label><br>
+            <input type="text" id="recipe_name"><br><br>
+            <label>Description:</label><br>
+            <input type="text" id="desc"><br><br>
+            <label>Ingredients:</label><br>
+            <input type="text" id="ingredients"><br><br>
+            <label>Instruction:</label><br>
+            <input type="text" id="instruction"><br><br>
+            <input type="submit" id="add-recipe-btn" value="Add Recipe">
+        </form>
 
         <br><br><br>
         <div>
@@ -26,6 +34,8 @@
                 <th>Ingredients</th>
                 <th>Instructions</th>
                 <th>Last Updated</th>
+                <th>Delete</th>
+                <th>Edit</th>
             </thead>
             <tbody></tbody>
         </table>

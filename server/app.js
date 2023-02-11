@@ -13,10 +13,10 @@ app.use(express.urlencoded({ extended : false }));
 
 // add recipe
 app.post('/insert', (request, response) => {
-    const { name } = request.body;
+    const { name, description, ingredients, instructions } = request.body;
     const db = DBService.getDBServiceInstance();
     
-    const result = db.insertNewName(name);
+    const result = db.insertNewRecipe(name, description, ingredients, instructions);
 
     result
     .then(data => response.json({ data: data}))
@@ -29,6 +29,8 @@ app.get('/getAll', (request, response) => {
     const db = DBService.getDBServiceInstance();
 
     const result = db.getAllData();
+    console.log("Result is: ")
+    console.log(result)
     
     // cannot return nything here, still need to wait
     // on the promises from DBService.getAllData()

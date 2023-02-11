@@ -36,7 +36,7 @@ class DBService {
                     resolve(results);
                 })
             });
-            // console.log(response);
+            console.log(response);
             return response;
         } catch (error) {
             console.log(error);
@@ -44,14 +44,14 @@ class DBService {
     }
 
 
-    async insertNewName(name) {
+    async insertNewRecipe(name, description, ingredients, instructions) {
         try {
-            const dateAdded = new Date();
+            const last_updated = new Date();
             const insertId = await new Promise((resolve, reject) => {
-                const query = "INSERT INTO recipe_dev (name, last_updated) VALUES (?,?);";
+                const query = "INSERT INTO recipe_dev (name, description, ingredients, instructions, last_updated) VALUES (?,?,?,?,?);";
                 
-                // prevent SQL injection bt passing in values separatedly via [name, dateAdded]
-                connection.query(query, [name, dateAdded] , (err, result) => {
+                // prevent SQL injection bt passing in values separatedly via [name, last_updated]
+                connection.query(query, [name, description, ingredients, instructions, last_updated] , (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.insertId);
                 })
@@ -59,7 +59,10 @@ class DBService {
             return {
                 id : insertId,
                 name : name,
-                dateAdded : dateAdded
+                description: description,
+                ingredients: ingredients,
+                instructions: instructions,
+                last_updated : last_updated,
             };
         } catch (error) {
             console.log(error);
