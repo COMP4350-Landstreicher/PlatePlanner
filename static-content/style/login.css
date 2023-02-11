@@ -1,0 +1,43 @@
+body {
+  background-color: #547958;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#content {
+	margin:auto;
+	margin-top:10vh;
+	width:50%;
+	padding:1pc;
+	text-align: center;
+}
+#logo {
+	align:center;
+	height:20vh;
+}
+
+button {
+	background-color: #ECF3A3;
+	color: #547958;
+	padding: 5px;
+	margin:.5pc;
+	border:none;
+	border-radius:5px;
+	width:10%;
+}
+
+input {
+	margin:.5pc;
+	padding: 5px;
+	border:none;
+	border-radius:5px;
+	width:30%;
+}
+
+a {
+	color: #ECF3A3;
+	text-decoration:none;
+}
+
+p {
+	color: #FFFFFE;
+}
