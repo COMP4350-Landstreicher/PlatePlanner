@@ -46,9 +46,6 @@ function handleEditRow(id) {
 updateBtn.onclick = function() {
     const updateNameInput = document.querySelector('#update-recipe-input');
 
-
-    console.log(updateNameInput);
-
     fetch('http://localhost:5000/update', {
         method: 'PATCH',
         headers: {
@@ -73,10 +70,10 @@ addBtn.onclick = function () {
     const name = document.querySelector('#recipe_name').value;
     const description = document.querySelector('#description').value;
     const ingredients = document.querySelector('#ingredients').value;
-    const instructions = document.querySelector('#instruction').value;
+    const instructions = document.querySelector('#instructions').value;
 
-    document.querySelector("#form-id").reset();
-    console.log(document.querySelector('#recipe-input'))
+    //document.querySelector("#form-id").reset();
+    //console.log(document.querySelector('#recipe-input'))
 
     fetch('http://localhost:5000/insert', {
         headers: {
@@ -90,8 +87,6 @@ addBtn.onclick = function () {
 }
 
 function insertRowIntoTable(data) {
-    console.log("here");
-    console.log(data);
     const table = document.querySelector('table tbody');
     const isTableData = table.querySelector('.no-data');
 

@@ -25,12 +25,9 @@ app.post('/insert', (request, response) => {
 
 // get all recipes
 app.get('/getAll', (request, response) => {
-    console.log("Test passed")
     const db = DBService.getDBServiceInstance();
 
     const result = db.getAllData();
-    console.log("Result is: ")
-    console.log(result)
     
     // cannot return nything here, still need to wait
     // on the promises from DBService.getAllData()
