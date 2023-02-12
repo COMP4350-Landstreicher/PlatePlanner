@@ -1,29 +1,31 @@
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { Button, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
-import { Component } from "react";
-import LoginButton from "./loginButton";
+import { useNavigate } from "react-router-dom";
 
-class Login extends Component {
-    state = {  } 
-    render() { 
-        let theme = createTheme({
-            palette: {
-                background: {
-                    default: '#547958'
-                }
+export default function Login() {
+    const theme = createTheme({
+        palette: {
+            background: {
+                default: '#547958'
             }
-        });
-        
-        return (
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <div>
-                <h1>Login Page</h1>
-                </div>
-                <LoginButton />
-            </ThemeProvider>
-        );
-    }
+        }
+    });
+
+    const navigate = useNavigate();
+    const onClick = () => {
+        navigate("/recipes");
+    } 
+    
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <div>
+            <h1>Login Page</h1>
+            </div>
+            <Button
+                color='secondary'
+                onClick={onClick}
+            >Login</Button>
+        </ThemeProvider>
+    );
 }
- 
-export default Login;
