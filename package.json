@@ -5,9 +5,12 @@
   "author": "Landstreicher",
   "main": "PlatePlannerServer.js",
   "scripts": {
-    "start": "node PlatePlannerServer.js"
+    "frontend": "cd client && npm start",
+    "backend": "cd server && node PlatePlannerServer.js",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "dependencies": {
+    "concurrently": "^7.6.0",
     "express": "^4.18.1"
   }
 }
