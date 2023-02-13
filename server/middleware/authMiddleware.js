@@ -11,14 +11,12 @@ const authenticate = asyncHandler(async (req, res, next) => {
 			
 			token = req.cookies.token
 
-			console.log(token)
 
 			const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
 			
 			req.user = await User.findOne({ where: { email:decoded.email } })
 			
-			console.log(blacklist)
 
 			next()
 		} catch (error) {

@@ -5,11 +5,15 @@
   "author": "Landstreicher",
   "main": "PlatePlannerServer.js",
   "scripts": {
-    "start": "node PlatePlannerServer.js"
+    "frontend": "cd client && npm install && npm start",
+    "backend": "cd server && node PlatePlannerServer.js",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "concurrently": "^7.6.0",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "email-validator": "^2.0.4",
     "express": "^4.18.1",
