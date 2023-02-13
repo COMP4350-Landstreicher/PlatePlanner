@@ -21,7 +21,7 @@ export default function Recipes() {
     });
 
     useEffect(() => {
-        axios.get("http://localhost:80/recipes")
+        axios.get("http://" + window.location.hostname + ":3000/recipes")
             .then((response)=>{
             setRecipes(response.data);
         });
