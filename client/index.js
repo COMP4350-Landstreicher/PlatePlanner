@@ -129,7 +129,7 @@ function loadHTMLTable(data) {
     const table = document.querySelector('table tbody');
     //console.log(data);
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='9'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
         return;
     }
     let tableHtml = "";
@@ -138,12 +138,21 @@ function loadHTMLTable(data) {
         tableHtml += `<td>${id}</td>`;
         tableHtml += `<td>${name}</td>`;
         tableHtml += `<td>${description}</td>`;
-        tableHtml += `<td>${ingredients}</td>`;
         tableHtml += `<td>${instructions}</td>`;
         tableHtml += `<td>${new Date(last_updated).toLocaleString()}</td>`;
         tableHtml += `<td><button class="delete-row-btn" data-id=${id}>Delete</td>`;
         tableHtml += `<td><button class="edit-row-btn" data-id=${id}>Edit</td>`;
-        tableHtml += `<td><button class="get-row-btn" data-id=${id}>Get</td>`;
+        
+        // If this is not selecting a recipe
+        if (ingredients == null) {
+            console.log("K");
+            tableHtml += `<td><button class="get-row-btn" data-id=${id}>Get</td>`;
+        }
+        else {
+            console.log("O");
+            tableHtml += `<td>${ingredients}</td>`;
+        }
+        
         tableHtml += "</tr>";
     });
 
