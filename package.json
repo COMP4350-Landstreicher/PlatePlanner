@@ -5,7 +5,7 @@
   "author": "Landstreicher",
   "main": "PlatePlannerServer.js",
   "scripts": {
-    "frontend": "cd client && npm start",
+    "frontend": "cd client && npm install && npm start",
     "backend": "cd server && node PlatePlannerServer.js",
     "start": "concurrently \"npm run backend\" \"npm run frontend\""
   },
