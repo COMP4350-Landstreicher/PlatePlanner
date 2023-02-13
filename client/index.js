@@ -12,6 +12,9 @@ document.querySelector('table tbody').addEventListener('click', function(event) 
     if (event.target.className === "edit-row-btn") {
         handleEditRow(event.target.dataset.id);
     }
+    if (event.target.className === "get-row-btn") {
+        getRowById(event.target.dataset.id);
+    }
 });
 
 const updateBtn = document.querySelector('#update-row-btn');
@@ -41,6 +44,13 @@ function handleEditRow(id) {
     const updateSection = document.querySelector('#update-row');
     updateSection.hidden = false;
     document.querySelector('#update-recipe-input').dataset.id = id;
+}
+
+function getRowById(id) {
+    console.log("Get is clicked!");
+    fetch('http://localhost:5000/get/' + id)
+    .then(response => response.json())
+    .then(data => loadHTMLTable(data['data']));
 }
 
 updateBtn.onclick = function() {
@@ -103,6 +113,7 @@ function insertRowIntoTable(data) {
 
     tableHtml += `<td><button class="delete-row-btn" data-id=${data.id}>Delete</td>`;
     tableHtml += `<td><button class="edit-row-btn" data-id=${data.id}>Edit</td>`;
+    tableHtml += `<td><button class="get-row-btn" data-id=${data.id}>Get</td>`;
 
     tableHtml += "</tr>";
 
@@ -118,7 +129,7 @@ function loadHTMLTable(data) {
     const table = document.querySelector('table tbody');
     //console.log(data);
     if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='8'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='no-data' colspan='9'>No Data</td></tr>";
         return;
     }
     let tableHtml = "";
@@ -132,6 +143,7 @@ function loadHTMLTable(data) {
         tableHtml += `<td>${new Date(last_updated).toLocaleString()}</td>`;
         tableHtml += `<td><button class="delete-row-btn" data-id=${id}>Delete</td>`;
         tableHtml += `<td><button class="edit-row-btn" data-id=${id}>Edit</td>`;
+        tableHtml += `<td><button class="get-row-btn" data-id=${id}>Get</td>`;
         tableHtml += "</tr>";
     });
 

@@ -72,4 +72,17 @@ app.get('/search/:name', (request, response) => {
     .catch(err => console.log(err));
 })
 
+// get recipe by id
+app.get('/get/:id', (request, response) => {
+    const { id } = request.params;
+    //console.log(`Receive ID is: ${id}`);
+    const db = DBService.getDBServiceInstance();
+
+    const result = db.getByID(id);
+    
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
+})
+
 app.listen(process.env.PORT, () => console.log(`app is running on port ${process.env.PORT}`));
