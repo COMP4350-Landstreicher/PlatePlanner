@@ -9,7 +9,7 @@ let instance = null;
 dotenv.config();
 
 // Routers
-const recipeRouter = require("./routes/recipe");
+const recipeRouter = require("./recipe/routes/recipe");
 
 app.use(cors());
 app.use(express.json());

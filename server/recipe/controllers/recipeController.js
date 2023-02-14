@@ -1,5 +1,5 @@
 // initialize an instance of the DBService
-const DBService = require('../db/dbService');
+const DBService = require('../../db/dbService');
 const asyncHandler = require("express-async-handler");
 
 const viewAllRecipe = asyncHandler( async (req, res) => {
