@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('http://localhost:5000/getAll')
+    fetch('http://localhost:5000/recipe/getAll')
     .then(response => response.json())
     .then(data => loadHTMLTable(data['data']));
     
@@ -23,13 +23,13 @@ const searchBtn = document.querySelector('#search-btn');
 searchBtn.onclick = function() {
     const searchValue = document.querySelector('#search-input').value;
 
-    fetch('http://localhost:5000/search/' + searchValue)
+    fetch('http://localhost:5000/recipe/search/' + searchValue)
     .then(response => response.json())
     .then(data => loadHTMLTable(data['data']));
 }
 
 function deleteRowById(id) {
-    fetch('http://localhost:5000/delete/' + id, {
+    fetch('http://localhost:5000/recipe/delete/' + id, {
         method: 'DELETE'
     })
     .then(response => response.json())
@@ -48,7 +48,7 @@ function handleEditRow(id) {
 
 function getRowById(id) {
     console.log("Get is clicked!");
-    fetch('http://localhost:5000/get/' + id)
+    fetch('http://localhost:5000/recipe/get/' + id)
     .then(response => response.json())
     .then(data => loadHTMLTable(data['data']));
 }
@@ -56,7 +56,7 @@ function getRowById(id) {
 updateBtn.onclick = function() {
     const updateNameInput = document.querySelector('#update-recipe-input');
 
-    fetch('http://localhost:5000/update', {
+    fetch('http://localhost:5000/recipe/update', {
         method: 'PATCH',
         headers: {
             'Content-type' : 'application/json'
@@ -85,7 +85,7 @@ addBtn.onclick = function () {
     //document.querySelector("#form-id").reset();
     //console.log(document.querySelector('#recipe-input'))
 
-    fetch('http://localhost:5000/insert', {
+    fetch('http://localhost:5000/recipe/insert', {
         headers: {
             'Content-type': 'application/json'
         },
