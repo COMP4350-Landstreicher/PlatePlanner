@@ -1,6 +1,7 @@
 // initialize the express app
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 // get env variables from .env file
 const dotenv = require('dotenv');
@@ -10,6 +11,7 @@ dotenv.config();
 // Routers
 const recipeRouter = require("./routes/recipe");
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended : false }));
 

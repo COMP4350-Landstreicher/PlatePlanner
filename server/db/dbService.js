@@ -26,7 +26,7 @@ class DBService {
         return instance ? instance : new DBService();
     }
 
-    async getAllData() {
+    async getAllRecipe() {
         try {
             const response = await new Promise((resolve, reject) => {
                 const query = "SELECT * FROM recipe_dev;";

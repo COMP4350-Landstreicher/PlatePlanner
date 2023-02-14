@@ -1,41 +1,21 @@
 // initialize the express app
 const express = require('express');
-var cors = require('cors');
 const router = express.Router();
 
-// initialize an instance of the DBService
-const DBService = require('../dbService');
+const {
+	viewAllRecipe,
+	searchByName,
+	getByID,
+} = require('../controllers/recipeController')
 
-router.get('/getAll', function (request, response) {
-    const db = DBService.getDBServiceInstance();
-    const result = db.getAllData();
-    
-    result
-    .then(data => response.json({data : data}))
-    .catch(err => console.log(err));
-});
+// get all recipes
+router.get('/getAll', viewAllRecipe);
 
 // search recipe by name
-router.get('/search/:name', (request, response) => {
-    const { name } = request.params;
-    const db = DBService.getDBServiceInstance();
-    const result = db.searchByName(name);
-    
-    result
-    .then(data => response.json({data : data}))
-    .catch(err => console.log(err));
-})
+router.get('/search/:name', searchByName);
 
-// get recipe by id
-router.get('/get/:id', (request, response) => {
-    const { id } = request.params;
-    const db = DBService.getDBServiceInstance();
-    const result = db.getByID(id);
-    
-    result
-    .then(data => response.json({data : data}))
-    .catch(err => console.log(err));
-})
+// get a recipe by id
+router.get('/get/:id', getByID)
 
 module.exports = router;
 

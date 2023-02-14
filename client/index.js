@@ -145,11 +145,9 @@ function loadHTMLTable(data) {
         
         // If this is not selecting a recipe
         if (ingredients == null) {
-            console.log("K");
             tableHtml += `<td><button class="get-row-btn" data-id=${id}>Get</td>`;
         }
         else {
-            console.log("O");
             tableHtml += `<td>${ingredients}</td>`;
         }
         
