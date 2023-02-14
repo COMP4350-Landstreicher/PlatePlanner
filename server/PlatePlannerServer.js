@@ -9,22 +9,21 @@ app.use(cors());
 const PORT = 3000;
 const HOST = '0.0.0.0';
 
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 app.get('/', (req, res) => {res.send('<h1>Welcome to PlatePlanner!</h1>');});
 
 app.listen(PORT, HOST, () => {console.log(`Running on http://${HOST}:${PORT}`);});
 
+const recipes = [];
+
 app.get("/recipes", (req, res) => {
-    const recipes = [
-        {id: 1, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-        {id: 2, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-        {id: 3, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-        {id: 4, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-        {id: 5, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-        {id: 6, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-        {id: 7, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-        {id: 8, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-        {id: 9, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"}
-    ]
+    res.send(recipes);
+});
+
+app.post("/addRecipe", (req, res) => {
+    const { id, name, image, updated } = req.body;
+    recipes.push({id: id, name: name, image: image, updated: updated});
     res.send(recipes);
 });
