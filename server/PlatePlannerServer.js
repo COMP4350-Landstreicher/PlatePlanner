@@ -33,9 +33,13 @@ app.get("/recipes", (req, res) => {
 });
 
 app.post("/addRecipe", (req, res) => {
-    const { id, name, image, updated } = req.body;
-    recipes.push({id: id, name: name, image: image, updated: updated});
+    recipes.push(req.body);
     res.send(recipes);
 });
 
+app.get('/recipe/:id', (req, res) => {
+    const { id } = req.params;
+    const result = recipes.find(recipe => recipe.id.toString() === id);
+    res.send(result);
+});
 app.use(errorHandler);

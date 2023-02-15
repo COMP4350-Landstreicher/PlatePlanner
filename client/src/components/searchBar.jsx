@@ -35,7 +35,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchBar(props) {
 
     const searchRecipe = (event) => {
-        props.filterRecipe(props.value.filter((recipe) => recipe.name.toLowerCase().includes(event.target.value.toLowerCase())));
+        return props.value.filter((recipe) => recipe.name.toLowerCase().includes(event.target.value.toLowerCase()));
     }
 
     return (
@@ -46,7 +46,7 @@ export default function SearchBar(props) {
             <StyledInputBase
                 placeholder="Finding any recipe?"
                 inputProps={{ 'aria-label': 'search' }}
-                onChange={searchRecipe}
+                onChange={(event) => props.filterRecipe(searchRecipe(event))}
             />
         </Search>
     );
