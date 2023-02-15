@@ -9,5 +9,5 @@ docker build  -t landstreicher/webserver -f WebserverDockerfile .
 docker build  -t landstreicher/db -f DBDockerfile .
 
 docker run -p 3306:3306 -d landstreicher/db
-sleep 60
+while ! mysqladmin -u root ping -h"127.0.0.1"; do     sleep 10; done
 docker run -p 80:80 -p 3000:3000 -d landstreicher/webserver
