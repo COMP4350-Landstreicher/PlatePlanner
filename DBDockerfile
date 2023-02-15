@@ -2,3 +2,5 @@ FROM mysql:8.0-debian
 EXPOSE 3306
 ENV MYSQL_ALLOW_EMPTY_PASSWORD=1
 ENV MYSQL_ROOT_HOST=%
+
+ADD server/db/init.sql /docker-entrypoint-initdb.d
