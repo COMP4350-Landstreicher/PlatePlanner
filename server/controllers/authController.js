@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken")
-const bcrypt = require("bcryptjs")
 const asyncHandler = require("express-async-handler")
 const {User} = require("../models/userModel")
 const validator = require("email-validator")
+const {validateUser, getUser, createUser} = require("../utils/authUtils")
 
 const login = asyncHandler( async (req, res) =>  {
 	const { email, password } = req.body
@@ -10,12 +10,9 @@ const login = asyncHandler( async (req, res) =>  {
 		res.status(400)
 		throw new Error("Please include all fields");
 	}
-	await User.sync()
-	const user = await User.findOne({ where: { email:email } })
-
 	
 
-	if(user && (await bcrypt.compare(password, user.password))){
+	if(await validateUser(email, password, User)){
 		res.cookie("token", jwt.sign({ email }, process.env.JWT_SECRET , { expiresIn: '7d' }), {httpOnly: true})
 		res.json({"message": "Logged in successfully"})
 	}
@@ -37,21 +34,11 @@ const register = asyncHandler( async (req, res) => {
 		res.status(400)
 		throw new Error("Please include a valid email")
 	}
-	User.sync()
-	const user = await User.findOne({ where: { email:email } })
-	if(!user){
-		const salt = await bcrypt.genSalt(10)
-		const hash = await bcrypt.hash(password, salt)
 
-		const user = await User.create({
-			email: email,
-			userName: userName,
-			password: hash,
-			firstName: firstName,
-			lastName: lastName
-		})
+	if(!(await getUser(email, User))){
 
-		if(user){
+
+		if(await createUser(email, userName, password, firstName, lastName, User)){
 			res.status(200).json({ message: "A new account has been successfully created"})
 		}
 	}

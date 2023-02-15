@@ -20,7 +20,7 @@ app.use(cookieParser())
 
 app.get('/', (req, res) => {res.send('<h1>Welcome to PlatePlanner!</h1>');});
 
-app.get('/test', authenticate, (req, res) => {res.send('test');});
+app.get('/test', authenticate, (req, res) => {res.send(req.user.userName);});
 
 app.use('/auth', require('./routes/authRoutes'));
 
