@@ -8,7 +8,7 @@ import SearchBar from "./searchBar";
 import SortButton from "./sortButton";
 
 export default function Recipes() {
-    const [recipes, setRecipes] = useState(null);
+    const [recipes, setRecipes] = useState([]);
     const [displayRecipes, setDisplayRecipes] = useState([]);
     const [filter, setFilter] = useState("");
 
@@ -72,23 +72,23 @@ export default function Recipes() {
         setFilter(result);
         switch (result) {
             case "nameAsc":
-                setRecipes(recipes?.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : 1));
+                setRecipes(recipes.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : 1));
                 setDisplayRecipes([...displayRecipes].sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : 1));
                 break;
             case "nameDes":
-                setRecipes(recipes?.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? -1 : 1));
+                setRecipes(recipes.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? -1 : 1));
                 setDisplayRecipes([...displayRecipes].sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? -1 : 1));
                 break;
             case "dateAsc":
-                setRecipes(recipes?.sort((a, b) => (new Date(a.updated) > new Date(b.updated)) ? -1 : 1));
+                setRecipes(recipes.sort((a, b) => (new Date(a.updated) > new Date(b.updated)) ? -1 : 1));
                 setDisplayRecipes([...displayRecipes].sort((a, b) => (new Date(a.updated) > new Date(b.updated)) ? -1 : 1));
                 break;
             case "dateDes":
-                setRecipes(recipes?.sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1));
+                setRecipes(recipes.sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1));
                 setDisplayRecipes([...displayRecipes].sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1));
                 break;
             default:
-                setRecipes(recipes?.sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1));
+                setRecipes(recipes.sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1));
                 setDisplayRecipes([...displayRecipes].sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1));
         }
     }
