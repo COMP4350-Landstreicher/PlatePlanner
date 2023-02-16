@@ -1,12 +1,12 @@
 import { Box, Drawer, Tab, Tabs, Toolbar } from "@mui/material";
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import logo from '../img/logo-white.png'
 import Logout from "./logout";
 
 export default function NavBar(props) {
     const [value, setValue] = React.useState(props.value);
-  
+	
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
