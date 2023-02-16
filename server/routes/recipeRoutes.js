@@ -5,7 +5,7 @@ const router = express.Router();
 const {
 	viewAllRecipe,
 	searchByName,
-	getByID,
+	selectRecipe,
 } = require('../controllers/recipeController')
 
 // get all recipes
@@ -15,7 +15,7 @@ router.get('/getAll', viewAllRecipe);
 router.get('/search/:name', searchByName);
 
 // get a recipe by id
-router.get('/get/:id', getByID)
+router.get('/get/:id', selectRecipe)
 
 module.exports = router;
 

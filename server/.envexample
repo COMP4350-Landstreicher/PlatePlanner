@@ -1,0 +1,3 @@
+JWT_SECRET="s3CreTF0rJwT"
+DB_URI="mysql://root@172.17.0.2:3306/PlatePlanner"
+

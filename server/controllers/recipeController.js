@@ -1,32 +1,31 @@
-// initialize an instance of the DBService
-const DBService = require('../../db/dbService');
 const asyncHandler = require("express-async-handler");
+const { getRecipeIngredients } = require("../utils/ingredientUtils");
+const {getAllRecipe, getByName, getByID} = require("../utils/recipeUtils")
 
 const viewAllRecipe = asyncHandler( async (req, res) => {
-    const db = DBService.getDBServiceInstance();
-    const result = db.getAllRecipe();
-    
-    result
+    const recipes = await getAllRecipe();
+
+    recipes
     .then(data => res.json({data : data}))
     .catch(err => console.log(err));
 })
 
 const searchByName = asyncHandler( async (req, res) => {
     const { name } = req.params;
-    const db = DBService.getDBServiceInstance();
-    const result = db.searchByName(name);
+    const recipe = await getByName(name);
     
-    result
+    recipe
     .then(data => res.json({data : data}))
     .catch(err => console.log(err));
 })
 
-const getByID = asyncHandler( async (req, res) => {
+const selectRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params;
-    const db = DBService.getDBServiceInstance();
-    const result = db.getByID(id);
+    const recipe = await getByID(id);
+    const ingredients = await getRecipeIngredients(id);
+    recipe.ingredients = JSON.stringify(ingredients)
     
-    result
+    recipe
     .then(data => res.json({data : data}))
     .catch(err => console.log(err));
 })
@@ -34,5 +33,5 @@ const getByID = asyncHandler( async (req, res) => {
 module.exports = {
     viewAllRecipe,
     searchByName,
-    getByID,
+    selectRecipe,
 }
