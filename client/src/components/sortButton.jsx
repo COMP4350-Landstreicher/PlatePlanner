@@ -36,8 +36,8 @@ export default function SortButton(props) {
             </MenuItem>
             <MenuItem value={"nameAsc"}>Name: A to Z</MenuItem>
             <MenuItem value={"nameDes"}>Name: Z to A</MenuItem>
-            <MenuItem value={"dateAsc"}>Latest</MenuItem>
-            <MenuItem value={"dateDes"}>Oldest</MenuItem>
+            <MenuItem value={"dateAsc"}>Oldest</MenuItem>
+            <MenuItem value={"dateDes"}>Latest</MenuItem>
             </Select>
         </FormControl>
     );

@@ -7,7 +7,8 @@
   "scripts": {
     "frontend": "cd client && npm install && npm start",
     "backend": "cd server && node PlatePlannerServer.js",
-    "start": "concurrently \"npm run backend\" \"npm run frontend\""
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "test": "mocha ./server/tests"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -20,6 +21,11 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.1.2",
+    "save-dev": "^0.0.1-security",
     "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0"
   }
 }
