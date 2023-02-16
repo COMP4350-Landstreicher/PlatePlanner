@@ -20,7 +20,7 @@ it("Testing get all recipes", async () => {
 
 it("Testing get a recipe by name", async () => {
 	const Recipe = new RecipeMock();
-	const recipe = await getByName("roasted_eggplant", Recipe);
+	const recipe = await getByName("roasted_eggplant", 10, Recipe);
 
 	expect(recipe).to.be.an("object");
 	expect(recipe.recipe_name).to.equal("roasted_eggplant");
@@ -34,14 +34,14 @@ it("Testing get a recipe by name", async () => {
 
 it("Testing get a recipe with an invaid name", async () => {
 	const Recipe = new RecipeMock();
-	const recipe = await getByName("roasted_tomato", Recipe);
+	const recipe = await getByName("roasted_tomato", 10, Recipe);
 
 	expect(recipe).to.equal(null);
 });
 
 it("Testing get a recipe by id", async () => {
 	const Recipe = new RecipeMock();
-	const recipe = await getByID(1, Recipe);
+	const recipe = await getByID(1, 10, Recipe);
 
 	expect(recipe).to.be.an("object");
 	expect(recipe.id).to.equal(1);
@@ -55,7 +55,7 @@ it("Testing get a recipe by id", async () => {
 
 it("Testing get a recipe using an invalid id", async () => {
 	const Recipe = new RecipeMock();
-	const recipe = await getByID(2, Recipe);
+	const recipe = await getByID(2, 10, Recipe);
 
 	expect(recipe).to.equal(null);
 });
