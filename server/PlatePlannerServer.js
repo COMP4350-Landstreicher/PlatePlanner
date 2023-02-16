@@ -25,19 +25,21 @@ app.get('/test', authenticate, (req, res) => {res.send(req.user.userName);});
 app.use('/auth', require('./routes/authRoutes'));
 
 app.listen(PORT, HOST, () => {console.log(`Running on http://${HOST}:${PORT}`);});
+
+const recipes = [];
+
 app.get("/recipes", (req, res) => {
-	const recipes = [
-		{id: 1, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-		{id: 2, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-		{id: 3, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-		{id: 4, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-		{id: 5, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-		{id: 6, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-		{id: 7, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-		{id: 8, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"},
-		{id: 9, name: "This is recipe nameeeee", image: "https://source.unsplash.com/random"}
-		]
-	res.send(recipes);
+    res.send(recipes);
 });
 
+app.post("/addRecipe", (req, res) => {
+    recipes.push(req.body);
+    res.send(recipes);
+});
+
+app.get('/recipe/:id', (req, res) => {
+    const { id } = req.params;
+    const result = recipes.find(recipe => recipe.id.toString() === id);
+    res.send(result);
+});
 app.use(errorHandler);
