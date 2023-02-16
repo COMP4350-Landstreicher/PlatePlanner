@@ -9,6 +9,13 @@ it("Testing get all recipes", async () => {
 
 	expect(recipes).to.be.an("array");
 	expect(recipes[0]).to.be.an("object");
+	expect(recipes[0].recipe_name).to.equal("roasted_eggplant");
+	expect(recipes[0].description).to.equal("tasty_dish");
+	expect(recipes[0].instructions).to.equal("mix all the good food");
+	expect(recipes[0].selected).to.equal(true);
+	expect(recipes[0].userId).to.equal(10);
+	expect(recipes[0].id).to.equal(1);
+	expect(recipes[0].lastUpdated).to.equal("16/02/2023");
 });
 
 it("Testing get a recipe by name", async () => {
