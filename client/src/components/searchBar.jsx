@@ -32,10 +32,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+export function search(recipeList, value) {
+    return recipeList.filter((recipe) => recipe.name.toLowerCase().includes(value.toLowerCase()));
+}
+
 export default function SearchBar(props) {
 
     const searchRecipe = (event) => {
-        return props.value.filter((recipe) => recipe.name.toLowerCase().includes(event.target.value.toLowerCase()));
+        return search(props.value, event.target.value);
     }
 
     return (
