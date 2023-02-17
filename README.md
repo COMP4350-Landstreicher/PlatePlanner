@@ -14,6 +14,8 @@ Repository for the COMP4350 W23 Group Project "PlatePlanner"
 ## Documentation:
 
 [Meeting Minutes](https://github.com/COMP4350-Landstreicher/PlatePlanner/wiki/Meeting-Minutes)
+[Sequence Diagrams](./docs/sequence-diagrams.md)
+[Testing Plan](./docs/testing-plan.md)
 
 ## Project Proposal
 
