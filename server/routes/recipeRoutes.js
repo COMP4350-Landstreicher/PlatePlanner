@@ -13,7 +13,7 @@ const {
 router.get('/getAll', authenticate, viewAllRecipe);
 
 // search recipe by name
-router.get('/search/:name', searchByName);
+router.get('/search/:name', authenticate, searchByName);
 
 // get a recipe by id
 router.get('/getOne/:id', selectRecipe);

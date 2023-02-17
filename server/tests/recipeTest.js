@@ -17,6 +17,7 @@ it("Testing get all recipes", async () => {
 	expect(recipes[0].user_id).to.equal(10);
 	expect(recipes[0].id).to.equal(1);
 	expect(recipes[0].lastUpdated).to.equal("16/02/2023");
+	expect(recipes[0].imageUrl).to.equal("abc");
 });
 
 it("Testing get all recipes for a non-existing user", async () => {
@@ -39,6 +40,7 @@ it("Testing get a recipe by name", async () => {
 	expect(recipe.user_id).to.equal(10);
 	expect(recipe.id).to.equal(1);
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
+	expect(recipe.imageUrl).to.equal("abc");
 });
 
 it("Testing get a recipe with an invaid name", async () => {
@@ -59,6 +61,7 @@ it("Testing get a recipe by id", async () => {
 	expect(recipe.instructions).to.equal("mix all the good food");
 	expect(recipe.selected).to.equal(true);
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
+	expect(recipe.imageUrl).to.equal("abc");
 });
 
 it("Testing get a recipe using an invalid id", async () => {

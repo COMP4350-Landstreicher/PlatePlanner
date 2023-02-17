@@ -1,14 +1,14 @@
 import { Box, Drawer, Tab, Tabs, Toolbar } from "@mui/material";
-import React, {useEffect} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import logo from '../img/logo-white.png'
 import Logout from "./logout";
 
 export default function NavBar(props) {
     const [value, setValue] = React.useState(props.value);
-	
+
     const handleChange = (event, newValue) => {
-      setValue(newValue);
+        setValue(newValue);
     };
 
     return (
@@ -38,7 +38,7 @@ export default function NavBar(props) {
                 />
             </Toolbar>
             <Box sx={{ width: '100%' }}>
-                <Tabs 
+                <Tabs
                     value={value}
                     onChange={handleChange}
                     orientation="vertical"
@@ -75,4 +75,4 @@ export default function NavBar(props) {
             </Box>
         </Drawer>
     );
-  }
+}

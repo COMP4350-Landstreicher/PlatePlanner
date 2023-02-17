@@ -24,20 +24,20 @@ export default function SortButton(props) {
                     "&.Mui-focused": {
                         backgroundColor: '#FFFFFF45'
                     },
-                    
+
                 }}
                 id="selectField"
                 value={selected}
                 onChange={sortRecipe}
                 disableUnderline
             >
-            <MenuItem value="">
-                <em>None</em>
-            </MenuItem>
-            <MenuItem value={"nameAsc"}>Name: A to Z</MenuItem>
-            <MenuItem value={"nameDes"}>Name: Z to A</MenuItem>
-            <MenuItem value={"dateAsc"}>Oldest</MenuItem>
-            <MenuItem value={"dateDes"}>Latest</MenuItem>
+                <MenuItem value="">
+                    <em>None</em>
+                </MenuItem>
+                <MenuItem value={"nameAsc"}>Name: A to Z</MenuItem>
+                <MenuItem value={"nameDes"}>Name: Z to A</MenuItem>
+                <MenuItem value={"dateAsc"}>Oldest</MenuItem>
+                <MenuItem value={"dateDes"}>Latest</MenuItem>
             </Select>
         </FormControl>
     );

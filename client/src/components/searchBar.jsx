@@ -33,7 +33,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export function search(recipeList, value) {
-    return recipeList.filter((recipe) => recipe.name.toLowerCase().includes(value.toLowerCase()));
+    return recipeList.filter((recipe) => recipe.recipe_name.toLowerCase().includes(value.toLowerCase()));
 }
 
 export default function SearchBar(props) {
@@ -45,7 +45,7 @@ export default function SearchBar(props) {
     return (
         <Search>
             <SearchIconWrapper>
-                <SearchIcon color="secondary"/>
+                <SearchIcon color="secondary" />
             </SearchIconWrapper>
             <StyledInputBase
                 placeholder="Finding any recipe?"

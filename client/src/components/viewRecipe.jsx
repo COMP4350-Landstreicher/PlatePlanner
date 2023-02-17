@@ -6,9 +6,9 @@ import React from 'react';
 export default function RecipePopup(props) {
 
     const getIngredientText = (ingredient) => {
-        return (ingredient.unit === 'count') 
-            ? ingredient.amount + " " + ingredient.name
-            : ingredient.amount + ingredient.unit + " " + ingredient.name;
+        return (ingredient.ingredient_unit === 'count')
+            ? ingredient.ingredient_amount + " " + ingredient.ingredient_name
+            : ingredient.ingredient_amount + ingredient.ingredient_unit + " " + ingredient.ingredient_name;
     }
 
     return (
@@ -34,22 +34,22 @@ export default function RecipePopup(props) {
                                     aspectRatio: '1/1'
                                 }}
                                 alt="Your logo."
-                                src={props.value.image}
+                                src={props.value.imageUrl}
                             />
                             <Typography variant="h4" width="90%" color="#283d25">
-                                <Box component="span" fontWeight='fontWeightBold'>{props.value.name}</Box>
+                                <Box component="span" fontWeight='fontWeightBold'>{props.value.recipe_name}</Box>
                             </Typography>
                             <Typography variant="body1" width="90%" marginTop='15px'>
                                 <Box component="span" fontWeight='fontWeightMedium'>{props.value.description}</Box>
                             </Typography>
                         </Box>
                         <Box width='50%' marginTop='23px'>
-                           <Typography variant="h6" width="90%" color="#283d25">
+                            <Typography variant="h6" width="90%" color="#283d25">
                                 <Box component="span" fontWeight='fontWeightBold'>Directions</Box>
                             </Typography>
                             <Box sx={{ maxHeight: '40%', overflow: "auto" }}>
                                 <List >
-                                    {props.value.directions.split("\n").map((step) => (
+                                    {props.value.instructions?.split("\n").map((step) => (
                                         <ListItem
                                             key={step}
                                             sx={{ paddingLeft: '0', borderBottom: '1px solid #283d25' }}
@@ -64,12 +64,12 @@ export default function RecipePopup(props) {
                             </Typography>
                             <Box sx={{ maxHeight: '40%', overflow: "auto" }}>
                                 <List >
-                                    {props.value.ingredients.map((ingredient) => (
-                                        <ListItem key={ingredient.name} sx={{ paddingLeft: '0' }}>
+                                    {props.value.ingredient?.map((ing) => (
+                                        <ListItem key={ing.ingredient_name} sx={{ paddingLeft: '0' }}>
                                             <ListItemIcon>
-                                                <Check color='secondary' fontSize="small"/>
+                                                <Check color='secondary' fontSize="small" />
                                             </ListItemIcon>
-                                            <ListItemText primary={getIngredientText(ingredient)} />
+                                            <ListItemText primary={getIngredientText(ing)} />
                                         </ListItem>
                                     ))}
                                 </List>

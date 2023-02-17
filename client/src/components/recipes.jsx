@@ -9,14 +9,14 @@ import SortButton from "./sortButton";
 
 export function sortByName(asc, recipeList) {
     return asc
-        ? recipeList.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : 1)
-        : recipeList.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? -1 : 1);
+        ? recipeList.sort((a, b) => (a.recipe_name.toLowerCase() < b.recipe_name.toLowerCase()) ? -1 : 1)
+        : recipeList.sort((a, b) => (a.recipe_name.toLowerCase() > b.recipe_name.toLowerCase()) ? -1 : 1);
 }
 
 export function sortByDate(asc, recipeList) {
     return asc
-        ? recipeList.sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1)
-        : recipeList.sort((a, b) => (new Date(a.updated) > new Date(b.updated)) ? -1 : 1);
+        ? recipeList.sort((a, b) => (new Date(a.updatedAt) < new Date(b.updatedAt)) ? -1 : 1)
+        : recipeList.sort((a, b) => (new Date(a.updatedAt) > new Date(b.updatedAt)) ? -1 : 1);
 }
 
 export default function Recipes() {
@@ -43,41 +43,17 @@ export default function Recipes() {
         }
     });
 
+    // TODO: add recipe function
     const addRecipe = () => {
-        const ingredients = [
-            { name: "Beef", unit: "g", amount: "500" },
-            { name: "Wine", unit: "ml", amount: "500" },
-            { name: "Sugar", unit: "g", amount: "10" },
-            { name: "Salt", unit: "g", amount: "20" },
-            { name: "Pork", unit: "g", amount: "500" },
-            { name: "Egg", unit: "count", amount: "2" },
-            { name: "Some other ingredients", unit: "count", amount: "5" },
-            { name: "The last ingredient", unit: "count", amount: "10" }
-        ];
-        const directions = "Rinse the rice.\n"
-            + "Use the right ratio of water. Add 2 parts water and 1 part rice to a large pot. For slightly firmer rice, use 1 part liquid to 2/3 parts rice.\n"
-            + "Bring the water to a boil. Once it's boiling, add a big pinch of salt.\n"
-            + "Maintain a simmer. Reduce heat to low, cover the pot with a tight fitting lid, and maintain a gentle simmer.\n"
-            + "Cook without peeking or stirring. Cook until the water is absorbed, about 18 minutes. Try not to peek until the end of the cooking time so the steam doesn't escape. Whatever you do, don't mix the rice while it's cooking — this will lead to gummy rice.\n"
-            + "Let the rice rest covered. Turn off the heat and let the rice sit, covered, for 10 minutes. During this time, the rice will steam for extra fluffy results.\n"
-            + "Fluff the rice with a fork.";
-        const newRecipe = {
-            id: recipes.length + 1,
-            name: "This is recipe nameeeee " + recipes.length,
-            description: "This is a short description about the recipe and it should be have word limit so it wont go out of the box",
-            directions: directions,
-            ingredients: ingredients,
-            image: "https://source.unsplash.com/random",
-            updated: new Date()
-        };
-        axios.post("http://" + window.location.hostname + ":3000/addRecipe", newRecipe)
-            .then(response => {
-                setRecipes(response.data);
-                setDisplayRecipes(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error!', error.message);
-            });
+        console.log("add data");
+        // axios.post("http://" + window.location.hostname + ":3000/addRecipe", newRecipe, { withCredentials: true })
+        //     .then(response => {
+        //         setRecipes(response.data);
+        //         setDisplayRecipes(response.data);
+        //     })
+        //     .catch(error => {
+        //         console.error('There was an error!', error.message);
+        //     });
     };
 
     const sortRecipe = (result) => {
