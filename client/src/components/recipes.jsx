@@ -7,6 +7,18 @@ import RecipeList from "./recipeList";
 import SearchBar from "./searchBar";
 import SortButton from "./sortButton";
 
+export function sortByName(asc, recipeList) {
+    return asc
+        ? recipeList.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : 1)
+        : recipeList.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? -1 : 1);
+}
+
+export function sortByDate(asc, recipeList) {
+    return asc
+        ? recipeList.sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1)
+        : recipeList.sort((a, b) => (new Date(a.updated) > new Date(b.updated)) ? -1 : 1);
+}
+
 export default function Recipes() {
     const [recipes, setRecipes] = useState([]);
     const [displayRecipes, setDisplayRecipes] = useState([]);
@@ -72,24 +84,24 @@ export default function Recipes() {
         setFilter(result);
         switch (result) {
             case "nameAsc":
-                setRecipes(recipes.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : 1));
-                setDisplayRecipes([...displayRecipes].sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : 1));
+                setRecipes(sortByName(true, recipes));
+                setDisplayRecipes(sortByName(true, [...displayRecipes]));
                 break;
             case "nameDes":
-                setRecipes(recipes.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? -1 : 1));
-                setDisplayRecipes([...displayRecipes].sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? -1 : 1));
+                setRecipes(sortByName(false, recipes));
+                setDisplayRecipes(sortByName(false, [...displayRecipes]));
                 break;
             case "dateAsc":
-                setRecipes(recipes.sort((a, b) => (new Date(a.updated) > new Date(b.updated)) ? -1 : 1));
-                setDisplayRecipes([...displayRecipes].sort((a, b) => (new Date(a.updated) > new Date(b.updated)) ? -1 : 1));
+                setRecipes(sortByDate(true, recipes));
+                setDisplayRecipes(sortByDate(true, [...displayRecipes]));
                 break;
             case "dateDes":
-                setRecipes(recipes.sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1));
-                setDisplayRecipes([...displayRecipes].sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1));
+                setRecipes(sortByDate(false, recipes));
+                setDisplayRecipes(sortByDate(false, [...displayRecipes]));
                 break;
             default:
-                setRecipes(recipes.sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1));
-                setDisplayRecipes([...displayRecipes].sort((a, b) => (new Date(a.updated) < new Date(b.updated)) ? -1 : 1));
+                setRecipes(sortByDate(true, recipes));
+                setDisplayRecipes(sortByDate(true, [...displayRecipes]));
         }
     }
 
