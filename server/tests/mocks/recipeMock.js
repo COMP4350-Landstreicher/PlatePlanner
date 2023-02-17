@@ -7,6 +7,7 @@ class RecipeMock{
         this.user_id = 10;
         this.id = 1;
         this.lastUpdated = "16/02/2023";
+        this.imageUrl = "abc";
 	}
 
 	sync(){
@@ -22,7 +23,8 @@ class RecipeMock{
                 selected: this.selected, 
                 user_id:this.user_id, 
                 id:this.id, 
-                lastUpdated:this.lastUpdated
+                lastUpdated:this.lastUpdated,
+                imageUrl: this.imageUrl
             }]
         }
         return [];
@@ -37,7 +39,8 @@ class RecipeMock{
                 selected: this.selected, 
                 user_id:this.user_id, 
                 id:this.id, 
-                lastUpdated:this.lastUpdated
+                lastUpdated:this.lastUpdated,
+                imageUrl: this.imageUrl
             }
 		}
         else if(this.id == arg.where.id){
@@ -48,11 +51,16 @@ class RecipeMock{
                 selected: this.selected, 
                 user_id:this.user_id, 
                 id:this.id, 
-                lastUpdated:this.lastUpdated
+                lastUpdated:this.lastUpdated,
+                imageUrl: this.imageUrl
             }
         }
 		return null
 	}
+
+    bulkCreate(){
+        return [];
+    }
 }
 
 module.exports = { RecipeMock }

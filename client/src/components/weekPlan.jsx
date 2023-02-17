@@ -4,8 +4,8 @@ import { Component } from "react";
 import NavBar from "./navbar";
 
 class WeekPlan extends Component {
-    state = {  } 
-    render() { 
+    state = {}
+    render() {
         let theme = createTheme({
             palette: {
                 background: {
@@ -22,13 +22,13 @@ class WeekPlan extends Component {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <NavBar value={1}/>
-                <Container maxWidth={false} sx={{maxWidth: `calc(100% - 250px)`, ml: '250px'}}>
+                <NavBar value={1} />
+                <Container maxWidth={false} sx={{ maxWidth: `calc(100% - 250px)`, ml: '250px' }}>
                     <Typography color="black">Week Plan Page</Typography>
                 </Container>
             </ThemeProvider>
         );
     }
 }
- 
+
 export default WeekPlan;

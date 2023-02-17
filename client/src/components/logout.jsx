@@ -1,16 +1,14 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 export default function Logout() {
-	const navigate = useNavigate();
-	const logOut = () => {
-		axios.post("http://" + window.location.hostname + ":3000/auth/logout", {data:"data"}, { withCredentials: true });
-		setTimeout(() => { window.location.reload(); }, 2000);
-		
-	}
-	
+    const logOut = () => {
+        axios.post("http://" + window.location.hostname + ":3000/auth/logout", { data: "data" }, { withCredentials: true });
+        setTimeout(() => { window.location.reload(); }, 2000);
+
+    }
+
     return (
         <Button
             variant="text"

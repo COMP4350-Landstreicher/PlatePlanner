@@ -19,6 +19,10 @@ class IngredientMock{
             }]}
         return null
     }
+
+    bulkCreate(){
+        return [];
+    }
 }
 
 module.exports = { IngredientMock }

@@ -11,16 +11,19 @@ const Recipe = sequelize.define("Recipe", {
 		type: Sequelize.STRING
 	},
 	instructions: {
-		type: Sequelize.STRING
+		type: Sequelize.TEXT('long')
 	},
 	selected: {
 		type: Sequelize.BOOLEAN
 	},
 	user_id: {
 		type: Sequelize.INTEGER
-	}
+	},
+	imageUrl: {
+		type: Sequelize.STRING
+	},
 }, {});
 
 Recipe.sync()
 
-module.exports = {Recipe};
+module.exports = { Recipe };

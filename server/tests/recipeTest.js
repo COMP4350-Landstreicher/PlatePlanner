@@ -17,6 +17,7 @@ it("Get all recipes belong to a valid user", async () => {
 	expect(recipes[0].user_id).to.equal(10);
 	expect(recipes[0].id).to.equal(1);
 	expect(recipes[0].lastUpdated).to.equal("16/02/2023");
+	expect(recipes[0].imageUrl).to.equal("abc");
 });
 
 it("Get all recipes belong to an invalid user", async () => {
@@ -39,6 +40,7 @@ it("Get a recipe by Name", async () => {
 	expect(recipe.user_id).to.equal(10);
 	expect(recipe.id).to.equal(1);
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
+	expect(recipe.imageUrl).to.equal("abc");
 });
 
 it("Get a recipe by Name that does not exist", async () => {
@@ -59,6 +61,7 @@ it("Get a recipe with a valid recipeID", async () => {
 	expect(recipe.instructions).to.equal("mix all the good food");
 	expect(recipe.selected).to.equal(true);
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
+	expect(recipe.imageUrl).to.equal("abc");
 });
 
 it("Get a recipe with an invalid recipeID", async () => {

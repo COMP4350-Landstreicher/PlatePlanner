@@ -8,10 +8,10 @@ export default function RecipeList(props) {
     const [recipe, setRecipe] = React.useState(undefined);
 
     const openPopup = (value) => () => {
-        axios.get("http://" + window.location.hostname + ":3000/recipes/getOne/"+value.id)
+        axios.get("http://" + window.location.hostname + ":3000/recipes/getOne/" + value.id, { withCredentials: true })
             .then((response) => {
                 setRecipe(response.data);
-            });        
+            });
     };
 
     useEffect(() => {
@@ -41,7 +41,7 @@ export default function RecipeList(props) {
                                 background: '#FFFFFE'
                             }}
                         >
-                            <Box 
+                            <Box
                                 display="flex"
                                 flexDirection='column'
                                 alignItems='center'
@@ -75,14 +75,14 @@ export default function RecipeList(props) {
                                             height: 250,
                                             boxSizing: 'none',
                                         }}
-                                        image={card.image}
+                                        image={card.imageUrl}
                                         alt="random"
                                     />
                                 </Box>
                                 <Box sx={{ width: 250 }}>
                                     <CardContent sx={{ flexGrow: 1, pl: 0 }}>
                                         <Typography variant="h6" component="h2">
-                                            <Box component="span" fontWeight='fontWeightBold'>{card.name}</Box>
+                                            <Box component="span" fontWeight='fontWeightBold'>{card.recipe_name}</Box>
                                         </Typography>
                                     </CardContent>
                                 </Box>
@@ -91,7 +91,7 @@ export default function RecipeList(props) {
                     </Grid>
                 ))}
             </Grid>
-            {(typeof recipe !== 'undefined') && (<RecipePopup value={recipe} open={open} handleClose={closePopup}/>)}
+            {(typeof recipe !== 'undefined') && (<RecipePopup value={recipe} open={open} handleClose={closePopup} />)}
         </Container>
     );
 }
