@@ -9,7 +9,7 @@ const getAllRecipe = asyncHandler(async (userID, Recipe) => {
     //     description: "",
     //     instructions: "",
     //     selected: true,
-    //     user_id: 1
+    //     user_id: userID
     // })
 
     const allRecipes = await Recipe.findAll({ where: { user_id:userID } })

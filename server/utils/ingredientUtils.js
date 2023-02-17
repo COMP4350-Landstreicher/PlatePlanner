@@ -5,7 +5,7 @@ const getRecipeIngredients = asyncHandler(async (recipeID, Ingredient) => {
 
     // For testing only
     // Ingredient.create({
-    //     recipe_id: 1,
+    //     recipe_id: recipeID,
     //     ingredient_name: "eggplant",
     //     ingredient_amount: 1,
     //     ingredient_unit: "whole",
