@@ -16,7 +16,7 @@ const Recipe = sequelize.define("Recipe", {
 	selected: {
 		type: Sequelize.BOOLEAN
 	},
-	userId: {
+	user_id: {
 		type: Sequelize.INTEGER
 	}
 }, {});

@@ -19,14 +19,14 @@ const getAllRecipe = asyncHandler(async (Recipe) => {
 
 const getByName = asyncHandler(async (recipeName, userId, Recipe) => {
     await Recipe.sync()
-    const recipe = await Recipe.findOne({ where: { recipe_name:recipeName, userId:userId } })
+    const recipe = await Recipe.findOne({ where: { recipe_name:recipeName, user_id:userId } })
     
     return recipe
 })
 
 const getByID = asyncHandler(async (recipeID, userId, Recipe) => {
     await Recipe.sync()
-    const recipe = await Recipe.findOne({ where: { id:recipeID, userId:userId } })
+    const recipe = await Recipe.findOne({ where: { id:recipeID, user_id:userId } })
 
     return recipe
 })

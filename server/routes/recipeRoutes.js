@@ -15,7 +15,7 @@ router.get('/getAll', viewAllRecipe);
 router.get('/search/:name', searchByName);
 
 // get a recipe by id
-router.get('/get/:id', selectRecipe)
+router.get('/getOne/:id', selectRecipe)
 
 module.exports = router;
 
