@@ -1,9 +1,14 @@
 const asyncHandler = require("express-async-handler");
 const { getRecipeIngredients } = require("../utils/ingredientUtils");
 const {getAllRecipe, getByName, getByID} = require("../utils/recipeUtils")
+const {Recipe} = require("../models//recipeModel");
 
 const viewAllRecipe = asyncHandler( async (req, res) => {
-    const recipes = await getAllRecipe();
+    const recipes = await getAllRecipe(Recipe);
+
+    if (recipes.length == 0) {
+        res.send(recipes);
+    };
 
     recipes
     .then(data => res.json({data : data}))
@@ -11,8 +16,8 @@ const viewAllRecipe = asyncHandler( async (req, res) => {
 })
 
 const searchByName = asyncHandler( async (req, res) => {
-    const { name } = req.params;
-    const recipe = await getByName(name);
+    const { name, userID } = req.params;
+    const recipe = await getByName(name, userID, Recipe);
     
     recipe
     .then(data => res.json({data : data}))
@@ -21,7 +26,7 @@ const searchByName = asyncHandler( async (req, res) => {
 
 const selectRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params;
-    const recipe = await getByID(id);
+    const recipe = await getByID(id, userID, Recipe);
     const ingredients = await getRecipeIngredients(id);
     recipe.ingredients = JSON.stringify(ingredients)
     

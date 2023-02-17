@@ -23,14 +23,11 @@ app.get('/', (req, res) => {res.send('<h1>Welcome to PlatePlanner!</h1>');});
 app.get('/test', authenticate, (req, res) => {res.send(req.user.userName);});
 
 app.use('/auth', require('./routes/authRoutes'));
+app.use('/recipes', require('./routes/recipeRoutes'));
 
 app.listen(PORT, HOST, () => {console.log(`Running on http://${HOST}:${PORT}`);});
 
 const recipes = [];
-
-app.get("/recipes", (req, res) => {
-    res.send(recipes);
-});
 
 app.post("/addRecipe", (req, res) => {
     recipes.push(req.body);
