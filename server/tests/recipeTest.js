@@ -5,7 +5,8 @@ const expect  = require('chai').expect;
 describe("Backend recipe tests", () => {
 it("Testing get all recipes", async () => {
 	const Recipe = new RecipeMock();
-	const recipes = await getAllRecipe(Recipe);
+	const mockUserID = 10;
+	const recipes = await getAllRecipe(10, Recipe);
 
 	expect(recipes).to.be.an("array");
 	expect(recipes[0]).to.be.an("object");
@@ -13,9 +14,17 @@ it("Testing get all recipes", async () => {
 	expect(recipes[0].description).to.equal("tasty_dish");
 	expect(recipes[0].instructions).to.equal("mix all the good food");
 	expect(recipes[0].selected).to.equal(true);
-	expect(recipes[0].userId).to.equal(10);
+	expect(recipes[0].user_id).to.equal(10);
 	expect(recipes[0].id).to.equal(1);
 	expect(recipes[0].lastUpdated).to.equal("16/02/2023");
+});
+
+it("Testing get all recipes for a non-existing user", async () => {
+	const Recipe = new RecipeMock();
+	const mockUserID = 2;
+	const recipes = await getAllRecipe(mockUserID, Recipe);
+
+	expect(recipes.length).to.equal(0);
 });
 
 it("Testing get a recipe by name", async () => {
@@ -27,7 +36,7 @@ it("Testing get a recipe by name", async () => {
 	expect(recipe.description).to.equal("tasty_dish");
 	expect(recipe.instructions).to.equal("mix all the good food");
 	expect(recipe.selected).to.equal(true);
-	expect(recipe.userId).to.equal(10);
+	expect(recipe.user_id).to.equal(10);
 	expect(recipe.id).to.equal(1);
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
 });
@@ -41,7 +50,7 @@ it("Testing get a recipe with an invaid name", async () => {
 
 it("Testing get a recipe by id", async () => {
 	const Recipe = new RecipeMock();
-	const recipe = await getByID(1, 10, Recipe);
+	const recipe = await getByID(1, Recipe);
 
 	expect(recipe).to.be.an("object");
 	expect(recipe.id).to.equal(1);
@@ -49,13 +58,12 @@ it("Testing get a recipe by id", async () => {
 	expect(recipe.description).to.equal("tasty_dish");
 	expect(recipe.instructions).to.equal("mix all the good food");
 	expect(recipe.selected).to.equal(true);
-	expect(recipe.userId).to.equal(10);
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
 });
 
 it("Testing get a recipe using an invalid id", async () => {
 	const Recipe = new RecipeMock();
-	const recipe = await getByID(2, 10, Recipe);
+	const recipe = await getByID(2, Recipe);
 
 	expect(recipe).to.equal(null);
 });

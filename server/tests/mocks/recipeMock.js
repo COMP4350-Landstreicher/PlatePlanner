@@ -4,7 +4,7 @@ class RecipeMock{
         this.description = "tasty_dish";
         this.instructions = "mix all the good food";
         this.selected = true;
-        this.userId = 10;
+        this.user_id = 10;
         this.id = 1;
         this.lastUpdated = "16/02/2023";
 	}
@@ -13,16 +13,19 @@ class RecipeMock{
 
 	}
 
-    findAll(){
-        return [{
-            recipe_name:this.recipe_name, 
-            description:this.description, 
-            instructions:this.instructions, 
-            selected: this.selected, 
-            userId:this.userId, 
-            id:this.id, 
-            lastUpdated:this.lastUpdated
-        }]
+    findAll(arg){
+        if (this.user_id == arg.where.user_id) {
+            return [{
+                recipe_name:this.recipe_name, 
+                description:this.description, 
+                instructions:this.instructions, 
+                selected: this.selected, 
+                user_id:this.user_id, 
+                id:this.id, 
+                lastUpdated:this.lastUpdated
+            }]
+        }
+        return [];
     }
 
 	findOne(arg){
@@ -32,7 +35,7 @@ class RecipeMock{
                 description:this.description, 
                 instructions:this.instructions, 
                 selected: this.selected, 
-                userId:this.userId, 
+                user_id:this.user_id, 
                 id:this.id, 
                 lastUpdated:this.lastUpdated
             }
@@ -43,7 +46,7 @@ class RecipeMock{
                 description:this.description, 
                 instructions:this.instructions, 
                 selected: this.selected, 
-                userId:this.userId, 
+                user_id:this.user_id, 
                 id:this.id, 
                 lastUpdated:this.lastUpdated
             }
