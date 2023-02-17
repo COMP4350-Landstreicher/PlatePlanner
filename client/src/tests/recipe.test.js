@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { search } from 'components/searchBar';
 import { MemoryRouter } from 'react-router-dom';
-import Recipes, { sortByDate, sortByName } from "../components/Recipes";
+import Recipes, { sortByDate, sortByName } from "../components/recipes";
 
 it("should render Homepage component", () => {
     render(<Recipes />, {wrapper: MemoryRouter});
