@@ -6,13 +6,7 @@ const {Recipe} = require("../models//recipeModel");
 const viewAllRecipe = asyncHandler( async (req, res) => {
     const recipes = await getAllRecipe(Recipe);
 
-    if (recipes.length == 0) {
-        res.send(recipes);
-    };
-
-    recipes
-    .then(data => res.json({data : data}))
-    .catch(err => console.log(err));
+    res.send(recipes);
 })
 
 const searchByName = asyncHandler( async (req, res) => {
@@ -25,7 +19,7 @@ const searchByName = asyncHandler( async (req, res) => {
 })
 
 const selectRecipe = asyncHandler( async (req, res) => {
-    const { id } = req.params;
+    const { id, userID } = req.params;
     const recipe = await getByID(id, userID, Recipe);
     const ingredients = await getRecipeIngredients(id);
     recipe.ingredients = JSON.stringify(ingredients)

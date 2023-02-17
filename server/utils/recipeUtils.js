@@ -2,6 +2,16 @@ const asyncHandler = require("express-async-handler")
 
 const getAllRecipe = asyncHandler(async (Recipe) => {
     await Recipe.sync()
+
+    // For testing only
+    // Recipe.create({
+    //     recipe_name: "roasted_eggplant",
+    //     description: "",
+    //     instructions: "",
+    //     selected: true,
+    //     userId: 1
+    // })
+
     const allRecipes = await Recipe.findAll()
 
     return allRecipes
