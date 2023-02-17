@@ -3,7 +3,7 @@ const {IngredientMock} = require("./mocks/ingredientsMock")
 const expect  = require('chai').expect;
 
 describe("Backend ingredients tests", () => {
-it("Testing get all ingredients belong to a valid id", async () => {
+it("Get all ingredients belong to a valid recipe id", async () => {
 	const Ingredient = new IngredientMock();
 	const ingredients = await getRecipeIngredients(1, Ingredient);
 
@@ -14,7 +14,7 @@ it("Testing get all ingredients belong to a valid id", async () => {
     expect(ingredients[0].ingredient_unit).to.equal("whole");
 });
 
-it("Testing get all ingredients belong to an invalid id", async () => {
+it("Get all ingredients belong to an invalid recipe id", async () => {
 	const Ingredient = new IngredientMock();
 	const ingredients = await getRecipeIngredients(2, Ingredient);
 

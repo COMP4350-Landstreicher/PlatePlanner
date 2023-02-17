@@ -3,7 +3,7 @@ const {RecipeMock} = require("./mocks/recipeMock")
 const expect  = require('chai').expect;
 
 describe("Backend recipe tests", () => {
-it("Testing get all recipes", async () => {
+it("Get all recipes belong to a valid user", async () => {
 	const Recipe = new RecipeMock();
 	const mockUserID = 10;
 	const recipes = await getAllRecipe(10, Recipe);
@@ -19,7 +19,7 @@ it("Testing get all recipes", async () => {
 	expect(recipes[0].lastUpdated).to.equal("16/02/2023");
 });
 
-it("Testing get all recipes for a non-existing user", async () => {
+it("Get all recipes belong to an invalid user", async () => {
 	const Recipe = new RecipeMock();
 	const mockUserID = 2;
 	const recipes = await getAllRecipe(mockUserID, Recipe);
@@ -27,7 +27,7 @@ it("Testing get all recipes for a non-existing user", async () => {
 	expect(recipes.length).to.equal(0);
 });
 
-it("Testing get a recipe by name", async () => {
+it("Get a recipe by Name", async () => {
 	const Recipe = new RecipeMock();
 	const recipe = await getByName("roasted_eggplant", 10, Recipe);
 
@@ -41,14 +41,14 @@ it("Testing get a recipe by name", async () => {
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
 });
 
-it("Testing get a recipe with an invaid name", async () => {
+it("Get a recipe by Name that does not exist", async () => {
 	const Recipe = new RecipeMock();
 	const recipe = await getByName("roasted_tomato", 10, Recipe);
 
 	expect(recipe).to.equal(null);
 });
 
-it("Testing get a recipe by id", async () => {
+it("Get a recipe with a valid recipeID", async () => {
 	const Recipe = new RecipeMock();
 	const recipe = await getByID(1, Recipe);
 
@@ -61,7 +61,7 @@ it("Testing get a recipe by id", async () => {
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
 });
 
-it("Testing get a recipe using an invalid id", async () => {
+it("Get a recipe with an invalid recipeID", async () => {
 	const Recipe = new RecipeMock();
 	const recipe = await getByID(2, Recipe);
 
