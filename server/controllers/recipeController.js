@@ -5,15 +5,14 @@ const {Recipe} = require("../models/recipeModel");
 const {Ingredient} = require("../models/ingredientModel");
 
 const viewAllRecipe = asyncHandler( async (req, res) => {
-    const { user } = req.params;
-    const recipes = await getAllRecipe(user.id, Recipe);
+    const recipes = await getAllRecipe(req.user.dataValues.id, Recipe);
 
     res.send(recipes);
 })
 
 const searchByName = asyncHandler( async (req, res) => {
-    const { name, user } = req.params;
-    const recipe = await getByName(name, user.id, Recipe);
+    const { name } = req.params;
+    const recipe = await getByName(name, req.user.dataValues.id, Recipe);
     
     res.send(recipe);
 })

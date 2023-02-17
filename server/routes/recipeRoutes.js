@@ -1,6 +1,7 @@
 // initialize the express app
 const express = require('express');
 const router = express.Router();
+const {authenticate} = require('../middleware/authMiddleware');
 
 const {
 	viewAllRecipe,
@@ -9,13 +10,13 @@ const {
 } = require('../controllers/recipeController')
 
 // get all recipes
-router.get('/getAll', viewAllRecipe);
+router.get('/getAll', authenticate, viewAllRecipe);
 
 // search recipe by name
 router.get('/search/:name', searchByName);
 
 // get a recipe by id
-router.get('/getOne/:id', selectRecipe)
+router.get('/getOne/:id', selectRecipe);
 
 module.exports = router;
 
