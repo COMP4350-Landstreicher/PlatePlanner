@@ -106,7 +106,7 @@ export default function Recipes() {
     }
 
     useEffect(() => {
-        axios.get("http://" + window.location.hostname + ":3000/recipes")
+        axios.get("http://" + window.location.hostname + ":3000/recipes/getAll", { withCredentials: true })
             .then((response) => {
                 setRecipes(response.data);
                 setDisplayRecipes(response.data);

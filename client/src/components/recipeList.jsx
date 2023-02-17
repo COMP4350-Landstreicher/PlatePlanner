@@ -8,7 +8,7 @@ export default function RecipeList(props) {
     const [recipe, setRecipe] = React.useState(undefined);
 
     const openPopup = (value) => () => {
-        axios.get("http://" + window.location.hostname + ":3000/recipe/"+value.id)
+        axios.get("http://" + window.location.hostname + ":3000/recipes/getOne/"+value.id)
             .then((response) => {
                 setRecipe(response.data);
             });        
