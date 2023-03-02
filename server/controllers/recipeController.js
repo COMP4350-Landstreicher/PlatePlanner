@@ -36,6 +36,14 @@ const viewShoppingList = asyncHandler( async (req, res) => {
 const setNumPortions = asyncHandler( async (req, res) => {
 	const {recipeId} = req.params
 	const { portionSize } = req.body
+        if( !recipeId || !portionSize){
+                res.status(400)
+                throw new Error("Please include all fields");
+        }
+	if(portionSize < 0){
+		res.status(400)
+		throw new Error("Portion size must be greater than or equal to 0");
+	}
 	if(!await setPortion(recipeId, portionSize, req.user.id, Recipe)){
 		res.status(400)
 		res.json({"message": "Recipe not found"})
