@@ -22,6 +22,9 @@ const Recipe = sequelize.define("Recipe", {
 	imageUrl: {
 		type: Sequelize.STRING
 	},
+	portion: {
+		type: Sequelize.INTEGER
+	}
 }, {});
 
 Recipe.sync()

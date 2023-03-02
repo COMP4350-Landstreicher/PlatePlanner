@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { getRecipeIngredients } = require("../utils/ingredientUtils");
-const {getAllRecipe, getByName, getByID} = require("../utils/recipeUtils")
+const {getAllRecipe, getByName, getByID, getShoppingList, setPortion, resetPortions} = require("../utils/recipeUtils")
 const {Recipe} = require("../models/recipeModel");
 const {Ingredient} = require("../models/ingredientModel");
 
@@ -26,8 +26,35 @@ const selectRecipe = asyncHandler( async (req, res) => {
     res.send(recipe);
 })
 
+const viewShoppingList = asyncHandler( async (req, res) => {
+	const recipeList = await getShoppingList(req.user.id, Recipe, Ingredient);
+	const shoppingList = recipeList
+
+	res.send(shoppingList);
+})
+
+const setNumPortions = asyncHandler( async (req, res) => {
+	const {recipeId} = req.params
+	const { portionSize } = req.body
+	if(!await setPortion(recipeId, portionSize, req.user.id, Recipe)){
+		res.status(400)
+		res.json({"message": "Recipe not found"})
+	}
+	else{
+		res.json({"message": "Portion successfully updated"})
+	}
+})
+
+const emptyShoppingList = asyncHandler(async (req, res) => {
+	await resetPortions(req.user.id, Recipe)
+	res.json({"message": "Shopping list successfully emptied"})
+})
+
 module.exports = {
     viewAllRecipe,
     searchByName,
     selectRecipe,
+    viewShoppingList,
+    setNumPortions,
+    emptyShoppingList
 }
