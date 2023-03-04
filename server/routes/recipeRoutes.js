@@ -10,6 +10,7 @@ const {
 	viewShoppingList,
 	setNumPortions,
 	emptyShoppingList,
+	addRecipe,
 } = require('../controllers/recipeController')
 
 // get all recipes
@@ -21,6 +22,9 @@ router.get('/search/:name', authenticate, searchByName);
 // get a recipe by id
 router.get('/getOne/:id', selectRecipe);
 
+// add recipe
+router.post('/addRecipe', authenticate, addRecipe);
+
 router.get('/viewShoppingList', authenticate, viewShoppingList);
 
 router.post('/setPortion/:recipeId', authenticate, setNumPortions);
@@ -28,42 +32,3 @@ router.post('/setPortion/:recipeId', authenticate, setNumPortions);
 router.post('/emptyShoppingList', authenticate, emptyShoppingList);
 
 module.exports = router;
-
-// // WIP sections below
-
-// // add recipe
-// router.post('/insert', (request, response) => {
-//     const { name, description, instructions } = request.body;
-//     const db = DBService.getDBServiceInstance();
-    
-//     const result = db.insertNewRecipe(name, description, instructions);
-
-//     result
-//     .then(data => response.json({ data: data}))
-//     .catch(err => console.log(err));
-// });
-
-// // update recipe
-// router.patch('/update', (request, response) => {
-//     const { id, name } = request.body;
-//     const db = DBService.getDBServiceInstance();
-
-//     const result = db.updateNameById(id, name);
-    
-//     result
-//     .then(data => response.json({success : data}))
-//     .catch(err => console.log(err));
-// });
-
-// // delete recipe
-// router.delete('/delete/:id', (request, response) => {
-//     const { id } = request.params;
-//     const db = DBService.getDBServiceInstance();
-
-//     const result = db.deleteRowById(id);
-    
-//     result
-//     .then(data => response.json({success : data}))
-//     .catch(err => console.log(err));
-// });
-
