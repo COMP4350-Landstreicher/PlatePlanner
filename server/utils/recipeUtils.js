@@ -82,7 +82,7 @@ const resetPortions = asyncHandler(async (userId, Recipe) => {
 	}
 })
 
-const createNewRecipe = asyncHandler(async (recipeName, description, instructions, userID, Recipe) => {
+const createNewRecipe = asyncHandler(async (recipeName, description, instructions, imageUrl, userID, Recipe) => {
     await Recipe.sync()
 
     return await Recipe.create({
@@ -91,7 +91,7 @@ const createNewRecipe = asyncHandler(async (recipeName, description, instruction
         instructions: instructions,
 		selected: false,
         user_id: userID,
-        imageUrl: "https://source.unsplash.com/random",
+        imageUrl: imageUrl,
         portion: 0
     })
 })

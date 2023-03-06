@@ -59,11 +59,11 @@ const emptyShoppingList = asyncHandler(async (req, res) => {
 })
 
 const addRecipe = asyncHandler( async (req, res) => {
-    const { recipeName, description, instructions, ingredients } = req.body
+    const { recipeName, description, instructions, imageUrl, ingredients } = req.body
 
     if((await getByName(recipeName, req.user.dataValues.id, Recipe)) == null){
-        if(await createNewRecipe(recipeName, description, instructions, req.user.dataValues.id, Recipe)){
-            const new_recipe = await getByName(recipeName, req.user.dataValues.id, Recipe);
+        const new_recipe = await createNewRecipe(recipeName, description, instructions, imageUrl, req.user.dataValues.id, Recipe)
+        if(new_recipe){
             if(await addRecipeIngredients(ingredients, new_recipe.id, Ingredient)){
                 res.status(200).json({ message: "A new recipe has been successfully added."})
             }
