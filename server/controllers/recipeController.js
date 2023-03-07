@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
-const { getRecipeIngredients } = require("../utils/ingredientUtils");
-const {getAllRecipe, getByName, getByID, getShoppingList, setPortion, resetPortions} = require("../utils/recipeUtils")
+const { getRecipeIngredients, addRecipeIngredients } = require("../utils/ingredientUtils");
+const {getAllRecipe, getByName, getByID, getShoppingList, setPortion, resetPortions, createNewRecipe} = require("../utils/recipeUtils")
 const {Recipe} = require("../models/recipeModel");
 const {Ingredient} = require("../models/ingredientModel");
 
@@ -58,11 +58,38 @@ const emptyShoppingList = asyncHandler(async (req, res) => {
 	res.json({"message": "Shopping list successfully emptied"})
 })
 
+const addRecipe = asyncHandler( async (req, res) => {
+    const { recipeName, description, instructions, imageUrl, ingredients } = req.body
+
+    if((await getByName(recipeName, req.user.dataValues.id, Recipe)) == null){
+        const new_recipe = await createNewRecipe(recipeName, description, instructions, imageUrl, req.user.dataValues.id, Recipe)
+        if(new_recipe){
+            if(await addRecipeIngredients(ingredients, new_recipe.id, Ingredient)){
+                res.status(200).json({ message: "A new recipe has been successfully added."})
+            }
+            else{
+                res.status(400)
+                throw new Error("Unable to add ingredients.")
+            }
+        }
+        else{
+            res.status(400)
+            throw new Error("Unable to create new recipe.")
+        }
+    }
+    else{
+    res.status(400)
+    throw new Error("Recipe name already exists.")
+    }
+
+})
+
 module.exports = {
     viewAllRecipe,
     searchByName,
     selectRecipe,
     viewShoppingList,
     setNumPortions,
-    emptyShoppingList
+    emptyShoppingList,
+    addRecipe
 }
