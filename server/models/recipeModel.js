@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize(process.env.DB_URI);
 
 const Recipe = sequelize.define("Recipe", {
-	recipe_name: {
+	recipeName: {
 		type: Sequelize.STRING
 	},
 	description: {
@@ -13,13 +13,10 @@ const Recipe = sequelize.define("Recipe", {
 	instructions: {
 		type: Sequelize.TEXT('long')
 	},
-	selected: {
-		type: Sequelize.BOOLEAN
-	},
-	user_id: {
+	userID: {
 		type: Sequelize.INTEGER
 	},
-	imageUrl: {
+	imageURL: {
 		type: Sequelize.STRING
 	},
 	portion: {

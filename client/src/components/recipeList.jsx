@@ -82,7 +82,7 @@ export default function RecipeList(props) {
                                 <Box sx={{ width: 250 }}>
                                     <CardContent sx={{ flexGrow: 1, pl: 0 }}>
                                         <Typography variant="h6" component="h2">
-                                            <Box component="span" fontWeight='fontWeightBold'>{card.recipe_name}</Box>
+                                            <Box component="span" fontWeight='fontWeightBold'>{card.recipeName}</Box>
                                         </Typography>
                                     </CardContent>
                                 </Box>
