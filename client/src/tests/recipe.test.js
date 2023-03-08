@@ -10,19 +10,19 @@ it("should render Homepage component", () => {
 
 it("should return search result", () => {
     const recipes = [
-        { recipe_name: "A" },
-        { recipe_name: "B" },
-        { recipe_name: "C" }
+        { recipeName: "A" },
+        { recipeName: "B" },
+        { recipeName: "C" }
     ];
     expect(search(recipes, "A")).toHaveLength(1);
-    expect(search(recipes, "A")).toEqual([{ recipe_name: "A" }]);
+    expect(search(recipes, "A")).toEqual([{ recipeName: "A" }]);
 })
 
 it("should return no search result", () => {
     const recipes = [
-        { recipe_name: "A" },
-        { recipe_name: "B" },
-        { recipe_name: "C" }
+        { recipeName: "A" },
+        { recipeName: "B" },
+        { recipeName: "C" }
     ];
     expect(search(recipes, "D")).toHaveLength(0);
     expect(search(recipes, "D")).toEqual([]);
@@ -30,24 +30,24 @@ it("should return no search result", () => {
 
 it("should return search result even without case sensitive", () => {
     const recipes = [
-        { recipe_name: "A" },
-        { recipe_name: "B" },
-        { recipe_name: "C" }
+        { recipeName: "A" },
+        { recipeName: "B" },
+        { recipeName: "C" }
     ];
     expect(search(recipes, "a")).toHaveLength(1);
-    expect(search(recipes, "a")).toEqual([{ recipe_name: "A" }]);
+    expect(search(recipes, "a")).toEqual([{ recipeName: "A" }]);
 })
 
 it("should return sorted list by name ascending", () => {
     const recipes = [
-        { recipe_name: "C" },
-        { recipe_name: "A" },
-        { recipe_name: "B" }
+        { recipeName: "C" },
+        { recipeName: "A" },
+        { recipeName: "B" }
     ];
     const result = [
-        { recipe_name: "A" },
-        { recipe_name: "B" },
-        { recipe_name: "C" }
+        { recipeName: "A" },
+        { recipeName: "B" },
+        { recipeName: "C" }
     ];
     expect(sortByName(true, recipes)).toHaveLength(3);
     expect(sortByName(true, recipes)).toEqual(result);
@@ -55,14 +55,14 @@ it("should return sorted list by name ascending", () => {
 
 it("should return sorted list by name descending", () => {
     const recipes = [
-        { recipe_name: "C" },
-        { recipe_name: "A" },
-        { recipe_name: "B" }
+        { recipeName: "C" },
+        { recipeName: "A" },
+        { recipeName: "B" }
     ];
     const result = [
-        { recipe_name: "C" },
-        { recipe_name: "B" },
-        { recipe_name: "A" }
+        { recipeName: "C" },
+        { recipeName: "B" },
+        { recipeName: "A" }
     ];
     expect(sortByName(false, recipes)).toHaveLength(3);
     expect(sortByName(false, recipes)).toEqual(result);
