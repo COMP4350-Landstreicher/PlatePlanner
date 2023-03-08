@@ -11,6 +11,7 @@ const {
 	setNumPortions,
 	emptyShoppingList,
 	addRecipe,
+	deleteRecipe,
 } = require('../controllers/recipeController')
 
 // get all recipes
@@ -24,6 +25,9 @@ router.get('/getOne/:id', selectRecipe);
 
 // add recipe
 router.post('/addRecipe', authenticate, addRecipe);
+
+// delete recipe
+router.delete('/deleteRecipe/:id', authenticate, deleteRecipe);
 
 router.get('/viewShoppingList', authenticate, viewShoppingList);
 

@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
-const { getRecipeIngredients, addRecipeIngredients } = require("../utils/ingredientUtils");
-const {getAllRecipe, getByName, getByID, getShoppingList, setPortion, resetPortions, createNewRecipe} = require("../utils/recipeUtils")
+const { getRecipeIngredients, addRecipeIngredients, removeRecipeIngredients } = require("../utils/ingredientUtils");
+const {getAllRecipe, getByName, getByID, getShoppingList, setPortion, resetPortions, createNewRecipe, removeRecipe} = require("../utils/recipeUtils")
 const {Recipe} = require("../models/recipeModel");
 const {Ingredient} = require("../models/ingredientModel");
 
@@ -78,10 +78,28 @@ const addRecipe = asyncHandler( async (req, res) => {
         }
     }
     else{
-    res.status(400)
-    throw new Error("Recipe name already exists.")
+        res.status(400)
+        throw new Error("Recipe name already exists.")
     }
 
+})
+
+const deleteRecipe = asyncHandler( async (req, res) => {
+    const { id } = req.params; 
+
+    if (await getByID(id, Recipe)) {
+        if (await removeRecipe(id, Recipe) && await removeRecipeIngredients(id, Recipe)) {
+            res.status(200).json({ message: "Recipe is deleted successfully."})
+        }
+        else{
+            res.status(400)
+            throw new Error("Unable to delete recipe.")
+        }   
+    }
+    else{
+        res.status(400)
+        throw new Error("Recipe id does not exist.")
+    }
 })
 
 module.exports = {
@@ -91,5 +109,6 @@ module.exports = {
     viewShoppingList,
     setNumPortions,
     emptyShoppingList,
-    addRecipe
+    addRecipe,
+    deleteRecipe,
 }

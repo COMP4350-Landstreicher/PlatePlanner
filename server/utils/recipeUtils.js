@@ -96,6 +96,21 @@ const createNewRecipe = asyncHandler(async (recipeName, description, instruction
     })
 })
 
+const removeRecipe = asyncHandler(async (recipeID, Recipe) => {
+	await Recipe.sync()
+
+	return Recipe.destroy({
+		where: {
+		  id: recipeID
+		},
+		force: true
+	}).then(() => {
+		return true
+	}, () => {
+		return false
+	})
+})
+
 module.exports = {
     getAllRecipe,
     getByName,
@@ -103,5 +118,6 @@ module.exports = {
     getShoppingList,
     setPortion,
     resetPortions,
-	createNewRecipe
+	createNewRecipe,
+	removeRecipe
 }
