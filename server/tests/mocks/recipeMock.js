@@ -6,14 +6,14 @@ class RecipeMock{
 	sync(){}
 
     findAll(arg){
-        if (this.recipe.user_id == arg.where.user_id) {
+        if (this.recipe.userID == arg.where.userID) {
             return [this.recipe]
         }
         return [];
     }
 
 	findOne(arg){
-		if(this.recipe.recipe_name == arg.where.recipe_name){
+		if(this.recipe.recipeName == arg.where.recipeName){
 			return this.recipe
 		}
         else if(this.recipe.id == arg.where.id){
@@ -28,7 +28,7 @@ class RecipeMock{
 
     create(recipe){
         if (this.recipe != null) {
-            if (this.recipe.recipe_name == recipe.recipe_name){
+            if (this.recipe.recipeName == recipe.recipeName){
                 return null
             }
         }

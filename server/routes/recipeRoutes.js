@@ -20,7 +20,7 @@ router.get('/getAll', authenticate, viewAllRecipe);
 router.get('/search/:name', authenticate, searchByName);
 
 // get a recipe by id
-router.get('/getOne/:id', selectRecipe);
+router.get('/getOne/:id', authenticate, selectRecipe);
 
 // add recipe
 router.post('/addRecipe', authenticate, addRecipe);

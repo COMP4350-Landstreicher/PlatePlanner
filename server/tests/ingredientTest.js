@@ -9,9 +9,9 @@ it("Get all ingredients belong to a valid recipe id", async () => {
 
 	expect(ingredients).to.be.an("array");
     expect(ingredients[0]).to.be.an("object");
-    expect(ingredients[0].ingredient_name).to.equal("Tomato");
-    expect(ingredients[0].ingredient_amount).to.equal(2);
-    expect(ingredients[0].ingredient_unit).to.equal("whole");
+    expect(ingredients[0].ingredientName).to.equal("Tomato");
+    expect(ingredients[0].ingredientAmount).to.equal(2);
+    expect(ingredients[0].ingredientUnit).to.equal("whole");
 });
 
 it("Get all ingredients belong to an invalid recipe id", async () => {

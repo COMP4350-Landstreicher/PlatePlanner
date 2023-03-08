@@ -11,12 +11,11 @@ it("Get all recipes belong to a valid user", async () => {
 
 	expect(recipes).to.be.an("array");
 	expect(recipes[0]).to.be.an("object");
-	expect(recipes[0].recipe_name).to.equal("roasted_eggplant");
+	expect(recipes[0].recipeName).to.equal("roasted_eggplant");
 	expect(recipes[0].description).to.equal("tasty_dish");
 	expect(recipes[0].instructions).to.equal("mix all the good food");
-	expect(recipes[0].selected).to.equal(false);
-	expect(recipes[0].user_id).to.equal(10);
-	expect(recipes[0].imageUrl).to.equal("abc");
+	expect(recipes[0].userID).to.equal(10);
+	expect(recipes[0].imageURL).to.equal("abc");
 	expect(recipes[0].lastUpdated).to.equal("16/02/2023");
 	expect(recipes[0].id).to.equal(1);
 });
@@ -35,12 +34,11 @@ it("Get a recipe by Name", async () => {
 	const recipe = await getByName("roasted_eggplant", 10, Recipe);
 
 	expect(recipe).to.be.an("object");
-	expect(recipe.recipe_name).to.equal("roasted_eggplant");
+	expect(recipe.recipeName).to.equal("roasted_eggplant");
 	expect(recipe.description).to.equal("tasty_dish");
 	expect(recipe.instructions).to.equal("mix all the good food");
-	expect(recipe.selected).to.equal(false);
-	expect(recipe.user_id).to.equal(10);
-	expect(recipe.imageUrl).to.equal("abc");
+	expect(recipe.userID).to.equal(10);
+	expect(recipe.imageURL).to.equal("abc");
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
 	expect(recipe.id).to.equal(1);
 });
@@ -60,11 +58,10 @@ it("Get a recipe with a valid recipeID", async () => {
 
 	expect(recipe).to.be.an("object");
 	expect(recipe.id).to.equal(1);
-	expect(recipe.recipe_name).to.equal("roasted_eggplant");
+	expect(recipe.recipeName).to.equal("roasted_eggplant");
 	expect(recipe.description).to.equal("tasty_dish");
 	expect(recipe.instructions).to.equal("mix all the good food");
-	expect(recipe.selected).to.equal(false);
-	expect(recipe.imageUrl).to.equal("abc");
+	expect(recipe.imageURL).to.equal("abc");
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
 	expect(recipe.id).to.equal(1);
 });
@@ -83,11 +80,10 @@ it("Create a new recipe", async () => {
 
 	expect(recipe).to.be.an("object");
 	expect(recipe.id).to.equal(1);
-	expect(recipe.recipe_name).to.equal("roasted_eggplant");
+	expect(recipe.recipeName).to.equal("roasted_eggplant");
 	expect(recipe.description).to.equal("tasty_dish");
 	expect(recipe.instructions).to.equal("mix all the good food");
-	expect(recipe.selected).to.equal(false);
-	expect(recipe.imageUrl).to.equal("abc");
+	expect(recipe.imageURL).to.equal("abc");
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
 	expect(recipe.id).to.equal(1);
 });
