@@ -20,42 +20,16 @@ const searchByName = asyncHandler( async (req, res) => {
 const selectRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params;
     const recipe = await getByID(id, Recipe);
-    const ingredients = await getRecipeIngredients(id, Ingredient);
-    recipe.setDataValue('ingredients', ingredients);
-    
-    res.send(recipe);
-})
 
-const viewShoppingList = asyncHandler( async (req, res) => {
-	const recipeList = await getShoppingList(req.user.id, Recipe, Ingredient);
-	const shoppingList = recipeList
-
-	res.send(shoppingList);
-})
-
-const setNumPortions = asyncHandler( async (req, res) => {
-	const {recipeId} = req.params
-	const { portionSize } = req.body
-        if( !recipeId || !portionSize){
-                res.status(400)
-                throw new Error("Please include all fields");
-        }
-	if(portionSize < 0){
-		res.status(400)
-		throw new Error("Portion size must be greater than or equal to 0");
-	}
-	if(!await setPortion(recipeId, portionSize, req.user.id, Recipe)){
-		res.status(400)
-		res.json({"message": "Recipe not found"})
-	}
-	else{
-		res.json({"message": "Portion successfully updated"})
-	}
-})
-
-const emptyShoppingList = asyncHandler(async (req, res) => {
-	await resetPortions(req.user.id, Recipe)
-	res.json({"message": "Shopping list successfully emptied"})
+    if (recipe){
+        const ingredients = await getRecipeIngredients(id, Ingredient);
+        recipe.setDataValue('ingredients', ingredients);
+        res.send(recipe);
+    }
+    else{
+        res.status(400)
+        throw new Error("Recipe ID does not exist.")
+    }
 })
 
 const addRecipe = asyncHandler( async (req, res) => {
@@ -100,6 +74,38 @@ const deleteRecipe = asyncHandler( async (req, res) => {
         res.status(400)
         throw new Error("Recipe id does not exist.")
     }
+})
+
+const viewShoppingList = asyncHandler( async (req, res) => {
+	const recipeList = await getShoppingList(req.user.id, Recipe, Ingredient);
+	const shoppingList = recipeList
+
+	res.send(shoppingList);
+})
+
+const setNumPortions = asyncHandler( async (req, res) => {
+	const {recipeId} = req.params
+	const { portionSize } = req.body
+        if( !recipeId || !portionSize){
+                res.status(400)
+                throw new Error("Please include all fields");
+        }
+	if(portionSize < 0){
+		res.status(400)
+		throw new Error("Portion size must be greater than or equal to 0");
+	}
+	if(!await setPortion(recipeId, portionSize, req.user.id, Recipe)){
+		res.status(400)
+		res.json({"message": "Recipe not found"})
+	}
+	else{
+		res.json({"message": "Portion successfully updated"})
+	}
+})
+
+const emptyShoppingList = asyncHandler(async (req, res) => {
+	await resetPortions(req.user.id, Recipe)
+	res.json({"message": "Shopping list successfully emptied"})
 })
 
 module.exports = {

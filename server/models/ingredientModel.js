@@ -11,7 +11,7 @@ const Ingredient = sequelize.define("Ingredient", {
 		type: Sequelize.STRING
 	},
 	ingredientAmount: {
-		type: Sequelize.INTEGER
+		type: Sequelize.DOUBLE
 	},
 	ingredientUnit: {
 		type: Sequelize.STRING
