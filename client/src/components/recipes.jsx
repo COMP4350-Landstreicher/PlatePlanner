@@ -9,8 +9,8 @@ import SortButton from "./sortButton";
 
 export function sortByName(asc, recipeList) {
     return asc
-        ? recipeList.sort((a, b) => (a.recipe_name.toLowerCase() < b.recipe_name.toLowerCase()) ? -1 : 1)
-        : recipeList.sort((a, b) => (a.recipe_name.toLowerCase() > b.recipe_name.toLowerCase()) ? -1 : 1);
+        ? recipeList.sort((a, b) => (a.recipeName.toLowerCase() < b.recipeName.toLowerCase()) ? -1 : 1)
+        : recipeList.sort((a, b) => (a.recipeName.toLowerCase() > b.recipeName.toLowerCase()) ? -1 : 1);
 }
 
 export function sortByDate(asc, recipeList) {

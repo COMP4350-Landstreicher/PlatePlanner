@@ -1,9 +1,9 @@
 class IngredientMock{
 	constructor(){
-		this.ingredient_name = "Tomato";
-        this.ingredient_amount = 2;
-        this.ingredient_unit = "whole";
-        this.recipe_id = 1;
+		this.ingredientName = "Tomato";
+        this.ingredientAmount = 2;
+        this.ingredientUnit = "whole";
+        this.recipeID = 1;
 	}
 
 	sync(){
@@ -11,11 +11,11 @@ class IngredientMock{
 	}
 
     findAll(arg){
-        if (this.recipe_id == arg.where.recipe_id) {
+        if (this.recipeID == arg.where.recipeID) {
             return [{
-                ingredient_name:this.ingredient_name, 
-                ingredient_amount:this.ingredient_amount, 
-                ingredient_unit:this.ingredient_unit, 
+                ingredientName:this.ingredientName, 
+                ingredientAmount:this.ingredientAmount, 
+                ingredientUnit:this.ingredientUnit, 
             }]}
         return null
     }
