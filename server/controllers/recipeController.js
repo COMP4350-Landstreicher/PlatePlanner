@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
-const { getRecipeIngredients, addRecipeIngredients, removeRecipeIngredients } = require("../utils/ingredientUtils");
-const {getAllRecipe, getByName, getByID, getShoppingList, setPortion, resetPortions, createNewRecipe, removeRecipe} = require("../utils/recipeUtils")
+const { getIngredients, addIngredients, removeIngredients } = require("../utils/ingredientUtils");
+const {getAllRecipe, getByName, getByID, getShoppingList, setPortion, resetPortions, createNewRecipe, removeRecipe, updateRecipeByID} = require("../utils/recipeUtils")
 const {Recipe} = require("../models/recipeModel");
 const {Ingredient} = require("../models/ingredientModel");
 
@@ -19,10 +19,10 @@ const searchByName = asyncHandler( async (req, res) => {
 
 const selectRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params;
-    const recipe = await getByID(id, Recipe);
+    const recipe = await getByID(id, req.user.dataValues.id, Recipe);
 
     if (recipe){
-        const ingredients = await getRecipeIngredients(id, Ingredient);
+        const ingredients = await getIngredients(id, Ingredient);
         recipe.setDataValue('ingredients', ingredients);
         res.send(recipe);
     }
@@ -33,12 +33,12 @@ const selectRecipe = asyncHandler( async (req, res) => {
 })
 
 const addRecipe = asyncHandler( async (req, res) => {
-    const { recipeName, description, instructions, imageURL, ingredients } = req.body
+    const { recipeName, description, instructions, imageURL, ingredients } = req.body;
 
     if((await getByName(recipeName, req.user.dataValues.id, Recipe)) == null){
         const newRecipe = await createNewRecipe(recipeName, description, instructions, imageURL, req.user.dataValues.id, Recipe)
         if(newRecipe){
-            if(await addRecipeIngredients(ingredients, newRecipe.id, Ingredient)){
+            if(await addIngredients(ingredients, newRecipe.id, Ingredient)){
                 res.status(200).json({ message: "A new recipe has been successfully added."})
             }
             else{
@@ -61,8 +61,8 @@ const addRecipe = asyncHandler( async (req, res) => {
 const deleteRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params; 
 
-    if (await getByID(id, Recipe)) {
-        if (await removeRecipe(id, Recipe) && await removeRecipeIngredients(id, Recipe)) {
+    if (await getByID(id, req.user.dataValues.id, Recipe)) {
+        if (await removeRecipe(id, Recipe) && await removeIngredients(id, Ingredient)) {
             res.status(200).json({ message: "Recipe is deleted successfully."})
         }
         else{
@@ -74,6 +74,32 @@ const deleteRecipe = asyncHandler( async (req, res) => {
         res.status(400)
         throw new Error("Recipe id does not exist.")
     }
+})
+
+const updateRecipe = asyncHandler( async (req, res) => {
+    const { id } = req.params; 
+    const { recipeName, description, instructions, imageURL, ingredients } = req.body;
+
+    if(await getByID(id, req.user.dataValues.id, Recipe)){
+        if(await updateRecipeByID(id, recipeName, description, instructions, imageURL, req.user.dataValues.id, Recipe)){
+            if(await removeIngredients(id, Ingredient)){
+                if(await addIngredients(ingredients, id, Ingredient)){
+                    res.status(200).json({ message: "Recipe has been successfully updated."})
+                }
+            }
+            res.status(400)
+            throw new Error("Unable to update ingredients.")
+        }
+        else{
+            res.status(400)
+            throw new Error("Unable to update recipe.")
+        }
+    }
+    else{
+        res.status(400)
+        throw new Error("Recipe id does not exist.")
+    }
+
 })
 
 const viewShoppingList = asyncHandler( async (req, res) => {
@@ -117,4 +143,5 @@ module.exports = {
     emptyShoppingList,
     addRecipe,
     deleteRecipe,
+    updateRecipe,
 }

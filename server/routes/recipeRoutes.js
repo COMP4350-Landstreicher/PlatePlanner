@@ -12,6 +12,7 @@ const {
 	emptyShoppingList,
 	addRecipe,
 	deleteRecipe,
+	updateRecipe,
 } = require('../controllers/recipeController')
 
 // get all recipes
@@ -28,6 +29,9 @@ router.post('/addRecipe', authenticate, addRecipe);
 
 // delete recipe
 router.delete('/deleteRecipe/:id', authenticate, deleteRecipe);
+
+// update recipe
+router.put('/updateRecipe/:id', authenticate, updateRecipe)
 
 router.get('/viewShoppingList', authenticate, viewShoppingList);
 
