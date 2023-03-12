@@ -22,6 +22,49 @@ const getByID = asyncHandler(async (recipeID, Recipe) => {
     return recipe
 })
 
+const createNewRecipe = asyncHandler(async (recipeName, description, instructions, imageURL, userID, Recipe) => {
+    await Recipe.sync()
+
+    return await Recipe.create({
+        recipeName: recipeName,
+        description: description,
+        instructions: instructions,
+        userID: userID,
+        imageURL: imageURL,
+        portion: 0
+    })
+})
+
+const removeRecipe = asyncHandler(async (recipeID, Recipe) => {
+	await Recipe.sync()
+
+	return await Recipe.destroy({
+		where: {
+		  id: recipeID
+		},
+		force: true
+	}).then(() => {
+		return true
+	}, () => {
+		return false
+	})
+})
+
+const updateRecipeByID = asyncHandler(async (recipeID, recipeName, description, instructions, imageURL, Recipe) => {
+    await Recipe.sync()
+
+    return await Recipe.update({
+        recipeName: recipeName,
+        description: description,
+        instructions: instructions,
+        imageURL: imageURL,
+    }, {
+		where: {
+			id: recipeID,
+		}
+	})
+})
+
 const getShoppingList = asyncHandler(async (userID, Recipe, Ingredient) => {
 	await Ingredient.sync()
 	Recipe.hasMany(Ingredient, {foreignKey: 'recipeID'})
@@ -82,19 +125,6 @@ const resetPortions = asyncHandler(async (userID, Recipe) => {
 	}
 })
 
-const createNewRecipe = asyncHandler(async (recipeName, description, instructions, imageURL, userID, Recipe) => {
-    await Recipe.sync()
-
-    return await Recipe.create({
-        recipeName: recipeName,
-        description: description,
-        instructions: instructions,
-        userID: userID,
-        imageURL: imageURL,
-        portion: 0
-    })
-})
-
 module.exports = {
     getAllRecipe,
     getByName,
@@ -102,5 +132,7 @@ module.exports = {
     getShoppingList,
     setPortion,
     resetPortions,
-	createNewRecipe
+	createNewRecipe,
+	removeRecipe,
+	updateRecipeByID,
 }
