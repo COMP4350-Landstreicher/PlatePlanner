@@ -99,6 +99,13 @@ const getShoppingList = asyncHandler(async (userID, Recipe, Ingredient) => {
 	return recipes
 })
 
+const getShoppingListRecipes = asyncHandler(async (userID, Recipe) => {
+	await Recipe.sync()
+	const recipes = await Recipe.findAll({attributes: {exclude: ['id', 'userID']}, where: {userID: userID, portion: {[Op.gt]: "0"}}})
+
+	return recipes
+})
+
 const setPortion = asyncHandler(async (recipeID, portions, userID, Recipe) => {
 	await Recipe.sync()
 	const recipe = await Recipe.findOne({ where: {id: recipeID, userID: userID}});
@@ -130,6 +137,7 @@ module.exports = {
     getByName,
     getByID,
     getShoppingList,
+    getShoppingListRecipes,
     setPortion,
     resetPortions,
 	createNewRecipe,

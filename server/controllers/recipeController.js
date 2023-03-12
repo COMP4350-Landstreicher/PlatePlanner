@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { getIngredients, addIngredients, removeIngredients } = require("../utils/ingredientUtils");
-const {getAllRecipe, getByName, getByID, getShoppingList, setPortion, resetPortions, createNewRecipe, removeRecipe, updateRecipeByID} = require("../utils/recipeUtils")
+const {getAllRecipe, getByName, getByID, getShoppingList, getShoppingListRecipes, setPortion, resetPortions, createNewRecipe, removeRecipe, updateRecipeByID} = require("../utils/recipeUtils")
 const {Recipe} = require("../models/recipeModel");
 const {Ingredient} = require("../models/ingredientModel");
 
@@ -103,10 +103,16 @@ const updateRecipe = asyncHandler( async (req, res) => {
 })
 
 const viewShoppingList = asyncHandler( async (req, res) => {
-	const recipeList = await getShoppingList(req.user.id, Recipe, Ingredient);
-	const shoppingList = recipeList
+	const shoppingList = await getShoppingList(req.user.dataValues.id, Recipe, Ingredient);
 
 	res.send(shoppingList);
+})
+
+const viewShoppingListRecipes = asyncHandler( async (req, res) => {
+	console.log(req.user)
+	const recipeList = await getShoppingListRecipes(req.user.dataValues.id, Recipe);
+
+	res.send(recipeList)
 })
 
 const setNumPortions = asyncHandler( async (req, res) => {
@@ -120,7 +126,7 @@ const setNumPortions = asyncHandler( async (req, res) => {
 		res.status(400)
 		throw new Error("Portion size must be greater than or equal to 0");
 	}
-	if(!await setPortion(recipeId, portionSize, req.user.id, Recipe)){
+	if(!await setPortion(recipeId, portionSize, req.user.dataValues.id, Recipe)){
 		res.status(400)
 		res.json({"message": "Recipe not found"})
 	}
@@ -130,7 +136,7 @@ const setNumPortions = asyncHandler( async (req, res) => {
 })
 
 const emptyShoppingList = asyncHandler(async (req, res) => {
-	await resetPortions(req.user.id, Recipe)
+	await resetPortions(req.user.dataValues.id, Recipe)
 	res.json({"message": "Shopping list successfully emptied"})
 })
 
@@ -139,6 +145,7 @@ module.exports = {
     searchByName,
     selectRecipe,
     viewShoppingList,
+    viewShoppingListRecipes,
     setNumPortions,
     emptyShoppingList,
     addRecipe,

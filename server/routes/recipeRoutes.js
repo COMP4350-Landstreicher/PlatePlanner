@@ -10,6 +10,7 @@ const {
 	viewShoppingList,
 	setNumPortions,
 	emptyShoppingList,
+	viewShoppingListRecipes,
 	addRecipe,
 	deleteRecipe,
 	updateRecipe,
@@ -38,5 +39,7 @@ router.get('/viewShoppingList', authenticate, viewShoppingList);
 router.post('/setPortion/:recipeId', authenticate, setNumPortions);
 
 router.post('/emptyShoppingList', authenticate, emptyShoppingList);
+
+router.get('/viewShoppingListRecipes', authenticate, viewShoppingListRecipes);
 
 module.exports = router;
