@@ -19,7 +19,7 @@ const searchByName = asyncHandler( async (req, res) => {
 
 const selectRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params;
-    const recipe = await getByID(id, req.user.dataValues.id, Recipe);
+    const recipe = await getByID(id, Recipe);
 
     if (recipe){
         const ingredients = await getIngredients(id, Ingredient);
@@ -61,7 +61,7 @@ const addRecipe = asyncHandler( async (req, res) => {
 const deleteRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params; 
 
-    if (await getByID(id, req.user.dataValues.id, Recipe)) {
+    if (await getByID(id, Recipe)) {
         if (await removeRecipe(id, Recipe) && await removeIngredients(id, Ingredient)) {
             res.status(200).json({ message: "Recipe is deleted successfully."})
         }
@@ -80,8 +80,8 @@ const updateRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params; 
     const { recipeName, description, instructions, imageURL, ingredients } = req.body;
 
-    if(await getByID(id, req.user.dataValues.id, Recipe)){
-        if(await updateRecipeByID(id, recipeName, description, instructions, imageURL, req.user.dataValues.id, Recipe)){
+    if(await getByID(id, Recipe)){
+        if(await updateRecipeByID(id, recipeName, description, instructions, imageURL, Recipe)){
             if(await removeIngredients(id, Ingredient)){
                 if(await addIngredients(ingredients, id, Ingredient)){
                     res.status(200).json({ message: "Recipe has been successfully updated."})

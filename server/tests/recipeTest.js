@@ -1,8 +1,31 @@
-const {getAllRecipe, getByName, getByID, createNewRecipe} = require("../utils/recipeUtils")
+const {getAllRecipe, getByName, getByID, createNewRecipe, removeRecipe, updateRecipeByID} = require("../utils/recipeUtils")
 const {RecipeMock} = require("./mocks/recipeMock")
 const expect  = require('chai').expect;
 
 describe("Backend recipe tests", () => {
+
+it("Create a new recipe", async () => {
+	const Recipe = new RecipeMock();
+	const recipe = await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
+
+	expect(recipe).to.be.an("object");
+	expect(recipe.id).to.equal(1);
+	expect(recipe.recipeName).to.equal("roasted_eggplant");
+	expect(recipe.description).to.equal("tasty_dish");
+	expect(recipe.instructions).to.equal("mix all the good food");
+	expect(recipe.imageURL).to.equal("abc");
+	expect(recipe.lastUpdated).to.equal("16/02/2023");
+	expect(recipe.userID).to.equal(10);
+});
+
+it("Create a duplicated recipe", async () => {
+	const Recipe = new RecipeMock();
+	await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
+	const recipe = await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
+	
+	expect(recipe).to.equal(null);
+});
+
 it("Get all recipes belong to a valid user", async () => {
 	const Recipe = new RecipeMock();
 	const mockUserID = 10;
@@ -63,7 +86,6 @@ it("Get a recipe with a valid recipeID", async () => {
 	expect(recipe.instructions).to.equal("mix all the good food");
 	expect(recipe.imageURL).to.equal("abc");
 	expect(recipe.lastUpdated).to.equal("16/02/2023");
-	expect(recipe.id).to.equal(1);
 });
 
 it("Get a recipe with an invalid recipeID", async () => {
@@ -74,26 +96,5 @@ it("Get a recipe with an invalid recipeID", async () => {
 	expect(recipe).to.equal(null);
 });
 
-it("Create a new recipe", async () => {
-	const Recipe = new RecipeMock();
-	const recipe = await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
-
-	expect(recipe).to.be.an("object");
-	expect(recipe.id).to.equal(1);
-	expect(recipe.recipeName).to.equal("roasted_eggplant");
-	expect(recipe.description).to.equal("tasty_dish");
-	expect(recipe.instructions).to.equal("mix all the good food");
-	expect(recipe.imageURL).to.equal("abc");
-	expect(recipe.lastUpdated).to.equal("16/02/2023");
-	expect(recipe.id).to.equal(1);
-});
-
-it("Create a duplicated recipe", async () => {
-	const Recipe = new RecipeMock();
-	await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
-	const recipe = await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
-	
-	expect(recipe).to.equal(null);
-});
 
 })

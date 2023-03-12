@@ -15,9 +15,9 @@ const getByName = asyncHandler(async (recipeName, userID, Recipe) => {
     return recipe
 })
 
-const getByID = asyncHandler(async (recipeID, userID, Recipe) => {
+const getByID = asyncHandler(async (recipeID, Recipe) => {
     await Recipe.sync()
-    const recipe = await Recipe.findOne({ where: { id: recipeID, userID: userID } })
+    const recipe = await Recipe.findOne({ where: { id: recipeID } })
 
     return recipe
 })
@@ -50,7 +50,7 @@ const removeRecipe = asyncHandler(async (recipeID, Recipe) => {
 	})
 })
 
-const updateRecipeByID = asyncHandler(async (recipeID, recipeName, description, instructions, imageURL, userID, Recipe) => {
+const updateRecipeByID = asyncHandler(async (recipeID, recipeName, description, instructions, imageURL, Recipe) => {
     await Recipe.sync()
 
     return await Recipe.update({
@@ -61,7 +61,6 @@ const updateRecipeByID = asyncHandler(async (recipeID, recipeName, description, 
     }, {
 		where: {
 			id: recipeID,
-			userID: userID,
 		}
 	})
 })

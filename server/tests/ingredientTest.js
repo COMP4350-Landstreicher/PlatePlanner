@@ -1,11 +1,11 @@
-const {getRecipeIngredients} = require("../utils/ingredientUtils")
+const {getIngredients} = require("../utils/ingredientUtils")
 const {IngredientMock} = require("./mocks/ingredientsMock")
 const expect  = require('chai').expect;
 
 describe("Backend ingredients tests", () => {
 it("Get all ingredients belong to a valid recipe id", async () => {
 	const Ingredient = new IngredientMock();
-	const ingredients = await getRecipeIngredients(1, Ingredient);
+	const ingredients = await getIngredients(1, Ingredient);
 
 	expect(ingredients).to.be.an("array");
     expect(ingredients[0]).to.be.an("object");
@@ -16,7 +16,7 @@ it("Get all ingredients belong to a valid recipe id", async () => {
 
 it("Get all ingredients belong to an invalid recipe id", async () => {
 	const Ingredient = new IngredientMock();
-	const ingredients = await getRecipeIngredients(2, Ingredient);
+	const ingredients = await getIngredients(2, Ingredient);
 
 	expect(ingredients).to.equal(null);
 });
