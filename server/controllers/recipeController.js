@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { getRecipeIngredients } = require("../utils/ingredientUtils");
-const {getAllRecipe, getByName, getByID, getShoppingList, setPortion, resetPortions} = require("../utils/recipeUtils")
+const {getAllRecipe, getByName, getByID, getShoppingList, getShoppingListRecipes, setPortion, resetPortions} = require("../utils/recipeUtils")
 const {Recipe} = require("../models/recipeModel");
 const {Ingredient} = require("../models/ingredientModel");
 
@@ -27,10 +27,15 @@ const selectRecipe = asyncHandler( async (req, res) => {
 })
 
 const viewShoppingList = asyncHandler( async (req, res) => {
-	const recipeList = await getShoppingList(req.user.id, Recipe, Ingredient);
-	const shoppingList = recipeList
+	const shoppingList = await getShoppingList(req.user.id, Recipe, Ingredient);
 
 	res.send(shoppingList);
+})
+
+const viewShoppingListRecipes = asyncHandler( async (req, res) => {
+	const recipeList = await getShoppingListRecipes(req.user.id, Recipe);
+
+	res.send(recipeList)
 })
 
 const setNumPortions = asyncHandler( async (req, res) => {
@@ -63,6 +68,7 @@ module.exports = {
     searchByName,
     selectRecipe,
     viewShoppingList,
+    viewShoppingListRecipes,
     setNumPortions,
     emptyShoppingList
 }

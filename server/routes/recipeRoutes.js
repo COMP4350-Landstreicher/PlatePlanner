@@ -10,6 +10,7 @@ const {
 	viewShoppingList,
 	setNumPortions,
 	emptyShoppingList,
+	viewShoppingListRecipes,
 } = require('../controllers/recipeController')
 
 // get all recipes
@@ -26,6 +27,8 @@ router.get('/viewShoppingList', authenticate, viewShoppingList);
 router.post('/setPortion/:recipeId', authenticate, setNumPortions);
 
 router.post('/emptyShoppingList', authenticate, emptyShoppingList);
+
+router.get('/viewShoppingListRecipes', authenticate, viewShoppingListRecipes);
 
 module.exports = router;
 
