@@ -11,6 +11,9 @@ const {
 	setNumPortions,
 	emptyShoppingList,
 	viewShoppingListRecipes,
+	addRecipe,
+	deleteRecipe,
+	updateRecipe,
 } = require('../controllers/recipeController')
 
 // get all recipes
@@ -20,7 +23,16 @@ router.get('/getAll', authenticate, viewAllRecipe);
 router.get('/search/:name', authenticate, searchByName);
 
 // get a recipe by id
-router.get('/getOne/:id', selectRecipe);
+router.get('/getOne/:id', authenticate, selectRecipe);
+
+// add recipe
+router.post('/addRecipe', authenticate, addRecipe);
+
+// delete recipe
+router.delete('/deleteRecipe/:id', authenticate, deleteRecipe);
+
+// update recipe
+router.put('/updateRecipe/:id', authenticate, updateRecipe)
 
 router.get('/viewShoppingList', authenticate, viewShoppingList);
 
@@ -31,42 +43,3 @@ router.post('/emptyShoppingList', authenticate, emptyShoppingList);
 router.get('/viewShoppingListRecipes', authenticate, viewShoppingListRecipes);
 
 module.exports = router;
-
-// // WIP sections below
-
-// // add recipe
-// router.post('/insert', (request, response) => {
-//     const { name, description, instructions } = request.body;
-//     const db = DBService.getDBServiceInstance();
-    
-//     const result = db.insertNewRecipe(name, description, instructions);
-
-//     result
-//     .then(data => response.json({ data: data}))
-//     .catch(err => console.log(err));
-// });
-
-// // update recipe
-// router.patch('/update', (request, response) => {
-//     const { id, name } = request.body;
-//     const db = DBService.getDBServiceInstance();
-
-//     const result = db.updateNameById(id, name);
-    
-//     result
-//     .then(data => response.json({success : data}))
-//     .catch(err => console.log(err));
-// });
-
-// // delete recipe
-// router.delete('/delete/:id', (request, response) => {
-//     const { id } = request.params;
-//     const db = DBService.getDBServiceInstance();
-
-//     const result = db.deleteRowById(id);
-    
-//     result
-//     .then(data => response.json({success : data}))
-//     .catch(err => console.log(err));
-// });
-

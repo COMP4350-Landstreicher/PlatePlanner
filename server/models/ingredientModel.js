@@ -4,16 +4,16 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize(process.env.DB_URI);
 
 const Ingredient = sequelize.define("Ingredient", {
-	recipe_id: {
+	recipeID: {
 		type: Sequelize.INTEGER
 	},
-	ingredient_name: {
+	ingredientName: {
 		type: Sequelize.STRING
 	},
-	ingredient_amount: {
-		type: Sequelize.INTEGER
+	ingredientAmount: {
+		type: Sequelize.DOUBLE
 	},
-	ingredient_unit: {
+	ingredientUnit: {
 		type: Sequelize.STRING
 	}
 }, {});

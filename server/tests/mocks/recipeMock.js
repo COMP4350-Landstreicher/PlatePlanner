@@ -1,59 +1,23 @@
 class RecipeMock{
 	constructor(){
-		this.recipe_name = "roasted_eggplant";
-        this.description = "tasty_dish";
-        this.instructions = "mix all the good food";
-        this.selected = true;
-        this.user_id = 10;
-        this.id = 1;
-        this.lastUpdated = "16/02/2023";
-        this.imageUrl = "abc";
+        this.recipe = null
 	}
 
-	sync(){
-
-	}
+	sync(){}
 
     findAll(arg){
-        if (this.user_id == arg.where.user_id) {
-            return [{
-                recipe_name:this.recipe_name, 
-                description:this.description, 
-                instructions:this.instructions, 
-                selected: this.selected, 
-                user_id:this.user_id, 
-                id:this.id, 
-                lastUpdated:this.lastUpdated,
-                imageUrl: this.imageUrl
-            }]
+        if (this.recipe.userID == arg.where.userID) {
+            return [this.recipe]
         }
         return [];
     }
 
 	findOne(arg){
-		if(this.recipe_name == arg.where.recipe_name){
-			return {
-                recipe_name:this.recipe_name, 
-                description:this.description, 
-                instructions:this.instructions, 
-                selected: this.selected, 
-                user_id:this.user_id, 
-                id:this.id, 
-                lastUpdated:this.lastUpdated,
-                imageUrl: this.imageUrl
-            }
+		if(this.recipe.recipeName == arg.where.recipeName){
+			return this.recipe
 		}
-        else if(this.id == arg.where.id){
-            return {
-                recipe_name:this.recipe_name, 
-                description:this.description, 
-                instructions:this.instructions, 
-                selected: this.selected, 
-                user_id:this.user_id, 
-                id:this.id, 
-                lastUpdated:this.lastUpdated,
-                imageUrl: this.imageUrl
-            }
+        else if(this.recipe.id == arg.where.id){
+            return this.recipe
         }
 		return null
 	}
@@ -61,6 +25,19 @@ class RecipeMock{
     bulkCreate(){
         return [];
     }
+
+    create(recipe){
+        if (this.recipe != null) {
+            if (this.recipe.recipeName == recipe.recipeName){
+                return null
+            }
+        }
+
+        recipe["id"] = 1
+        recipe["lastUpdated"] = "16/02/2023"
+		this.recipe = recipe
+		return recipe
+	}
 }
 
 module.exports = { RecipeMock }

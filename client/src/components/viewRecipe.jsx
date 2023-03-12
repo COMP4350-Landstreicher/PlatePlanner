@@ -6,9 +6,9 @@ import React from 'react';
 export default function RecipePopup(props) {
 
     const getIngredientText = (ingredient) => {
-        return (ingredient.ingredient_unit === 'count')
-            ? ingredient.ingredient_amount + " " + ingredient.ingredient_name
-            : ingredient.ingredient_amount + ingredient.ingredient_unit + " " + ingredient.ingredient_name;
+        return (ingredient.ingredientUnit === 'count')
+            ? ingredient.ingredientAmount + " " + ingredient.ingredientName
+            : ingredient.ingredientAmount + ingredient.ingredientUnit + " " + ingredient.ingredientName;
     }
 
     return (
@@ -37,7 +37,7 @@ export default function RecipePopup(props) {
                                 src={props.value.imageUrl}
                             />
                             <Typography variant="h4" width="90%" color="#283d25">
-                                <Box component="span" fontWeight='fontWeightBold'>{props.value.recipe_name}</Box>
+                                <Box component="span" fontWeight='fontWeightBold'>{props.value.recipeName}</Box>
                             </Typography>
                             <Typography variant="body1" width="90%" marginTop='15px'>
                                 <Box component="span" fontWeight='fontWeightMedium'>{props.value.description}</Box>
@@ -64,8 +64,8 @@ export default function RecipePopup(props) {
                             </Typography>
                             <Box sx={{ maxHeight: '40%', overflow: "auto" }}>
                                 <List >
-                                    {props.value.ingredient?.map((ing) => (
-                                        <ListItem key={ing.ingredient_name} sx={{ paddingLeft: '0' }}>
+                                    {props.value.ingredients?.map((ing) => (
+                                        <ListItem key={ing.ingredientName} sx={{ paddingLeft: '0' }}>
                                             <ListItemIcon>
                                                 <Check color='secondary' fontSize="small" />
                                             </ListItemIcon>
