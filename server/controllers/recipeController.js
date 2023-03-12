@@ -103,13 +103,14 @@ const updateRecipe = asyncHandler( async (req, res) => {
 })
 
 const viewShoppingList = asyncHandler( async (req, res) => {
-	const shoppingList = await getShoppingList(req.user.id, Recipe, Ingredient);
+	const shoppingList = await getShoppingList(req.user.dataValues.id, Recipe, Ingredient);
 
 	res.send(shoppingList);
 })
 
 const viewShoppingListRecipes = asyncHandler( async (req, res) => {
-	const recipeList = await getShoppingListRecipes(req.user.id, Recipe);
+	console.log(req.user)
+	const recipeList = await getShoppingListRecipes(req.user.dataValues.id, Recipe);
 
 	res.send(recipeList)
 })
@@ -125,7 +126,7 @@ const setNumPortions = asyncHandler( async (req, res) => {
 		res.status(400)
 		throw new Error("Portion size must be greater than or equal to 0");
 	}
-	if(!await setPortion(recipeId, portionSize, req.user.id, Recipe)){
+	if(!await setPortion(recipeId, portionSize, req.user.dataValues.id, Recipe)){
 		res.status(400)
 		res.json({"message": "Recipe not found"})
 	}
@@ -135,7 +136,7 @@ const setNumPortions = asyncHandler( async (req, res) => {
 })
 
 const emptyShoppingList = asyncHandler(async (req, res) => {
-	await resetPortions(req.user.id, Recipe)
+	await resetPortions(req.user.dataValues.id, Recipe)
 	res.json({"message": "Shopping list successfully emptied"})
 })
 

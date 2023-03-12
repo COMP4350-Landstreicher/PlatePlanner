@@ -99,9 +99,9 @@ const getShoppingList = asyncHandler(async (userID, Recipe, Ingredient) => {
 	return recipes
 })
 
-const getShoppingListRecipes = asyncHandler(async (userId, Recipe) => {
+const getShoppingListRecipes = asyncHandler(async (userID, Recipe) => {
 	await Recipe.sync()
-	const recipes = await Recipe.findAll({attributes: {exclude: ['id', 'user_id']}, where: {user_id: userId, portion: {[Op.gt]: "0"}}})
+	const recipes = await Recipe.findAll({attributes: {exclude: ['id', 'userID']}, where: {userID: userID, portion: {[Op.gt]: "0"}}})
 
 	return recipes
 })
