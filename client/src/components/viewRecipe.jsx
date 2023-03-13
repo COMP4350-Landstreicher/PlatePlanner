@@ -1,7 +1,7 @@
 import { Check } from '@mui/icons-material';
 import { Box, Button, Dialog, DialogActions, DialogContent, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import React from 'react';
-
+import React, {useState, useEffect} from 'react';
+import DelPopup from './delPopup'
 
 export default function RecipePopup(props) {
 
@@ -11,6 +11,26 @@ export default function RecipePopup(props) {
             : ingredient.ingredientAmount + ingredient.ingredientUnit + " " + ingredient.ingredientName;
     }
 
+    const handleDelClose = () => {
+        console.log(delResponse)
+        if (delResponse)
+        {
+            props.deleteRecipe(props.value.id);
+            props.handleClose();
+        }
+        setDelOpen(false);
+
+    }
+
+    const handleDeleteButton = () => {
+        setDelOpen(true)
+    }
+    const [delOpen, setDelOpen] = useState(false);
+    const [delResponse, setDelResponse] = useState(false);
+
+    useEffect(() => {
+        handleDelClose();
+    }, [delResponse]);
     return (
         <Dialog
             open={props.open}
@@ -20,6 +40,7 @@ export default function RecipePopup(props) {
             fullWidth={true}
             maxWidth='md'
         >
+            {(delOpen == true) && (<DelPopup setResponse={setDelResponse} open={delOpen} handleClose={handleDelClose} />)}
             {(typeof props.value !== 'undefined') && (
                 <DialogContent>
                     <Box width='100%' display='flex' flexDirection='row' minHeight='50%' maxHeight='600px'>
@@ -79,6 +100,12 @@ export default function RecipePopup(props) {
                 </DialogContent>
             )}
             <DialogActions>
+                <Button
+                    onClick={handleDeleteButton}
+                    variant="outlined"
+                    color="secondary"
+                    sx={{ marginRight: "30px", marginBottom: "10px", borderColor: "#FF0000", color:"#FF0000" }}
+                >Delete</Button>
                 <Button
                     onClick={props.switchToEdit}
                     variant="outlined"

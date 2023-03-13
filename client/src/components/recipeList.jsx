@@ -122,7 +122,7 @@ export default function RecipeList(props) {
                     </Grid>
                 ))}
             </Grid>
-            {(typeof recipe !== 'undefined') && (<RecipePopup value={recipe} open={open} handleClose={closePopup} switchToEdit={switchEditPopup} />)}
+            {(typeof recipe !== 'undefined') && (<RecipePopup value={recipe} open={open} handleClose={closePopup} switchToEdit={switchEditPopup} deleteRecipe={props.deleteRecipe}/>)}
             {(typeof recipe !== 'undefined') && (<EditRecipePopup open={openEdit} editRecipe={recipe} handleClose={() => setOpenEdit(false)} saveRecipe={(result) => updateRecipe(result)} />)}
             <Snackbar open={snackBar} autoHideDuration={6000} onClose={() => setSnackbar(false)}>
                 <Alert onClose={() => setSnackbar(false)} severity="error" sx={{ width: '100%' }}>
