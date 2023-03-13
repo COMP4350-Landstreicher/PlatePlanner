@@ -44,6 +44,18 @@ export default function ShoppingList() {
             updated: new Date()
         };
     var recipes = [newRecipe, newRecipe1];
+    const mailList = () => {
+
+        var stringBuilder = 'mailto:?subject=Shopping%20List&body=' + encodeURIComponent('Shopping List: \r\n');
+
+        for(var i in ingredientsVar)
+        {
+            stringBuilder+= encodeURIComponent(ingredientsVar[i]["name"] + " - " + ingredientsVar[i]["amount"] + " " + ingredientsVar[i]["unit"] + "\r\n");
+        }
+
+        stringBuilder +='"'
+        window.open(stringBuilder, "_blank");
+    }
     const getListFromRecipes = (new_recipes) => {
         var allIngredients = {}
         for (var r in new_recipes)
@@ -67,8 +79,7 @@ export default function ShoppingList() {
         return(allIngredientsList)
     }
     const updateList = (newList) => {
-        console.log("New list: ");
-        console.log(newList);
+
         setIngredientsVar(newList);
     }
     const genList = () => {
@@ -134,7 +145,7 @@ export default function ShoppingList() {
                         borderRadius: '5px',
                         width: '30%', alignItems: 'center', justifyContent: 'center'
                     }}
-                    onClick={genList}>Send via Email</Button><br />
+                    onClick={mailList}>Send via Email</Button><br />
                 </Grid>
             </Grid>
             
