@@ -1,7 +1,8 @@
 import { Add } from "@mui/icons-material";
-import { AppBar, Container, createTheme, CssBaseline, Fab, ThemeProvider, Toolbar } from "@mui/material";
+import { Alert, AppBar, Collapse, Container, createTheme, CssBaseline, Fab, Snackbar, ThemeProvider, Toolbar } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import EditRecipePopup from "./addRecipePopup";
 import NavBar from "./navbar";
 import RecipeList from "./recipeList";
 import SearchBar from "./searchBar";
@@ -23,6 +24,22 @@ export default function Recipes() {
     const [recipes, setRecipes] = useState([]);
     const [displayRecipes, setDisplayRecipes] = useState([]);
     const [filter, setFilter] = useState("");
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState("");
+    const [snackBar, setSnackbar] = useState(false);
+    const [collapse, setCollapse] = React.useState(false);
+
+    const blankRecipe = {
+        recipeName: "",
+        description: "",
+        imageURL: "",
+        ingredients: [{
+            ingredientName: "",
+            ingredientAmount: "1",
+            ingredientUnit: "count"
+        }],
+        instructions: ""
+    };
 
     const theme = createTheme({
         palette: {
@@ -43,18 +60,31 @@ export default function Recipes() {
         }
     });
 
-    // TODO: add recipe function
-    const addRecipe = () => {
-        console.log("add data");
-        // axios.post("http://" + window.location.hostname + ":3000/addRecipe", newRecipe, { withCredentials: true })
-        //     .then(response => {
-        //         setRecipes(response.data);
-        //         setDisplayRecipes(response.data);
-        //     })
-        //     .catch(error => {
-        //         console.error('There was an error!', error.message);
-        //     });
+    const addRecipe = (result) => {
+        axios.post("http://" + window.location.hostname + ":3000/recipes/addRecipe", result, { withCredentials: true })
+            .then(response => {
+                if (response.status === 200) {
+                    fetchRecipes();
+                    setOpen(false);
+                }
+            })
+            .catch(err => {
+                if (err.response) {
+                    setError(err.response.data);
+                } else if (err.request) {
+                    setError("There is something wrong with the server, no response received");
+                } else {
+                    setError(err.message);
+                }
+                setSnackbar(true);
+                console.error('There was an error!', err.message);
+            });
     };
+
+    const updateRecipe = () => {
+        fetchRecipes();
+    }
+
 
     const sortRecipe = (result) => {
         setFilter(result);
@@ -81,12 +111,16 @@ export default function Recipes() {
         }
     }
 
-    useEffect(() => {
+    const fetchRecipes = () => {
         axios.get("http://" + window.location.hostname + ":3000/recipes/getAll", { withCredentials: true })
             .then((response) => {
                 setRecipes(response.data);
                 setDisplayRecipes(response.data);
             });
+    }
+
+    useEffect(() => {
+        fetchRecipes();
     }, []);
 
     useEffect(() => {
@@ -104,11 +138,26 @@ export default function Recipes() {
                 </Toolbar>
             </AppBar>
             <Container maxWidth={false} sx={{ maxWidth: `calc(100% - 250px)`, ml: '250px', mt: 10 }}>
-                <RecipeList value={displayRecipes} />
-                <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 40, right: 40 }} onClick={addRecipe}>
-                    <Add sx={{ stroke: '#547958', strokeWidth: 3 }} />
+                <RecipeList value={displayRecipes} updateRecipe={updateRecipe}/>
+                <Fab 
+                    color="primary"
+                    aria-label="add"
+                    onMouseEnter={() => setCollapse(true)}
+                    onMouseLeave={() => setCollapse(false)}
+                    onClick={() => setOpen(true)}
+                    sx={{ position: 'fixed', bottom: 40, right: 40, height: 56, width: collapse ? 156 : 56, borderRadius: 50 }}>
+                    <Collapse orientation="horizontal" collapsedSize={30}>
+                        <Add sx={{ stroke: '#547958', strokeWidth: 3, mt: "6px", ml: collapse ? 0 : 0.4 }} />
+                    </Collapse>
+                    {collapse ? "Add Recipe" : null}
                 </Fab>
             </Container>
+            <EditRecipePopup open={open} editRecipe={blankRecipe} handleClose={() => setOpen(false)} saveRecipe={(result) => addRecipe(result)} />
+            <Snackbar open={snackBar} autoHideDuration={6000} onClose={() => setSnackbar(false)}>
+                <Alert onClose={() => setSnackbar(false)} severity="error" sx={{ width: '100%' }}>
+                    {error}
+                </Alert>
+            </Snackbar>
         </ThemeProvider>
     );
 }

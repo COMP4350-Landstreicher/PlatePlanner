@@ -52,7 +52,7 @@ const addRecipe = asyncHandler( async (req, res) => {
         }
     }
     else{
-        res.status(400)
+        res.status(400).send("Recipe name already exists.");
         throw new Error("Recipe name already exists.")
     }
 

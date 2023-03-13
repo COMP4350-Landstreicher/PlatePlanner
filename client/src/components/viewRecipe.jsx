@@ -33,8 +33,8 @@ export default function RecipePopup(props) {
                                     objectFit: 'cover',
                                     aspectRatio: '1/1'
                                 }}
-                                alt="Your logo."
-                                src={props.value.imageUrl}
+                                alt="Recipe Image"
+                                src={props.value.imageURL}
                             />
                             <Typography variant="h4" width="90%" color="#283d25">
                                 <Box component="span" fontWeight='fontWeightBold'>{props.value.recipeName}</Box>
@@ -79,6 +79,12 @@ export default function RecipePopup(props) {
                 </DialogContent>
             )}
             <DialogActions>
+                <Button
+                    onClick={props.switchToEdit}
+                    variant="outlined"
+                    color="secondary"
+                    sx={{ marginRight: "30px", marginBottom: "10px" }}
+                >Edit</Button>
                 <Button
                     onClick={props.handleClose}
                     variant="outlined"
