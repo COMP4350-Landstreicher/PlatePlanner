@@ -9,8 +9,8 @@ export default function CreateAccountPopup(props) {
 	const [firstname, setFirstName] = useState("");
 	const [lastname, setLastName] = useState("");
 	const [password, setPassword] = useState("");
-	const [password2, setPassword2] = useState("")
-	const [error, setError] = useState("");;
+	const [password2, setPassword2] = useState("");
+	const [error, setError] = useState("");
 
 	const createAccount = () => {
 		axios.post("http://" + window.location.hostname + ":3000/auth/register", { email: email, password: password, userName: username, firstName: firstname, lastName: lastname })

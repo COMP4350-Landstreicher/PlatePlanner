@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react';
-import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Alert, Box, Card, CardContent, CardMedia, Container, Grid, Snackbar, Typography } from '@mui/material';
 import RecipePopup from './viewRecipe';
 import axios from 'axios';
+import EditRecipePopup from './addRecipePopup';
 
 export default function RecipeList(props) {
-    const [open, setOpen] = React.useState(false);
-    const [recipe, setRecipe] = React.useState(undefined);
+    const [open, setOpen] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [recipe, setRecipe] = useState(undefined);
+    const [error, setError] = useState("");
+    const [snackBar, setSnackbar] = useState(false);
 
     const openPopup = (value) => () => {
         axios.get("http://" + window.location.hostname + ":3000/recipes/getOne/" + value.id, { withCredentials: true })
@@ -23,6 +27,33 @@ export default function RecipeList(props) {
     const closePopup = () => {
         setOpen(false);
         setRecipe(undefined);
+    };
+
+    const switchEditPopup = () => {
+        setOpen(false);
+        setOpenEdit(true);
+    }
+
+    const updateRecipe = (result) => {
+        axios.put("http://" + window.location.hostname + ":3000/recipes/updateRecipe/" + recipe.id, result, { withCredentials: true })
+            .then(response => {
+                if (response.status === 200) {
+                    setOpenEdit(false);
+                    props.updateRecipe();
+                }
+            })
+            .catch(err => {
+                if (err.response) {
+                    setError(err.response.data);
+                } else if (err.request) {
+                    setError("There is something wrong with the server, no response received");
+                } else {
+                    setError(err.message);
+                }
+                setSnackbar(true);
+                console.error('There was an error!', err.message);
+            });
+        
     };
 
     return (
@@ -75,8 +106,8 @@ export default function RecipeList(props) {
                                             height: 250,
                                             boxSizing: 'none',
                                         }}
-                                        image={card.imageUrl}
-                                        alt="random"
+                                        image={card.imageURL}
+                                        alt="Recipe Image"
                                     />
                                 </Box>
                                 <Box sx={{ width: 250 }}>
@@ -91,7 +122,13 @@ export default function RecipeList(props) {
                     </Grid>
                 ))}
             </Grid>
-            {(typeof recipe !== 'undefined') && (<RecipePopup value={recipe} open={open} handleClose={closePopup} />)}
+            {(typeof recipe !== 'undefined') && (<RecipePopup value={recipe} open={open} handleClose={closePopup} switchToEdit={switchEditPopup} />)}
+            {(typeof recipe !== 'undefined') && (<EditRecipePopup open={openEdit} editRecipe={recipe} handleClose={() => setOpenEdit(false)} saveRecipe={(result) => updateRecipe(result)} />)}
+            <Snackbar open={snackBar} autoHideDuration={6000} onClose={() => setSnackbar(false)}>
+                <Alert onClose={() => setSnackbar(false)} severity="error" sx={{ width: '100%' }}>
+                    {error}
+                </Alert>
+            </Snackbar>
         </Container>
     );
 }
