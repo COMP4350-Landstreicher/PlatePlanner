@@ -8,6 +8,9 @@ docker container ls -f ancestor=landstreicher/db -q | xargs -r docker container 
 docker build  -t landstreicher/webserver -f WebserverDockerfile .
 docker build  -t landstreicher/db -f DBDockerfile .
 
+docker push landstreicher/webserver:latest
+docker push landstreicher/db:latest
+
 docker run -p 3306:3306 -d landstreicher/db
 while ! mysqladmin -u root ping -h"127.0.0.1"; do     sleep 10; done
 docker run -p 80:80 -p 3000:3000 -d landstreicher/webserver
