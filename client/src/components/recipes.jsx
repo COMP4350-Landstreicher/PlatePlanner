@@ -69,13 +69,7 @@ export default function Recipes() {
                 }
             })
             .catch(err => {
-                if (err.response) {
-                    setError(err.response.data);
-                } else if (err.request) {
-                    setError("There is something wrong with the server, no response received");
-                } else {
-                    setError(err.message);
-                }
+                setError(err.response.data.message);
                 setSnackbar(true);
                 console.error('There was an error!', err.message);
             });

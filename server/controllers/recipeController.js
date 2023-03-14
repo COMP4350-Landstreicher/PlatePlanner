@@ -52,7 +52,7 @@ const addRecipe = asyncHandler( async (req, res) => {
         }
     }
     else{
-        res.status(400).send("Recipe name already exists.");
+        res.status(400)
         throw new Error("Recipe name already exists.")
     }
 
@@ -117,21 +117,21 @@ const viewShoppingListRecipes = asyncHandler( async (req, res) => {
 
 const setNumPortions = asyncHandler( async (req, res) => {
 	const {recipeId} = req.params
-	const { portionSize } = req.body
-        if( !recipeId || !portionSize){
-                res.status(400)
-                throw new Error("Please include all fields");
-        }
-	if(portionSize < 0){
+	const {portion} = req.body
+    if(!recipeId || portion === undefined){
+        res.status(400)
+        throw new Error("Please include all fields");
+    }
+	if(portion < 0){
 		res.status(400)
 		throw new Error("Portion size must be greater than or equal to 0");
 	}
-	if(!await setPortion(recipeId, portionSize, req.user.dataValues.id, Recipe)){
+	if(!await setPortion(recipeId, portion, req.user.dataValues.id, Recipe)){
 		res.status(400)
-		res.json({"message": "Recipe not found"})
+		throw new Error("Recipe not found");
 	}
 	else{
-		res.json({"message": "Portion successfully updated"})
+		res.status(200).json({message: "Portion successfully updated"});
 	}
 })
 

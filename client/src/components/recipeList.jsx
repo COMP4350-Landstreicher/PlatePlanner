@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Box, Card, CardContent, CardMedia, Container, Grid, Snackbar, Typography } from '@mui/material';
+import { Alert, Box, Card, CardContent, CardMedia, Checkbox, Container, Grid, Snackbar, Tooltip, Typography } from '@mui/material';
 import RecipePopup from './viewRecipe';
 import axios from 'axios';
 import EditRecipePopup from './addRecipePopup';
+import { NoMeals, Restaurant } from '@mui/icons-material';
 
 export default function RecipeList(props) {
     const [open, setOpen] = useState(false);
@@ -43,18 +44,30 @@ export default function RecipeList(props) {
                 }
             })
             .catch(err => {
-                if (err.response) {
-                    setError(err.response.data);
-                } else if (err.request) {
-                    setError("There is something wrong with the server, no response received");
-                } else {
-                    setError(err.message);
-                }
+                setError(err.response.data.message);
                 setSnackbar(true);
                 console.error('There was an error!', err.message);
             });
-        
     };
+
+    const setPortion = (result) => {
+        axios.post("http://" + window.location.hostname + ":3000/recipes/setPortion/" + result.id, result, { withCredentials: true })
+            .then(response => {
+                if (response.status === 200) {
+                    props.updateRecipe();
+                }
+            })
+            .catch(err => {
+                setError(err.response.data.message);
+                setSnackbar(true);
+                console.error('There was an error!', err.message);
+            });
+    };
+
+    const updatePortion = (recipeToUpdate, event) => {
+        recipeToUpdate.portion = event.target.checked ? 1 : 0;
+        setPortion(recipeToUpdate);
+    }
 
     return (
         <Container sx={{ py: 8 }}>
@@ -111,10 +124,18 @@ export default function RecipeList(props) {
                                     />
                                 </Box>
                                 <Box sx={{ width: 250 }}>
-                                    <CardContent sx={{ flexGrow: 1, pl: 0 }}>
+                                    <CardContent sx={{ pl: 0, pr: 1, display: "flex", justifyContent: "space-between" }}>
                                         <Typography variant="h6" component="h2">
                                             <Box component="span" fontWeight='fontWeightBold'>{card.recipeName}</Box>
                                         </Typography>
+                                        <Tooltip title={card.portion === 0 ? "Not in week plan" : "In week plan"}>
+                                        <Checkbox
+                                          icon={<NoMeals />}
+                                          checkedIcon={<Restaurant />}
+                                          checked={card.portion > 0}
+                                          onChange={(event) => updatePortion(card, event)}
+                                        />
+                                        </Tooltip>
                                     </CardContent>
                                 </Box>
                             </Box>
