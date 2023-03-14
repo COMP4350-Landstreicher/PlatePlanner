@@ -40,7 +40,7 @@ export default function RecipePopup(props) {
             fullWidth={true}
             maxWidth='md'
         >
-            {(delOpen == true) && (<DelPopup setResponse={setDelResponse} open={delOpen} handleClose={handleDelClose} />)}
+            {(delOpen === true) && (<DelPopup setResponse={setDelResponse} open={delOpen} handleClose={handleDelClose} />)}
             {(typeof props.value !== 'undefined') && (
                 <DialogContent>
                     <Box width='100%' display='flex' flexDirection='row' minHeight='50%' maxHeight='600px'>
