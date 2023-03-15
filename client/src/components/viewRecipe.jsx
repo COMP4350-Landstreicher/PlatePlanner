@@ -1,9 +1,11 @@
 import { Check } from '@mui/icons-material';
 import { Box, Button, Dialog, DialogActions, DialogContent, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import React from 'react';
-
+import React, {useState, useEffect} from 'react';
+import DelPopup from './delPopup'
 
 export default function RecipePopup(props) {
+
+    const noImageDefault = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930";
 
     const getIngredientText = (ingredient) => {
         return (ingredient.ingredientUnit === 'count')
@@ -11,6 +13,25 @@ export default function RecipePopup(props) {
             : ingredient.ingredientAmount + ingredient.ingredientUnit + " " + ingredient.ingredientName;
     }
 
+    const handleDelClose = () => {
+        console.log(delResponse)
+        if (delResponse)
+        {
+            props.deleteRecipe(props.value.id);
+            props.handleClose();
+        }
+        setDelOpen(false);
+    }
+
+    const handleDeleteButton = () => {
+        setDelOpen(true)
+    }
+    const [delOpen, setDelOpen] = useState(false);
+    const [delResponse, setDelResponse] = useState(false);
+
+    useEffect(() => {
+        handleDelClose();
+    }, [delResponse]);
     return (
         <Dialog
             open={props.open}
@@ -20,6 +41,7 @@ export default function RecipePopup(props) {
             fullWidth={true}
             maxWidth='md'
         >
+            {(delOpen === true) && (<DelPopup setResponse={setDelResponse} open={delOpen} handleClose={handleDelClose} />)}
             {(typeof props.value !== 'undefined') && (
                 <DialogContent>
                     <Box width='100%' display='flex' flexDirection='row' minHeight='50%' maxHeight='600px'>
@@ -34,7 +56,11 @@ export default function RecipePopup(props) {
                                     aspectRatio: '1/1'
                                 }}
                                 alt="Recipe Image"
-                                src={props.value.imageURL}
+                                src={props.value.imageURL === "" ? noImageDefault : props.value.imageURL}
+                                onError={e => {
+                                    e.currentTarget.onerror = null; 
+                                    e.currentTarget.src = noImageDefault;
+                                }}
                             />
                             <Typography variant="h4" width="90%" color="#283d25">
                                 <Box component="span" fontWeight='fontWeightBold'>{props.value.recipeName}</Box>
@@ -79,6 +105,12 @@ export default function RecipePopup(props) {
                 </DialogContent>
             )}
             <DialogActions>
+                <Button
+                    onClick={handleDeleteButton}
+                    variant="outlined"
+                    color="secondary"
+                    sx={{ marginRight: "30px", marginBottom: "10px", borderColor: "#FF0000", color:"#FF0000" }}
+                >Delete</Button>
                 <Button
                     onClick={props.switchToEdit}
                     variant="outlined"

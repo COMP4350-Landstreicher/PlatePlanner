@@ -69,6 +69,21 @@ export default function Recipes() {
                 }
             })
             .catch(err => {
+                setError(err.response.data.message);
+                setSnackbar(true);
+                console.error('There was an error!', err.message);
+            });
+    };
+
+    const delRecipe = (id) => {
+        axios.delete("http://" + window.location.hostname + ":3000/recipes/deleteRecipe/" + id, { withCredentials: true })
+            .then(response => {
+                if (response.status === 200) {
+                    fetchRecipes();
+                    setOpen(false);
+                }
+            })
+            .catch(err => {
                 if (err.response) {
                     setError(err.response.data);
                 } else if (err.request) {
@@ -138,7 +153,7 @@ export default function Recipes() {
                 </Toolbar>
             </AppBar>
             <Container maxWidth={false} sx={{ maxWidth: `calc(100% - 250px)`, ml: '250px', mt: 10 }}>
-                <RecipeList value={displayRecipes} updateRecipe={updateRecipe}/>
+                <RecipeList value={displayRecipes} updateRecipe={updateRecipe} deleteRecipe={delRecipe}/>
                 <Fab 
                     color="primary"
                     aria-label="add"
@@ -152,7 +167,7 @@ export default function Recipes() {
                     {collapse ? "Add Recipe" : null}
                 </Fab>
             </Container>
-            <EditRecipePopup open={open} editRecipe={blankRecipe} handleClose={() => setOpen(false)} saveRecipe={(result) => addRecipe(result)} />
+            <EditRecipePopup open={open} editRecipe={blankRecipe}  handleClose={() => setOpen(false)} saveRecipe={(result) => addRecipe(result)} />
             <Snackbar open={snackBar} autoHideDuration={6000} onClose={() => setSnackbar(false)}>
                 <Alert onClose={() => setSnackbar(false)} severity="error" sx={{ width: '100%' }}>
                     {error}
