@@ -12,6 +12,8 @@ export default function RecipeList(props) {
     const [error, setError] = useState("");
     const [snackBar, setSnackbar] = useState(false);
 
+    const noImageDefault = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930";
+
     const openPopup = (value) => () => {
         axios.get("http://" + window.location.hostname + ":3000/recipes/getOne/" + value.id, { withCredentials: true })
             .then((response) => {
@@ -119,7 +121,11 @@ export default function RecipeList(props) {
                                             height: 250,
                                             boxSizing: 'none',
                                         }}
-                                        image={card.imageURL}
+                                        image={card.imageURL === "" ? noImageDefault : card.imageURL}
+                                        onError={e => {
+                                            e.currentTarget.onerror = null; 
+                                            e.currentTarget.src = noImageDefault;
+                                        }}
                                         alt="Recipe Image"
                                     />
                                 </Box>
@@ -130,6 +136,7 @@ export default function RecipeList(props) {
                                         </Typography>
                                         <Tooltip title={card.portion === 0 ? "Not in week plan" : "In week plan"}>
                                         <Checkbox
+                                          color="secondary"
                                           icon={<NoMeals />}
                                           checkedIcon={<Restaurant />}
                                           checked={card.portion > 0}
