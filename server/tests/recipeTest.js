@@ -1,5 +1,6 @@
-const {getAllRecipe, getByName, getByID, createNewRecipe, removeRecipe, updateRecipeByID} = require("../utils/recipeUtils")
+const {getAllRecipe, getByName, getByID, createNewRecipe, removeRecipe, updateRecipeByID, getShoppingList, getShoppingListRecipes, setPortion, resetPortions} = require("../utils/recipeUtils")
 const {RecipeMock} = require("./mocks/recipeMock")
+const {IngredientMock} = require("./mocks/ingredientsMock")
 const expect  = require('chai').expect;
 
 describe("Backend recipe tests", () => {
@@ -96,5 +97,100 @@ it("Get a recipe with an invalid recipeID", async () => {
 	expect(recipe).to.equal(null);
 });
 
+
+})
+
+describe("Backend shopping list unit tests", () => {
+it("Get a shopping list with no recipes in it", async () => {
+	const Recipe = new RecipeMock();
+	const Ingredient = new IngredientMock();
+	const recipes = await getShoppingList(2, Recipe, Ingredient);
+
+	expect(recipes).to.eql([]);
+});
+
+it("Get a shopping list with recipes in it", async () => {
+	const Recipe = new RecipeMock();
+	const Ingredient = new IngredientMock();
+	const recipes = await getShoppingList(3, Recipe, Ingredient);
+
+	expect(recipes).to.eql([
+	    {
+	        "ingredientName": "Tomato",
+	        "ingredientUnit": "whole",
+	        "totalAmount": 4
+	    },
+	    {
+	        "ingredientName": "Basil",
+	        "ingredientUnit": "g",
+	        "totalAmount": 60
+	    },
+	    {
+	        "ingredientName": "Mozarella",
+	        "ingredientUnit": "g",
+	        "totalAmount": 60
+	    }
+	]);
+});
+
+it("Get selected recipes with no recipes selected", async () => {
+	const Recipe = new RecipeMock();
+	const Ingredient = new IngredientMock();
+
+	await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
+	const recipes = await getShoppingListRecipes(2, Recipe);
+
+	expect(recipes).to.eql([]);
+});
+
+it("Get selected recipes with 1 recipe selected", async () => {
+	const Recipe = new RecipeMock();
+	const Ingredient = new IngredientMock();
+
+	await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
+	await setPortion(1, 1, 10, Recipe);
+	const recipes = await getShoppingListRecipes(10, Recipe);
+	recipes[0].save = null;
+	expect(recipes).to.eql([
+	  {
+	    "description": "tasty_dish",
+	    "id": 1,
+	    "imageURL": "abc",
+	    "instructions": "mix all the good food",
+	    "lastUpdated": "16/02/2023",
+	    "portion": 1,
+	    "recipeName": "roasted_eggplant",
+	    "save": null,
+	    "userID": 10,
+	  }
+	]);
+});
+
+it("Update portion size to 1", async () => {
+	const Recipe = new RecipeMock();
+	const Ingredient = new IngredientMock();
+
+	recipe = await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
+	await setPortion(1, 2, 10, Recipe);
+	
+	
+
+	expect(recipe.portion).to.equal(2);
+});
+
+
+it("Update portion size to 1 and then resest it to 0", async () => {
+	const Recipe = new RecipeMock();
+	const Ingredient = new IngredientMock();
+
+	recipe = await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
+	await setPortion(1, 2, 10, Recipe);
+	
+	expect(recipe.portion).to.equal(2);
+
+	await resetPortions(10, Recipe);
+
+	expect(recipe.portion).to.equal(0);
+});
 
 })
