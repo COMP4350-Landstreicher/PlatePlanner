@@ -5,6 +5,8 @@ import DelPopup from './delPopup'
 
 export default function RecipePopup(props) {
 
+    const noImageDefault = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930";
+
     const getIngredientText = (ingredient) => {
         return (ingredient.ingredientUnit === 'count')
             ? ingredient.ingredientAmount + " " + ingredient.ingredientName
@@ -19,7 +21,6 @@ export default function RecipePopup(props) {
             props.handleClose();
         }
         setDelOpen(false);
-
     }
 
     const handleDeleteButton = () => {
@@ -55,7 +56,11 @@ export default function RecipePopup(props) {
                                     aspectRatio: '1/1'
                                 }}
                                 alt="Recipe Image"
-                                src={props.value.imageURL}
+                                src={props.value.imageURL === "" ? noImageDefault : props.value.imageURL}
+                                onError={e => {
+                                    e.currentTarget.onerror = null; 
+                                    e.currentTarget.src = noImageDefault;
+                                }}
                             />
                             <Typography variant="h4" width="90%" color="#283d25">
                                 <Box component="span" fontWeight='fontWeightBold'>{props.value.recipeName}</Box>
