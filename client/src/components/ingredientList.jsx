@@ -13,10 +13,10 @@ export default function IngredientList(props) {
                         <ListItemText primary="Unit" primaryTypographyProps={{color: "#FFFFFE"}} sx={{ width:"10%" }} />
                 </ListItem>
                 {typeof props.value !== 'undefined' && props.value?.map((ing) => (
-                    <ListItem key={ing.name} sx={{borderBottom:'1px solid #A0B8A5'}} >
-                        <ListItemText primary={ing.name} primaryTypographyProps={{color: "#FFFFFE"}} sx={{ width:"80%" }} />
-                        <ListItemText primary={ing.amount} primaryTypographyProps={{color: "#FFFFFE"}} sx={{ width:"10%" }} />
-                        <ListItemText primary={ing.unit} primaryTypographyProps={{color: "#FFFFFE"}} sx={{ width:"10%" }} />
+                    <ListItem key={ing.ingredientName} sx={{borderBottom:'1px solid #A0B8A5'}} >
+                        <ListItemText primary={ing.ingredientName} primaryTypographyProps={{color: "#FFFFFE"}} sx={{ width:"80%" }} />
+                        <ListItemText primary={ing.totalAmount} primaryTypographyProps={{color: "#FFFFFE"}} sx={{ width:"10%" }} />
+                        <ListItemText primary={ing.ingredientUnit} primaryTypographyProps={{color: "#FFFFFE"}} sx={{ width:"10%" }} />
                     </ListItem>
                 ))}
             </List>

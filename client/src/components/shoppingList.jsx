@@ -84,12 +84,11 @@ export default function ShoppingList() {
     }
     const genList = () => {
         setGenButtonText("Loading...")
-        axios.get("http://" + window.location.hostname + ":3000/recipes/viewShoppingListRecipes", { withCredentials: true })
+        axios.get("http://" + window.location.hostname + ":3000/recipes/viewShoppingList", { withCredentials: true })
             .then((response) => {
 
-                console.log(response.data);
-                recipes = [newRecipe, newRecipe1];
-                updateList(getListFromRecipes(recipes));
+                recipes = response.data;
+                updateList(recipes);
                 setGenButtonText("Generate Shopping List")
             });
        
