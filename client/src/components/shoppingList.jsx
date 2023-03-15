@@ -50,7 +50,7 @@ export default function ShoppingList() {
 
         for(var i in ingredientsVar)
         {
-            stringBuilder+= encodeURIComponent(ingredientsVar[i]["name"] + " - " + ingredientsVar[i]["amount"] + " " + ingredientsVar[i]["unit"] + "\r\n");
+            stringBuilder+= encodeURIComponent(ingredientsVar[i]["ingredientName"] + " - " + ingredientsVar[i]["totalAmount"] + " " + ingredientsVar[i]["ingredientUnit"] + "\r\n");
         }
 
         stringBuilder +='"'
