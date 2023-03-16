@@ -1,4 +1,5 @@
 const {getAllRecipe, getByName, getByID, createNewRecipe, removeRecipe, updateRecipeByID, getShoppingList, getShoppingListRecipes, setPortion, resetPortions} = require("../utils/recipeUtils")
+const {addIngredients} = require("../utils/ingredientUtils")
 const {RecipeMock} = require("./mocks/recipeMock")
 const {IngredientMock} = require("./mocks/ingredientsMock")
 const expect  = require('chai').expect;
@@ -112,8 +113,10 @@ it("Get a shopping list with no recipes in it", async () => {
 it("Get a shopping list with recipes in it", async () => {
 	const Recipe = new RecipeMock();
 	const Ingredient = new IngredientMock();
-	const recipes = await getShoppingList(3, Recipe, Ingredient);
 
+	addIngredients([{ingredientName:"Tomato", ingredientAmount:2, ingredientUnit:"whole", userID:3, portion:2}, {ingredientName:"Basil", ingredientAmount:30, ingredientUnit:"g", userID:3, portion:2}, {ingredientName:"Mozarella", ingredientAmount:30, ingredientUnit:"g", userID:3, portion:2}], 1, Ingredient);
+
+	const recipes = await getShoppingList(3, Recipe, Ingredient);
 	expect(recipes).to.eql([
 	    {
 	        "ingredientName": "Tomato",
