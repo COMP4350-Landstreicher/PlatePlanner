@@ -69,7 +69,6 @@ const getShoppingList = asyncHandler(async (userID, Recipe, Ingredient) => {
 	await Ingredient.sync()
 	Recipe.hasMany(Ingredient, {foreignKey: 'recipeID'})
 	Ingredient.belongsTo(Recipe, {foreignKey: 'recipeID'})
-	console.log(Ingredient);
 	const recipes = await Ingredient.findAll({
 		attributes: [
 			'ingredientName', 

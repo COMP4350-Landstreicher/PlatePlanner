@@ -36,8 +36,10 @@ class RecipeMock{
         recipe["id"] = 1
         recipe["lastUpdated"] = "16/02/2023"
 		this.recipe = recipe
+	    	this.recipe.save = () => {}
 		return recipe
 	}
+	hasMany(){}
 }
 
 module.exports = { RecipeMock }
