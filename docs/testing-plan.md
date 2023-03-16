@@ -1,3 +1,4 @@
+
 # Test Plan for Plateplanner
 
 Testing plan for the COMP4350 W23 Group Project "PlatePlanner"
@@ -53,8 +54,24 @@ And the non-functional requirement:
 
 	**Integration Testing - TBD**
 
-	**Acceptance Testing - TBD**
+    **Acceptance Testing - Per User Story:**
+	
+	1.  As a new user, I want to be able to create an account with a username and a password so that the system can recognize me and store my information.
+		1. Navigate to the home page
+		2. Click "Create new account" 
+		3. Enter a valid email, username, first name, last name, and password (twice) and hit "create account"
 
+    2. As a registered user, I want to be able to log in to my account using my registered credentials so that I can access my information on the web app.
+		1. Sign up as in the first acceptance test
+		2. Log in with email and invalid password, it should not work
+		3. Log in with email and valid password, it should work
+		
+		
+    3. As a logged-in user, I want to be able to log out of the web app so that only those with my credentials can access my account.
+		1. Log in as in the second acceptance test
+		2. Press the log out button 
+		3. Verify that user is no longer logged in by trying to navigate to /recipes and be redirected back to the login
+	
 	**Regression Testing - TBD**
 
 	**Load Testing - TBD**
@@ -80,12 +97,13 @@ And the non-functional requirement:
 	15. Frontend sorting by date ascending - Recipes should be sorted by date ascending
 	16. Frontend sorting by date descending - Recipes should be sorted by date descending
 
-**Integration Testing - TBD**
-	**Acceptance Testing - TBD**
+    **Integration Testing - TBD**
 
-	**Regression Testing - TBD**
+    **Acceptance Testing - TBD**
 
-	**Load Testing - TBD**
+    **Regression Testing - TBD**
+
+    **Load Testing - TBD**
 
 4. Recipe Management
 
@@ -105,8 +123,21 @@ And the non-functional requirement:
 
 	**Integration Testing - TBD**
 
-	**Acceptance Testing - TBD**
-
+	**Acceptance Testing - Per User Story:**
+    1. As a logged-in user, I want to be able to choose recipes and portion sizes to add to the shopping list.
+		1. After logging in, create at least one recipe
+		2. Click the utensil icon on the recipe to add it to the week plan
+		3. Go to the week plan
+		4. Select the number of portions you'd like to make of each added recipe
+		
+    2. As a logged-in user, I want to be able to generate a shopping list of ingredients based on my chosen recipes.
+		1. Add recipes to the week plan and chosing portion counts as in acceptance test 1
+		2. Go to the shopping list 
+		3. click "Generate Shopping List", and ensure the right ingredients are listed
+		
+    3. As a logged-in user, I want to be able to send the shopping list to my email address.
+		1. Generate a shopping list as in acceptance test 2
+		2. Click "Send via Email" and verify your email client opens with the right data
 	**Regression Testing - TBD**
 
 	**Load Testing - TBD**
