@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler")
 const {Op, Sequelize} = require("sequelize")
 //const sequelize = new Sequelize(process.env.DB_URI);
+
+// get all recipes associated with the provided userID
 const getAllRecipe = asyncHandler(async (userID, Recipe) => {
     await Recipe.sync()
     const allRecipes = await Recipe.findAll({ where: { userID: userID } })
@@ -8,6 +10,7 @@ const getAllRecipe = asyncHandler(async (userID, Recipe) => {
     return allRecipes
 })
 
+// get a recipe by name
 const getByName = asyncHandler(async (recipeName, userID, Recipe) => {
     await Recipe.sync()
     const recipe = await Recipe.findOne({ where: { recipeName: recipeName, userID: userID } })
@@ -15,6 +18,7 @@ const getByName = asyncHandler(async (recipeName, userID, Recipe) => {
     return recipe
 })
 
+// get a recipe by ID
 const getByID = asyncHandler(async (recipeID, Recipe) => {
     await Recipe.sync()
     const recipe = await Recipe.findOne({ where: { id: recipeID } })
@@ -22,6 +26,7 @@ const getByID = asyncHandler(async (recipeID, Recipe) => {
     return recipe
 })
 
+// create a new recipe
 const createNewRecipe = asyncHandler(async (recipeName, description, instructions, imageURL, userID, Recipe) => {
     await Recipe.sync()
 
@@ -35,6 +40,7 @@ const createNewRecipe = asyncHandler(async (recipeName, description, instruction
     })
 })
 
+// remove a recipe that match an ID
 const removeRecipe = asyncHandler(async (recipeID, Recipe) => {
 	await Recipe.sync()
 
@@ -50,6 +56,7 @@ const removeRecipe = asyncHandler(async (recipeID, Recipe) => {
 	})
 })
 
+// truncate all rows in the table Recipe
 const emptyRecipe = asyncHandler(async (Recipe) => {
 	await Recipe.sync()
 
@@ -63,6 +70,7 @@ const emptyRecipe = asyncHandler(async (Recipe) => {
 	})
 })
 
+// Update the recipe that match the provided ID
 const updateRecipeByID = asyncHandler(async (recipeID, recipeName, description, instructions, imageURL, Recipe) => {
     await Recipe.sync()
 
