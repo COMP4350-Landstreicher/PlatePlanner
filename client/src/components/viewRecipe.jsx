@@ -1,12 +1,13 @@
 import { Check } from '@mui/icons-material';
 import { Box, Button, Dialog, DialogActions, DialogContent, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import DelPopup from './delPopup'
 
 export default function RecipePopup(props) {
 
     const noImageDefault = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930";
 
+    // get ingredient display text
     const getIngredientText = (ingredient) => {
         return (ingredient.ingredientUnit === 'count')
             ? ingredient.ingredientAmount + " " + ingredient.ingredientName
@@ -15,8 +16,7 @@ export default function RecipePopup(props) {
 
     const handleDelClose = () => {
         console.log(delResponse)
-        if (delResponse)
-        {
+        if (delResponse) {
             props.deleteRecipe(props.value.id);
             props.handleClose();
         }
@@ -31,7 +31,8 @@ export default function RecipePopup(props) {
 
     useEffect(() => {
         handleDelClose();
-    }, [delResponse]);
+    }, [delResponse]); // eslint-disable-line react-hooks/exhaustive-deps
+
     return (
         <Dialog
             open={props.open}
@@ -58,7 +59,7 @@ export default function RecipePopup(props) {
                                 alt="Recipe Image"
                                 src={props.value.imageURL === "" ? noImageDefault : props.value.imageURL}
                                 onError={e => {
-                                    e.currentTarget.onerror = null; 
+                                    e.currentTarget.onerror = null;
                                     e.currentTarget.src = noImageDefault;
                                 }}
                             />
@@ -109,7 +110,7 @@ export default function RecipePopup(props) {
                     onClick={handleDeleteButton}
                     variant="outlined"
                     color="secondary"
-                    sx={{ marginRight: "30px", marginBottom: "10px", borderColor: "#FF0000", color:"#FF0000" }}
+                    sx={{ marginRight: "30px", marginBottom: "10px", borderColor: "#FF0000", color: "#FF0000" }}
                 >Delete</Button>
                 <Button
                     onClick={props.switchToEdit}

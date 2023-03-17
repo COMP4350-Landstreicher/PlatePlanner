@@ -14,6 +14,7 @@ export default function RecipeList(props) {
 
     const noImageDefault = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930";
 
+    // get recipe data and populate to the popup
     const openPopup = (value) => () => {
         axios.get("http://" + window.location.hostname + ":3000/recipes/getOne/" + value.id, { withCredentials: true })
             .then((response) => {
@@ -21,22 +22,27 @@ export default function RecipeList(props) {
             });
     };
 
+    // open popup when recipe is set
     useEffect(() => {
         if (typeof recipe !== 'undefined') {
             setOpen(true);
         }
     }, [recipe]);
 
+    // close popup and reset recipe value
     const closePopup = () => {
         setOpen(false);
         setRecipe(undefined);
     };
 
+    // open edit popup and close view recipe popup
     const switchEditPopup = () => {
         setOpen(false);
         setOpenEdit(true);
     }
 
+    // API to update recipe data
+    // if failed to update will have a snack bar error
     const updateRecipe = (result) => {
         axios.put("http://" + window.location.hostname + ":3000/recipes/updateRecipe/" + recipe.id, result, { withCredentials: true })
             .then(response => {
@@ -52,6 +58,7 @@ export default function RecipeList(props) {
             });
     };
 
+    // API to change the portion size
     const setPortion = (result) => {
         axios.post("http://" + window.location.hostname + ":3000/recipes/setPortion/" + result.id, result, { withCredentials: true })
             .then(response => {
@@ -66,6 +73,7 @@ export default function RecipeList(props) {
             });
     };
 
+    // select or deselect recipe from week plan
     const updatePortion = (recipeToUpdate, event) => {
         recipeToUpdate.portion = event.target.checked ? 1 : 0;
         setPortion(recipeToUpdate);
@@ -123,7 +131,7 @@ export default function RecipeList(props) {
                                         }}
                                         image={card.imageURL === "" ? noImageDefault : card.imageURL}
                                         onError={e => {
-                                            e.currentTarget.onerror = null; 
+                                            e.currentTarget.onerror = null;
                                             e.currentTarget.src = noImageDefault;
                                         }}
                                         alt="Recipe Image"
@@ -135,13 +143,13 @@ export default function RecipeList(props) {
                                             <Box component="span" fontWeight='fontWeightBold'>{card.recipeName}</Box>
                                         </Typography>
                                         <Tooltip title={card.portion === 0 ? "Not in week plan" : "In week plan"}>
-                                        <Checkbox
-                                          color="secondary"
-                                          icon={<NoMeals />}
-                                          checkedIcon={<Restaurant />}
-                                          checked={card.portion > 0}
-                                          onChange={(event) => updatePortion(card, event)}
-                                        />
+                                            <Checkbox
+                                                color="secondary"
+                                                icon={<NoMeals />}
+                                                checkedIcon={<Restaurant />}
+                                                checked={card.portion > 0}
+                                                onChange={(event) => updatePortion(card, event)}
+                                            />
                                         </Tooltip>
                                     </CardContent>
                                 </Box>
@@ -150,7 +158,7 @@ export default function RecipeList(props) {
                     </Grid>
                 ))}
             </Grid>
-            {(typeof recipe !== 'undefined') && (<RecipePopup value={recipe} open={open} handleClose={closePopup} switchToEdit={switchEditPopup} deleteRecipe={props.deleteRecipe}/>)}
+            {(typeof recipe !== 'undefined') && (<RecipePopup value={recipe} open={open} handleClose={closePopup} switchToEdit={switchEditPopup} deleteRecipe={props.deleteRecipe} />)}
             {(typeof recipe !== 'undefined') && (<EditRecipePopup open={openEdit} editRecipe={recipe} handleClose={() => setOpenEdit(false)} saveRecipe={(result) => updateRecipe(result)} />)}
             <Snackbar open={snackBar} autoHideDuration={6000} onClose={() => setSnackbar(false)}>
                 <Alert onClose={() => setSnackbar(false)} severity="error" sx={{ width: '100%' }}>
