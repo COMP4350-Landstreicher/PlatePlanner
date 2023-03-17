@@ -4,12 +4,14 @@ const {getAllRecipe, getByName, getByID, getShoppingList, getShoppingListRecipes
 const {Recipe} = require("../models/recipeModel");
 const {Ingredient} = require("../models/ingredientModel");
 
+// get all recipes available for this user
 const viewAllRecipe = asyncHandler( async (req, res) => {
     const recipes = await getAllRecipe(req.user.dataValues.id, Recipe);
 
     res.send(recipes);
 })
 
+// search for a recipe by name
 const searchByName = asyncHandler( async (req, res) => {
     const { name } = req.params;
     const recipe = await getByName(name, req.user.dataValues.id, Recipe);
@@ -17,6 +19,7 @@ const searchByName = asyncHandler( async (req, res) => {
     res.send(recipe);
 })
 
+// get a recipe with the provided ID and all ingredients associated with this recipe
 const selectRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params;
     const recipe = await getByID(id, Recipe);
@@ -32,6 +35,7 @@ const selectRecipe = asyncHandler( async (req, res) => {
     }
 })
 
+// add a new recipe
 const addRecipe = asyncHandler( async (req, res) => {
     const { recipeName, description, instructions, imageURL, ingredients } = req.body;
 
@@ -58,6 +62,7 @@ const addRecipe = asyncHandler( async (req, res) => {
 
 })
 
+// delete a recipe by ID with if exists
 const deleteRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params; 
 
@@ -76,6 +81,7 @@ const deleteRecipe = asyncHandler( async (req, res) => {
     }
 })
 
+// replace the current recipe with the provided recipe by ID  
 const updateRecipe = asyncHandler( async (req, res) => {
     const { id } = req.params; 
     const { recipeName, description, instructions, imageURL, ingredients } = req.body;
@@ -101,7 +107,6 @@ const updateRecipe = asyncHandler( async (req, res) => {
     }
 
 })
-
 
 //Get the shopping list with ingredients for the week
 const viewShoppingList = asyncHandler( async (req, res) => {
