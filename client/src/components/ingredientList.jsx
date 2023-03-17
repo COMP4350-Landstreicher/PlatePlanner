@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Box, List, Container, ListItem, ListItemText, Typography } from '@mui/material';
-import axios from 'axios';
+import React from 'react';
+import {  List, Container, ListItem, ListItemText } from '@mui/material';
+
 
 export default function IngredientList(props) {
 

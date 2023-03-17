@@ -1,89 +1,37 @@
+import { render } from '@testing-library/react';
+import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import CreateAccountPopup, { checkPasswords } from '../components/createAccountPopup';
+import Login from '../components/login';
 
 
 var request = require('supertest');
 request = request('http://localhost:3000'); 
 let session = null;
   
-it("should fail to authorize", async () => {
-    await request
-      .get("/test")
-      .then((response) => {
-        expect(response.status).toEqual(401);
-      })
-      .catch((err) => {
-        expect(err.response.status).toEqual(401);;
-      });
-})
-it("should succeed to create user", async () => {
-	
-	var data = 
-	{
-		email:"test@test.com",
-		password:"password",
-		userName:"username",
-		firstName:"FirstName",
-		lastName:"LastName"
-	}
-	
-    await request
-      .post("/auth/register", data).send(data)
-      .then((response) => {
-        expect(response.status).toEqual(200);
-		
-      });
-      
-	
+it("Should render Login component", () => {
+    render(<Login />, { wrapper: MemoryRouter });
 })
 
-it("should fail to create user", async () => {
-	
-	var data = 
-	{
-		
-		password:"password",
-		userName:"username",
-		firstName:"FirstName",
-		lastName:"LastName"
-	}
-	
-    await request
-      .post("/auth/register").send(data)
-      .then((response) => {
-        expect(response.status).toEqual(400);
-      })
-      
+it("should render Sign Up component", () => {
+    render(<CreateAccountPopup open={true} handleClose={ () => {}} />, { wrapper: MemoryRouter });
 })
 
-it("should succeed to login", async () => {
-	
-	var data = 
-	{
-		email:"test@test.com",
-		password:"password",
 
-	}
-	
-    await request
-      .post("/auth/login").send(data)
-      .then((response) => {
-        expect(response.status).toEqual(200);
-      })
-      
+it("Different passwords should not be valid", () => {
+		var p1 = "Password"
+		var p2 = "Apples"
+    expect(checkPasswords(p1, p2)).toEqual(false);
 })
 
-it("should fail to login", async () => {
-	
-	var data = 
-	{
-		email:"test@test.com",
-		password:"passwasdasdasdasord",
+it("Passwords should be case-sensitive", () => {
+		var p1 = "Password"
+		var p2 = "password"
+    expect(checkPasswords(p1, p2)).toEqual(false);
+})
 
-	}
-	
-    await request
-      .post("/auth/login").send(data)
-      .then((response) => {
-        expect(response.status).toEqual(400);
-      })
-      
+it("Identical passwords should be valid", () => {
+		var p1 = "Password"
+		var p2 = "Password"
+    expect(checkPasswords(p1, p2)).toEqual(true);
 })
