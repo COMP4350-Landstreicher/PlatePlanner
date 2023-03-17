@@ -10,6 +10,8 @@ Testing plan for the COMP4350 W23 Group Project "PlatePlanner"
 | 1.0             | 2023-02-11    | David Dyck  | Initial Draft for Review        |
 | 1.1             | 2023-02-16    | David Dyck  | Added Unit test details         |
 | 1.2             | 2023-02-17    | Tuan D. Le  | Added Unit test details         |
+| 1.3             | 2023-03-16    | David Dyck  | Added Unit and Acceptance tests |
+| 1.4             | 2023-03-16    | Trang Pham  | Added Unit and Acceptance tests |
 
 ## 1. Introduction:
 
@@ -99,25 +101,97 @@ And the non-functional requirement:
 
     **Integration Testing - TBD**
 
-    **Acceptance Testing - TBD**
+    **Acceptance Testing - Per User Story:**
+	
+	1.  As a logged-in user, I want to be able to view all available recipes on my homepage.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Repeat step 1-3 for creating recipe named "b", "c"
+		5. Should have 3 recipes named "a", "b", "c" on the page right now
+		6. Click on recipe "a"
+		7. Should have the name "a", direction "a" and ingredient "1 a"
+
+    2. As a logged-in user, I want to be able to retrieve a recipe by name.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Repeat step 1-3 for creating recipe named "b", "c"
+		5. Type in search bar "a"
+		6. The page should only have recipe "a"
+		7. Click on "x" button on search bar
+		8. The search bar should be empty and the page should display 3 recipes "a", "b" and "c"
+		
+    3. As a logged-in user, I want to be able to organize recipes by name or by date added.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Repeat step 1-3 for creating recipe named "b", "c"
+		5. Click sort dropdown and choose "Name: Z to A"
+		6. The recipes should be display in order of "c", "b", "a"
+		7. Click sort dropdown and choose "Name: A to Z"
+		8. The recipes should be display in order of "a", "b", "c"
+		9. Click sort dropdown and choose "Latest"
+		10. The recipes should be display in order of "c", "b", "a"
+		11. Click sort dropdown and choose "Oldest"
+		12. The recipes should be display in order of "a", "b", "c"
 
     **Regression Testing - TBD**
 
     **Load Testing - TBD**
 
-4. Recipe Management
+3. Recipe Management
 
 	**Unit Testing - TBD**
 
 	**Integration Testing - TBD**
 
-	**Acceptance Testing - TBD**
+	**Acceptance Testing - Per User Story:**
+	
+	1.  As a logged-in user, I want to be able to upload new recipes.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Click Add button
+		5. Enter all required field "a"
+		6. Click Save button
+		7. Should have a snack bar "Recipe name already exists"
+		8. Delete recipe name
+		9. Should have "Required" validation and the Save button is disabled
+		10. Click Close button
+		11. The page should only have 1 recipe "a"
+
+    2. As a logged-in user, I want to be able to make changes to the recipes that I uploaded.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Click recipe "a"
+		5. Click Edit button
+		6. Change recipe name to "d"
+		7. Click Save button
+		8. The page should have 1 recipe named "d" only
+		
+		
+    3. As a logged-in user, I want to be able to delete recipes that I uploaded.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Click recipe "a"
+		5. Click Delete button
+		6. Should have a confirmation popup
+		7. Click "No, keep"
+		8. Click "Close"
+		9. The page should still have 1 recipe named "a"
+		10. Repeat step 4-6
+		11. Click "Yes, delete"
+		12. The page should have no recipe
+
 
 	**Regression Testing - TBD**
 
 	**Load Testing - TBD**
 
-5. Shopping List
+4. Shopping List
 
     **Unit Testing**
 
@@ -144,11 +218,12 @@ And the non-functional requirement:
     3. As a logged-in user, I want to be able to send the shopping list to my email address.
 		1. Generate a shopping list as in acceptance test 2
 		2. Click "Send via Email" and verify your email client opens with the right data
+
 	**Regression Testing - TBD**
 
 	**Load Testing - TBD**
 
-6. Load Requirement (100 concurrent users with 1000 requests per minute)
+5. Load Requirement (100 concurrent users with 1000 requests per minute)
 
 	**Load Testing - TBD**
 
