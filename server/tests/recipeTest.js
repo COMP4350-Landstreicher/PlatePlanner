@@ -167,7 +167,7 @@ describe("Backend recipe unit tests", () => {
 })
 
 describe("Backend shopping list unit tests", () => {
-	it("Get a shopping list with no recipes in it", async () => {
+	it("Should return a shopping list with no recipes in it", async () => {
 		const Recipe = new RecipeMock();
 		const Ingredient = new IngredientMock();
 		const recipes = await getShoppingList(2, Recipe, Ingredient);
@@ -175,7 +175,7 @@ describe("Backend shopping list unit tests", () => {
 		expect(recipes).to.eql([]);
 	});
 
-	it("Get a shopping list with recipes in it", async () => {
+	it("Should return a shopping list with recipes in it", async () => {
 		const Recipe = new RecipeMock();
 		const Ingredient = new IngredientMock();
 
@@ -201,7 +201,7 @@ describe("Backend shopping list unit tests", () => {
 		]);
 	});
 
-	it("Get selected recipes with no recipes selected", async () => {
+	it("Should return selected recipes with no recipes selected", async () => {
 		const Recipe = new RecipeMock();
 
 		await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
@@ -210,7 +210,7 @@ describe("Backend shopping list unit tests", () => {
 		expect(recipes).to.eql([]);
 	});
 
-	it("Get selected recipes with 1 recipe selected", async () => {
+	it("Should return selected recipes with 1 recipe selected", async () => {
 		const Recipe = new RecipeMock();
 
 		await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
@@ -232,7 +232,7 @@ describe("Backend shopping list unit tests", () => {
 		]);
 	});
 
-	it("Update portion size to 1", async () => {
+	it("Should update portion size to 1", async () => {
 		const Recipe = new RecipeMock();
 
 		recipe = await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
@@ -242,7 +242,7 @@ describe("Backend shopping list unit tests", () => {
 	});
 
 
-	it("Update portion size to 1 and then resest it to 0", async () => {
+	it("Should update portion size to 1 and then reset it to 0", async () => {
 		const Recipe = new RecipeMock();
 
 		recipe = await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
@@ -429,7 +429,7 @@ describe("Backend recipe management integration tests", () => {
 })
 
 describe("Backend grocery list integration tests", ()=>{
-it("should return an empty grocery list", async() => {
+it("should return an empty shopping list", async() => {
 	await emptyRecipe(Recipe)
 	await request.get("/recipes/viewShoppingList").set("Cookie", ["token="+token]).send({}).then((response) => {
 		expect(response.body).to.eql([])
@@ -443,7 +443,7 @@ it("should return an empty list of recipes", async() => {
 	})
 })
 
-it("should return an empty list of recipes", async() => {
+it("should return a populated list of ingredients", async() => {
 	await emptyRecipe(Recipe)
 	var data = 
 	{
