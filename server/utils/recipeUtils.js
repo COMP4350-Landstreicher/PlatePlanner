@@ -78,6 +78,7 @@ const updateRecipeByID = asyncHandler(async (recipeID, recipeName, description, 
 	})
 })
 
+//Get the shopping list for all recipes with portion size >0 for teh current user
 const getShoppingList = asyncHandler(async (userID, Recipe, Ingredient) => {
 	await Ingredient.sync()
 	Recipe.hasMany(Ingredient, {foreignKey: 'recipeID'})
@@ -111,6 +112,7 @@ const getShoppingList = asyncHandler(async (userID, Recipe, Ingredient) => {
 	return recipes
 })
 
+//Get the recipes with a portion size >0
 const getShoppingListRecipes = asyncHandler(async (userID, Recipe) => {
 	await Recipe.sync()
 	const recipes = await Recipe.findAll({attributes: {exclude: ['userID']}, where: {userID: userID, portion: {[Op.gt]: "0"}}})
@@ -118,6 +120,8 @@ const getShoppingListRecipes = asyncHandler(async (userID, Recipe) => {
 	return recipes
 })
 
+
+//Set the portion size for a recipe
 const setPortion = asyncHandler(async (recipeID, portions, userID, Recipe) => {
 	await Recipe.sync()
 	const recipe = await Recipe.findOne({ where: {id: recipeID, userID: userID}});
@@ -134,6 +138,7 @@ const setPortion = asyncHandler(async (recipeID, portions, userID, Recipe) => {
 	}
 })
 
+//Set all portions for the current user to 0
 const resetPortions = asyncHandler(async (userID, Recipe) => {
 	await Recipe.sync()
 	const recipes = await Recipe.findAll({ where: {userID: userID}})

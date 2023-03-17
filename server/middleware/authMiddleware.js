@@ -11,10 +11,10 @@ const authenticate = asyncHandler(async (req, res, next) => {
 			
 			token = req.cookies.token
 
-
+			//authenticate the user
 			const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-			
+			//Makes the user accessible to all controllers	
 			req.user = await User.findOne({ where: { email:decoded.email } })
 			
 
