@@ -228,7 +228,6 @@ And the non-functional requirement:
 
     1. Integration test getting an empty grocery list - Should return an empty shopping list
     2. Integration test getting recipes of empty grocery list - Should return an empty list of recipes
-    3. Integration test getting populated grocery list - Should return a populated list of ingredients
 
 	**Acceptance Testing - Per User Story:**
     1. As a logged-in user, I want to be able to choose recipes and portion sizes to add to the shopping list.
