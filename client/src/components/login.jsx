@@ -21,19 +21,19 @@ function Login() {
 		}
 	});
 
-
+	//Open account creation page
 	const createAccount = () => {
-		console.log("Creating account");
 		setOpen(true);
 	};
 
+	//Close account creation page
 	const closePopup = () => {
 		setOpen(false);
 	};
 
 
 	const logIn = () => {
-
+		//Post login details and check if successful, and give user feedback
 		axios.post("http://" + window.location.hostname + ":3000/auth/login", { email: username, password: password }, { withCredentials: true })
 			.then((response) => {
 				if (response.status === 200) {
@@ -41,12 +41,12 @@ function Login() {
 					window.location.reload();
 
 				}
-				else {
+				else { //Credentials could not be verified
 					console.log("Login failed");
 				}
 
 			})
-			.catch(error => {
+			.catch(error => { //Other badness
 				if (error.response) {
 					console.log(error.response);
 					setError("Login failed!");
