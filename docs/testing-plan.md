@@ -73,10 +73,6 @@ And the non-functional requirement:
 		1. Log in as in the second acceptance test
 		2. Press the log out button 
 		3. Verify that user is no longer logged in by trying to navigate to /recipes and be redirected back to the login
-	
-	**Regression Testing - TBD**
-
-	**Load Testing - TBD**
 
 2. Viewing and Retrieving Recipes
 
@@ -136,15 +132,34 @@ And the non-functional requirement:
 		11. Click sort dropdown and choose "Oldest"
 		12. The recipes should be display in order of "a", "b", "c"
 
-    **Regression Testing - TBD**
-
-    **Load Testing - TBD**
-
 3. Recipe Management
 
-	**Unit Testing - TBD**
+	**Unit Testing**
+	1. Backend unit test to create a new recipe - Should return the newly created recipe
+    2. Backend unit test to create a duplicated recipe - Should return null
+	3. Backend unit test to remove a recipe with a valid recipeID - Should return true
+    4. Backend unit test to remove a recipe that does not exist - Should return false
+    5. Backend unit test to update a recipe - Should return an updated recipe
+    6. Backend unit test to update a non-existing recipe - Should return null 
+	7. Backend unit test to create new ingredients - Should return the new ingredients in a list correctly
+	8. Backend unit test to delete all ingredients belong to a valid recipe id - Should return id matched ingredient list
+	9. Backend unit test to delete all ingredients belong to an invalid recipe id - Should return an empty list
+	10. Frontend unit test to disable save button when form is invalid (missing required field) - should return true
+	11. Frontend unit test to disable save button when form is invalid (ingredient name is duplicated) - should return true
+	12. Frontend unit test to disable save button when form is invalid (ingredient amount equal 0) - should return true
+	13. Frontend unit test to disable save button when form is invalid (ingredient amount is negative number) - should return true
+	14. Frontend unit test to disable save button when form is invalid (the form is valid) - should return false
 
-	**Integration Testing - TBD**
+	**Integration Testing**
+	1. Backend integration test to get all recipes - should succeed to get all recipes
+    2. Backend integration test to create a new recipe - should succeed to create recipe
+    3. Backend integration test to get all recipes - should fail to create recipe
+    4. Backend integration test to create a duplicated recipe - should succeed to get recipe by ID
+    5. Backend integration test to update a recipe - should succeed to update recipe
+    6. Backend integration test to delete a recipe - should succeed to delete recipe by ID
+    7. Backend integration test to get a recipe whose ID does not exist - should fail to get recipe by ID
+    8. Backend integration test to update a recipe whose ID does not exist - should fail to update recipe
+    9. Backend integration test to delete a recipe whose ID does not exist - should fail to delete recipe by ID
 
 	**Acceptance Testing - Per User Story:**
 	
@@ -186,11 +201,6 @@ And the non-functional requirement:
 		11. Click "Yes, delete"
 		12. The page should have no recipe
 
-
-	**Regression Testing - TBD**
-
-	**Load Testing - TBD**
-
 4. Shopping List
 
     **Unit Testing**
@@ -218,10 +228,6 @@ And the non-functional requirement:
     3. As a logged-in user, I want to be able to send the shopping list to my email address.
 		1. Generate a shopping list as in acceptance test 2
 		2. Click "Send via Email" and verify your email client opens with the right data
-
-	**Regression Testing - TBD**
-
-	**Load Testing - TBD**
 
 5. Load Requirement (100 concurrent users with 1000 requests per minute)
 

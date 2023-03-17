@@ -4,10 +4,10 @@ import logo from '../img/logo-white.png'
 import axios from 'axios';
 
 //Check that entered passwords are identical
-export function checkPasswords(p1, p2)
-{
-		if(p1 === p2)return true;
-		else return false;
+export function checkPasswords(p1, p2) {
+	if (p1 === p2) {
+		return true;
+	} else return false;
 }
 
 //Render create account popup
@@ -23,40 +23,38 @@ export default function CreateAccountPopup(props) {
 
 	const createAccount = () => {
 		//Check that passwords are identical and tell the user if they are not
-		if(!checkPasswords(password, password2))
-		{
-			
+		if (!checkPasswords(password, password2)) {
+
 			setError("Passwords are not the same!");
 			setTimeout(() => { setError(""); }, 5000);
-	
+
 		}
-		else
-		{
+		else {
 			//Register them and check for success
 			axios.post("http://" + window.location.hostname + ":3000/auth/register", { email: email, password: password, userName: username, firstName: firstname, lastName: lastname })
-			.then((response) => {
-				if (response.status === 200) {
-					setError("Successful Signup!");
-					setTimeout(() => { props.handleClose(); }, 5000);
-					setTimeout(() => { setError(""); }, 3000);
-				}
-				else {
-					console.log("Signup failed"); //They screwed up
-				}
+				.then((response) => {
+					if (response.status === 200) {
+						setError("Successful Signup!");
+						setTimeout(() => { props.handleClose(); }, 5000);
+						setTimeout(() => { setError(""); }, 3000);
+					}
+					else {
+						console.log("Signup failed"); //They screwed up
+					}
 
-			})
-			.catch(error => { //They screwed up
-				if (error.response) {
-					console.log(error.response);
-					setError("Signup failed!");
-					setTimeout(() => { setError(""); }, 5000);
-				}
-				else { //We screwed up
-					console.error('Error Signing Up:', error.message);
-					setError("Signup failed!");
-					setTimeout(() => { setError(""); }, 5000);
-				}
-			});
+				})
+				.catch(error => { //They screwed up
+					if (error.response) {
+						console.log(error.response);
+						setError("Signup failed!");
+						setTimeout(() => { setError(""); }, 5000);
+					}
+					else { //We screwed up
+						console.error('Error Signing Up:', error.message);
+						setError("Signup failed!");
+						setTimeout(() => { setError(""); }, 5000);
+					}
+				});
 		}
 	}
 	return (

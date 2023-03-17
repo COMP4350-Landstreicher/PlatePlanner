@@ -24,6 +24,7 @@ export default function WeekPlan() {
         fetchRecipes();
     }, []);
 
+    // increase portion size by 1
     const handleIncrement = (recipe) => {
         recipe.portion++;
         setPortion(recipe);
@@ -31,16 +32,19 @@ export default function WeekPlan() {
 
     const noImageDefault = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930";
 
+    // decrease portion size by 1
     const handleDecrement = (recipe) => {
         recipe.portion--;
         setPortion(recipe);
     }
 
+    // remove from week plan
     const removeFromSelected = (recipe) => {
         recipe.portion = 0;
         setPortion(recipe);
     }
 
+    // set portion size of each recipe
     const setPortion = (result) => {
         axios.post("http://" + window.location.hostname + ":3000/recipes/setPortion/" + result.id, result, { withCredentials: true })
             .then(response => {
@@ -53,6 +57,7 @@ export default function WeekPlan() {
             });
     };
 
+    // get all selected recipes in week plan
     const fetchRecipes = () => {
         axios.get("http://" + window.location.hostname + ":3000/recipes/viewShoppingListRecipes", { withCredentials: true })
             .then((response) => {
@@ -79,13 +84,13 @@ export default function WeekPlan() {
                                 "&:hover img": {
                                     filter: "brightness(50%)"
                                 },
-                                    "&:hover .hiddenField": {
+                                "&:hover .hiddenField": {
                                     display: "flex"
                                 },
-                                    "& .hiddenField": {
+                                "& .hiddenField": {
                                     display: "none"
                                 },
-                                    "& .Mui-disabled": {
+                                "& .Mui-disabled": {
                                     color: "rgba(255, 255, 255, 1) !important"
                                 }
                             }}
@@ -96,7 +101,7 @@ export default function WeekPlan() {
                                 srcSet={`${item.imageURL}?w=240&h=240&fit=crop&auto=format&dpr=2 2x`}
                                 alt={item.recipeName}
                                 onError={e => {
-                                    e.currentTarget.onerror = null; 
+                                    e.currentTarget.onerror = null;
                                     e.currentTarget.src = `${noImageDefault}?w=240&h=240&fit=crop&auto=format`;
                                     e.currentTarget.srcset = `${noImageDefault}?w=240&h=240&fit=crop&auto=format&dpr=2 2x`
                                 }}
@@ -104,30 +109,30 @@ export default function WeekPlan() {
                             />
                             <ImageListItemBar
                                 sx={{
-                                background:
-                                    'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-                                    'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                                    background:
+                                        'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+                                        'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
                                 }}
                                 title={item.recipeName}
                                 position="top"
                                 actionIcon={
-                                <IconButton
-                                    sx={{ color: 'white' }}
-                                    aria-label={`selected ${item.recipeName}`}
-                                    onClick={() => removeFromSelected(item)}
-                                >
-                                    <CheckCircleOutlinedIcon />
-                                </IconButton>
+                                    <IconButton
+                                        sx={{ color: 'white' }}
+                                        aria-label={`selected ${item.recipeName}`}
+                                        onClick={() => removeFromSelected(item)}
+                                    >
+                                        <CheckCircleOutlinedIcon />
+                                    </IconButton>
                                 }
                                 actionPosition="right"
                             />
-                            <Box className="hiddenField" sx={{position: "absolute", mt: "100px", justifyContent: "space-evenly", width: "100%", flexWrap: "wrap" }}>
+                            <Box className="hiddenField" sx={{ position: "absolute", mt: "100px", justifyContent: "space-evenly", width: "100%", flexWrap: "wrap" }}>
                                 <ButtonGroup variant="contained" size="small" aria-label="small outlined button group">
-                                <Button onClick={() => handleDecrement(item)}>-</Button>
-                                <Button disabled>{item.portion}</Button>
-                                <Button onClick={() => handleIncrement(item)}>+</Button>
+                                    <Button onClick={() => handleDecrement(item)}>-</Button>
+                                    <Button disabled>{item.portion}</Button>
+                                    <Button onClick={() => handleIncrement(item)}>+</Button>
                                 </ButtonGroup>
-                                <Typography sx={{lineHeight: 2}} color="white">Servings</Typography>
+                                <Typography sx={{ lineHeight: 2 }} color="white">Servings</Typography>
                             </Box>
                         </ImageListItem>
                     ))}

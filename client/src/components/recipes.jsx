@@ -8,12 +8,14 @@ import RecipeList from "./recipeList";
 import SearchBar from "./searchBar";
 import SortButton from "./sortButton";
 
+// function to sort recipes by name
 export function sortByName(asc, recipeList) {
     return asc
         ? recipeList.sort((a, b) => (a.recipeName.toLowerCase() < b.recipeName.toLowerCase()) ? -1 : 1)
         : recipeList.sort((a, b) => (a.recipeName.toLowerCase() > b.recipeName.toLowerCase()) ? -1 : 1);
 }
 
+// function to sort recipes by date
 export function sortByDate(asc, recipeList) {
     return asc
         ? recipeList.sort((a, b) => (new Date(a.updatedAt) < new Date(b.updatedAt)) ? -1 : 1)
@@ -60,6 +62,8 @@ export default function Recipes() {
         }
     });
 
+    // API to add recipe
+    // if failed, have a snack bar error
     const addRecipe = (result) => {
         axios.post("http://" + window.location.hostname + ":3000/recipes/addRecipe", result, { withCredentials: true })
             .then(response => {
@@ -75,6 +79,8 @@ export default function Recipes() {
             });
     };
 
+    // API to delete recipe
+    // if failed, have a snack bar error
     const delRecipe = (id) => {
         axios.delete("http://" + window.location.hostname + ":3000/recipes/deleteRecipe/" + id, { withCredentials: true })
             .then(response => {
@@ -84,23 +90,18 @@ export default function Recipes() {
                 }
             })
             .catch(err => {
-                if (err.response) {
-                    setError(err.response.data);
-                } else if (err.request) {
-                    setError("There is something wrong with the server, no response received");
-                } else {
-                    setError(err.message);
-                }
+                setError(err.response.data.message);
                 setSnackbar(true);
                 console.error('There was an error!', err.message);
             });
     };
 
+    // when recipe updated, fetch all recipes again
     const updateRecipe = () => {
         fetchRecipes();
     }
 
-
+    // sort recipe based on selected option
     const sortRecipe = (result) => {
         setFilter(result);
         switch (result) {
@@ -126,6 +127,7 @@ export default function Recipes() {
         }
     }
 
+    // get all existing recipes
     const fetchRecipes = () => {
         axios.get("http://" + window.location.hostname + ":3000/recipes/getAll", { withCredentials: true })
             .then((response) => {
@@ -134,6 +136,7 @@ export default function Recipes() {
             });
     }
 
+    // get recipes when initialize
     useEffect(() => {
         fetchRecipes();
     }, []);
@@ -153,8 +156,8 @@ export default function Recipes() {
                 </Toolbar>
             </AppBar>
             <Container maxWidth={false} sx={{ maxWidth: `calc(100% - 250px)`, ml: '250px', mt: 10 }}>
-                <RecipeList value={displayRecipes} updateRecipe={updateRecipe} deleteRecipe={delRecipe}/>
-                <Fab 
+                <RecipeList value={displayRecipes} updateRecipe={updateRecipe} deleteRecipe={delRecipe} />
+                <Fab
                     color="primary"
                     aria-label="add"
                     onMouseEnter={() => setCollapse(true)}
@@ -167,7 +170,7 @@ export default function Recipes() {
                     {collapse ? "Add Recipe" : null}
                 </Fab>
             </Container>
-            <EditRecipePopup open={open} editRecipe={blankRecipe}  handleClose={() => setOpen(false)} saveRecipe={(result) => addRecipe(result)} />
+            <EditRecipePopup open={open} editRecipe={blankRecipe} handleClose={() => setOpen(false)} saveRecipe={(result) => addRecipe(result)} />
             <Snackbar open={snackBar} autoHideDuration={6000} onClose={() => setSnackbar(false)}>
                 <Alert onClose={() => setSnackbar(false)} severity="error" sx={{ width: '100%' }}>
                     {error}
