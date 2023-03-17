@@ -54,7 +54,13 @@ And the non-functional requirement:
 	9. Frontend test failure vaildating same passwords with different case - Should return false
 	10. Frontend test success validating identical passwords - Should return true
 
-	**Integration Testing - TBD**
+	**Integration Testing**
+
+	1. API test failure authenticating against protected endpoint - Should fail to authorize
+	2. API test creating new user - Should succeed to create user
+	3. API test failure to create new user without email - Should fail to create user
+	4. API test to login user - Should succeed to login
+	5. API test login with incorrect credentials - Should fail to login
 
     **Acceptance Testing - Per User Story:**
 	
@@ -210,8 +216,18 @@ And the non-functional requirement:
     3. Frontend test generating an email with an empty list - body should be empty but subject etc should exist
     4. Frontend test generating an email with malformed data - should throw an error
     5. Frontend test generating an email with valid data - Body should contain list
+    6. Backend test getting an empty shopping list - Should return a shopping list with no recipes in it
+    7. Backend test getting a populated shopping list - Should return a shopping list with recipes in it
+    8. Backend test getting selected recipes with no recipes selected - Should return selected recipes with no recipes selected
+    9. Backend test getting selected recipes with 1 recipe selected - Should return selected recipes with 1 recipe selected
+    10. Backend test updating the portion size - Should update portion size to 1
+    11. Backend test reseting the portion size - Should update portion size to 1 and then reset it to 0
 
-	**Integration Testing - TBD**
+	**Integration Testing**
+
+    1. Integration test getting an empty grocery list - Should return an empty shopping list
+    2. Integration test getting recipes of empty grocery list - Should return an empty list of recipes
+    3. Integration test getting populated grocery list - Should return a populated list of ingredients
 
 	**Acceptance Testing - Per User Story:**
     1. As a logged-in user, I want to be able to choose recipes and portion sizes to add to the shopping list.

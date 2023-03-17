@@ -167,7 +167,7 @@ describe("Backend recipe unit tests", () => {
 })
 
 describe("Backend shopping list unit tests", () => {
-	it("Get a shopping list with no recipes in it", async () => {
+	it("Should return a shopping list with no recipes in it", async () => {
 		const Recipe = new RecipeMock();
 		const Ingredient = new IngredientMock();
 		const recipes = await getShoppingList(2, Recipe, Ingredient);
@@ -175,7 +175,7 @@ describe("Backend shopping list unit tests", () => {
 		expect(recipes).to.eql([]);
 	});
 
-	it("Get a shopping list with recipes in it", async () => {
+	it("Should return a shopping list with recipes in it", async () => {
 		const Recipe = new RecipeMock();
 		const Ingredient = new IngredientMock();
 
@@ -201,7 +201,7 @@ describe("Backend shopping list unit tests", () => {
 		]);
 	});
 
-	it("Get selected recipes with no recipes selected", async () => {
+	it("Should return selected recipes with no recipes selected", async () => {
 		const Recipe = new RecipeMock();
 
 		await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
@@ -210,7 +210,7 @@ describe("Backend shopping list unit tests", () => {
 		expect(recipes).to.eql([]);
 	});
 
-	it("Get selected recipes with 1 recipe selected", async () => {
+	it("Should return selected recipes with 1 recipe selected", async () => {
 		const Recipe = new RecipeMock();
 
 		await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
@@ -232,7 +232,7 @@ describe("Backend shopping list unit tests", () => {
 		]);
 	});
 
-	it("Update portion size to 1", async () => {
+	it("Should update portion size to 1", async () => {
 		const Recipe = new RecipeMock();
 
 		recipe = await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
@@ -242,7 +242,7 @@ describe("Backend shopping list unit tests", () => {
 	});
 
 
-	it("Update portion size to 1 and then resest it to 0", async () => {
+	it("Should update portion size to 1 and then reset it to 0", async () => {
 		const Recipe = new RecipeMock();
 
 		recipe = await createNewRecipe("roasted_eggplant", "tasty_dish", "mix all the good food", "abc", 10, Recipe)
@@ -427,3 +427,83 @@ describe("Backend recipe management integration tests", () => {
 			});
 	})
 })
+
+describe("Backend grocery list integration tests", ()=>{
+it("should return an empty shopping list", async() => {
+	await emptyRecipe(Recipe)
+	await request.get("/recipes/viewShoppingList").set("Cookie", ["token="+token]).send({}).then((response) => {
+		expect(response.body).to.eql([])
+	})
+})
+
+it("should return an empty list of recipes", async() => {
+	await emptyRecipe(Recipe)
+	await request.get("/recipes/viewShoppingListRecipes").set("Cookie", ["token="+token]).send({}).then((response) => {
+		expect(response.body).to.eql([])
+	})
+})
+
+it("should return a populated list of ingredients", async() => {
+	await emptyRecipe(Recipe)
+	var data = 
+	{
+		"recipeName": "beef",
+		"description": "This is a short description about the recipe and it should have word limit later so it wont go out of the box",
+		"instructions": "Rinse the rice.\nUse the right ratio of water. Add 2 parts water and 1 part rice to a large pot.",
+		"ingredients": [
+			{
+				"ingredientName": "Tomato",
+				"ingredientAmount": 2,
+				"ingredientUnit": "whole"
+			},
+			{
+				"ingredientName": "Basil",
+				"ingredientAmount": 30,
+				"ingredientUnit": "g"
+			},
+			{
+				"ingredientName": "Mozarella",
+				"ingredientAmount": 30,
+				"ingredientUnit": "g"
+			}
+		]
+	}
+
+	await request
+		.post("/recipes/addRecipe").send(data)
+		.set('Cookie', `token=${token}`)
+		.then((response) => {
+		expect(response.status).to.equal(200);
+		})
+	data = {
+		portion:2
+	}
+	await request
+	.post("/recipes/setPortion/1").set("Cookie", ["token="+token])
+	.send(data)
+	.then((response) => {
+		expect(response.status).to.equal(200);
+		})
+	
+	await request.get("/recipes/viewShoppingList").set("Cookie", ["token="+token]).send({}).then((response) => {
+		expect(response.body).to.eql([
+		{
+			"ingredientName": "Tomato",
+			"ingredientUnit": "whole",
+			"totalAmount": 4
+		},
+		{
+			"ingredientName": "Basil",
+			"ingredientUnit": "g",
+			"totalAmount": 60
+		},
+		{
+			"ingredientName": "Mozarella",
+			"ingredientUnit": "g",
+			"totalAmount": 60
+		}
+		])
+	})
+})
+
+});
