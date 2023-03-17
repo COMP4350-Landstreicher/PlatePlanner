@@ -19,6 +19,8 @@ Repository for the COMP4350 W23 Group Project "PlatePlanner"
 
 [Testing Plan](./docs/testing-plan.md)
 
+[DockerHub](https://hub.docker.com/u/landstreicher)
+
 ## Project Proposal
 
 ### Vision
