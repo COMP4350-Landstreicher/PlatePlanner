@@ -101,7 +101,10 @@ And the non-functional requirement:
 	15. Frontend sorting by date ascending - Recipes should be sorted by date ascending
 	16. Frontend sorting by date descending - Recipes should be sorted by date descending
 
-    **Integration Testing - TBD**
+    **Integration Testing**
+	1. Backend integration test to get all recipes - should succeed to get all recipes
+    2. Backend integration test to get a recipe with a valid ID - should succeed to get recipe by ID
+	3. Backend integration test to get a recipe whose ID does not exist - should fail to get recipe by ID
 
     **Acceptance Testing - Per User Story:**
 	
@@ -157,15 +160,13 @@ And the non-functional requirement:
 	14. Frontend unit test to disable save button when form is invalid (the form is valid) - should return false
 
 	**Integration Testing**
-	1. Backend integration test to get all recipes - should succeed to get all recipes
-    2. Backend integration test to create a new recipe - should succeed to create recipe
-    3. Backend integration test to get all recipes - should fail to create recipe
-    4. Backend integration test to create a duplicated recipe - should succeed to get recipe by ID
-    5. Backend integration test to update a recipe - should succeed to update recipe
-    6. Backend integration test to delete a recipe - should succeed to delete recipe by ID
-    7. Backend integration test to get a recipe whose ID does not exist - should fail to get recipe by ID
-    8. Backend integration test to update a recipe whose ID does not exist - should fail to update recipe
-    9. Backend integration test to delete a recipe whose ID does not exist - should fail to delete recipe by ID
+	
+	1. Backend integration test to create a new recipe - should succeed to create recipe
+    2. Backend integration test to create a duplicated recipe - should fail to create recipe 
+    3. Backend integration test to update a recipe - should succeed to update recipe
+    4. Backend integration test to delete a recipe - should succeed to delete recipe by ID
+    5. Backend integration test to update a recipe whose ID does not exist - should fail to update recipe
+    6. Backend integration test to delete a recipe whose ID does not exist - should fail to delete recipe by ID
 
 	**Acceptance Testing - Per User Story:**
 	
