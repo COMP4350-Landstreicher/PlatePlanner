@@ -1,10 +1,6 @@
 class IngredientMock{
 	constructor(){
-		this.ingredientName = "Tomato";
-	        this.ingredientAmount = 2;
-        	this.ingredientUnit = "whole";
-	        this.recipeID = 1;
-		
+		this.ingredients = []
 	}
 
 	sync(){
@@ -12,47 +8,46 @@ class IngredientMock{
 	}
 
     findAll(arg){
-        if (arg.where && this.recipeID == arg.where.recipeID) {
-            return [{
-                ingredientName:this.ingredientName, 
-                ingredientAmount:this.ingredientAmount, 
-                ingredientUnit:this.ingredientUnit, 
-            }]}
-	else if(arg.include && arg.include[0].where.userID == 3){
-		var out = [];
-		for (var i=0; i<this.ingredients.length; i++){
-			out.push({
-				"ingredientName": this.ingredients[i].ingredientName,
-				"ingredientUnit": this.ingredients[i].ingredientUnit,
-				"totalAmount": this.ingredients[i].portion * this.ingredients[i].ingredientAmount
+        if (arg.where && this.ingredients.length != 0) {
+			return this.ingredients.filter(function(ingredient) {
+				if (ingredient.recipeID == arg.where.recipeID){
+					return ingredient
+				}
 			})
 		}
-		return out/*
-		return [
-		,
-			{
-				"ingredientName": this.ingredients[1].ingredientName,
-				"ingredientUnit": this.ingredients[1].ingredientUnit,
-				"totalAmount": this.ingredients[1].portion * this.ingredients[1].ingredientAmount
-			},
-			{
-				"ingredientName": this.ingredients[2].ingredientName,
-				"ingredientUnit": this.ingredients[2].ingredientUnit,
-				"totalAmount": this.ingredients[2].portion * this.ingredients[2].ingredientAmount
+		else if(arg.include && arg.include[0].where.userID == 3){
+			var out = [];
+			for (var i=0; i<this.ingredients.length; i++){
+				out.push({
+					"ingredientName": this.ingredients[i].ingredientName,
+					"ingredientUnit": this.ingredients[i].ingredientUnit,
+					"totalAmount": this.ingredients[i].portion * this.ingredients[i].ingredientAmount
+				})
 			}
-		]*/
-	}
+			return out
+		}
         else if(arg.include){
             return []
-	}
-        return null
+		}
+        return []
     }
 
     bulkCreate(ingredients){
-	this.ingredients = ingredients;
-        return [];
+		this.ingredients = ingredients;
+        return this.ingredients;
     }
+
     belongsTo(){ }
+
+	destroy(arg) {
+        return new Promise((resolved, rejected) => {
+            if (this.ingredients != null && this.ingredients[0].recipeID == arg.where.recipeID){
+                this.ingredients = []
+                resolved()
+            }
+            rejected()
+        })
+    }
 }
 
 module.exports = { IngredientMock }

@@ -14,6 +14,7 @@ const {
 	addRecipe,
 	deleteRecipe,
 	updateRecipe,
+	removeAllRecipes,
 } = require('../controllers/recipeController')
 
 // get all recipes

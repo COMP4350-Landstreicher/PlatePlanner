@@ -109,7 +109,6 @@ const viewShoppingList = asyncHandler( async (req, res) => {
 })
 
 const viewShoppingListRecipes = asyncHandler( async (req, res) => {
-	console.log(req.user)
 	const recipeList = await getShoppingListRecipes(req.user.dataValues.id, Recipe);
 
 	res.send(recipeList)
@@ -150,5 +149,5 @@ module.exports = {
     emptyShoppingList,
     addRecipe,
     deleteRecipe,
-    updateRecipe,
+    updateRecipe
 }
