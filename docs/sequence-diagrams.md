@@ -9,3 +9,7 @@ UML Sequence Diagrams for the COMP4350 W23 Group Project "PlatePlanner"
 ## View And Retrieve Recipe:
 
 ![View And Retrieve Recipe Diagram](./view-retrieve-recipe-diagram.png?raw=true "Diagram")
+
+## View And Retrieve Recipe:
+
+[Recipe Management Diagram](./recipe-management-diagram.png?raw=true "Diagram")
