@@ -1,5 +1,5 @@
 import { Box, Button, Dialog, DialogActions, CssBaseline, DialogContent, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function DelPopup(props) {
 

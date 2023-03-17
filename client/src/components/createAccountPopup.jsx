@@ -3,6 +3,14 @@ import React, { useState } from 'react';
 import logo from '../img/logo-white.png'
 import axios from 'axios';
 
+
+export function checkPasswords(p1, p2)
+{
+		if(p1 === p2)return true;
+		else return false;
+}
+
+
 export default function CreateAccountPopup(props) {
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
@@ -12,8 +20,19 @@ export default function CreateAccountPopup(props) {
 	const [password2, setPassword2] = useState("");
 	const [error, setError] = useState("");
 
+
 	const createAccount = () => {
-		axios.post("http://" + window.location.hostname + ":3000/auth/register", { email: email, password: password, userName: username, firstName: firstname, lastName: lastname })
+
+		if(!checkPasswords(password, password2))
+		{
+			console.log(error.response);
+			setError("Passwords are not the same!");
+			setTimeout(() => { setError(""); }, 5000);
+	
+		}
+		else
+		{
+			axios.post("http://" + window.location.hostname + ":3000/auth/register", { email: email, password: password, userName: username, firstName: firstname, lastName: lastname })
 			.then((response) => {
 				if (response.status === 200) {
 					setError("Successful Signup!");
@@ -37,6 +56,7 @@ export default function CreateAccountPopup(props) {
 					setTimeout(() => { setError(""); }, 5000);
 				}
 			});
+		}
 	}
 	return (
 		<Dialog
@@ -51,7 +71,7 @@ export default function CreateAccountPopup(props) {
 
 			<CssBaseline />
 			<DialogContent sx={{ background: '#A0B8A5' }}>
-				<Box width='100%' minHeight='50%' maxHeight='600px' sx={{
+				<Box width='100%' minHeight='50%' maxHeight='800px' sx={{
 					m: 'auto',
 					width: '100%',
 					padding: '1pc',
