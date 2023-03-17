@@ -427,3 +427,83 @@ describe("Backend recipe management integration tests", () => {
 			});
 	})
 })
+
+describe("Backend grocery list integration tests", ()=>{
+it("should return an empty grocery list", async() => {
+	await emptyRecipe(Recipe)
+	await request.get("/recipes/viewShoppingList").set("Cookie", ["token="+token]).send({}).then((response) => {
+		expect(response.body).to.eql([])
+	})
+})
+
+it("should return an empty list of recipes", async() => {
+	await emptyRecipe(Recipe)
+	await request.get("/recipes/viewShoppingListRecipes").set("Cookie", ["token="+token]).send({}).then((response) => {
+		expect(response.body).to.eql([])
+	})
+})
+
+it("should return an empty list of recipes", async() => {
+	await emptyRecipe(Recipe)
+	var data = 
+	{
+		"recipeName": "beef",
+		"description": "This is a short description about the recipe and it should have word limit later so it wont go out of the box",
+		"instructions": "Rinse the rice.\nUse the right ratio of water. Add 2 parts water and 1 part rice to a large pot.",
+		"ingredients": [
+			{
+				"ingredientName": "Tomato",
+				"ingredientAmount": 2,
+				"ingredientUnit": "whole"
+			},
+			{
+				"ingredientName": "Basil",
+				"ingredientAmount": 30,
+				"ingredientUnit": "g"
+			},
+			{
+				"ingredientName": "Mozarella",
+				"ingredientAmount": 30,
+				"ingredientUnit": "g"
+			}
+		]
+	}
+
+	await request
+		.post("/recipes/addRecipe").send(data)
+		.set('Cookie', `token=${token}`)
+		.then((response) => {
+		expect(response.status).to.equal(200);
+		})
+	data = {
+		portion:2
+	}
+	await request
+	.post("/recipes/setPortion/1").set("Cookie", ["token="+token])
+	.send(data)
+	.then((response) => {
+		expect(response.status).to.equal(200);
+		})
+	
+	await request.get("/recipes/viewShoppingList").set("Cookie", ["token="+token]).send({}).then((response) => {
+		expect(response.body).to.eql([
+		{
+			"ingredientName": "Tomato",
+			"ingredientUnit": "whole",
+			"totalAmount": 4
+		},
+		{
+			"ingredientName": "Basil",
+			"ingredientUnit": "g",
+			"totalAmount": 60
+		},
+		{
+			"ingredientName": "Mozarella",
+			"ingredientUnit": "g",
+			"totalAmount": 60
+		}
+		])
+	})
+})
+
+});
