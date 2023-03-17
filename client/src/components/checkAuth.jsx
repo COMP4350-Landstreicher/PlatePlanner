@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-const AuthCheck = () => {
+const AuthCheck = () => { //Code to check if logged in. Unused
 	const navigate = useNavigate();
 	axios.get("http://" + window.location.hostname + ":3000/test", { withCredentials: true }).then((response) => {
 		if (response.status === 200) {

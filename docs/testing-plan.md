@@ -46,11 +46,11 @@ And the non-functional requirement:
 	3. Backend validateUser() validate non-existent user - Should not succeed
 	4. Backend getUser() get existing user - Should receive proper user back
 	5. Backend getUser() get nonexistent user - Should not receive a user back
-	6. Frontend create user API with valid data - should create user successfully
-	7. Frontend create user API with invalid data - should not create user successfully
-	8. Frontend login API with valid user - Should log in successfully
-	9. Frontend login API with invalid user - Should return error
-	10. Frontend logout API - Should successfully unset cookie 
+	6. Frontend render login page - Should succeed
+	7. Frontend render signup window - Should succeed
+	8. Frontend test failure validating different passwords - Should return false
+	9. Frontend test failure vaildating same passwords with different case - Should return false
+	10. Frontend test success validating identical passwords - Should return true
 
 	**Integration Testing - TBD**
 
@@ -119,7 +119,13 @@ And the non-functional requirement:
 
 5. Shopping List
 
-    **Unit Testing - TBD**
+    **Unit Testing**
+
+    1. Frontend test rendering shopping list main page - Should succeed
+    2. Frontend test rendering ingredient list - Should succeed
+    3. Frontend test generating an email with an empty list - body should be empty but subject etc should exist
+    4. Frontend test generating an email with malformed data - should throw an error
+    5. Frontend test generating an email with valid data - Body should contain list
 
 	**Integration Testing - TBD**
 
@@ -163,7 +169,7 @@ Automation - Jenkins/Github
 Unit Testing - Mocha, Jest, Supertest
 
 ### 3.2. Test Environment
-Tests will be run automatically in the CI/CD process on the Jenkins server using Mocha and Jest (unit testing), and to be determined software for the other sets of tests. 
+Tests will be run automatically in the CI/CD process on the Jenkins server using Mocha and Jest (unit and integration testing), and to be determined software for the other sets of tests. 
 The Jenkins server has two vCPUs and 8 GiB of RAM.
 
 ## 4. Terms/Acronyms

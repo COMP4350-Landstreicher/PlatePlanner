@@ -5,12 +5,14 @@ import axios from "axios";
 import { useState } from 'react';
 import IngredientList from './ingredientList'
 
+
+//Function to take ingredients and generate an email based off of them
 export function genMailList (ingredients) {
 
         var stringBuilder = 'mailto:?subject=Shopping%20List&body=' + encodeURIComponent('Shopping List: \r\n');
 
         for(var i in ingredients)
-        {
+        { // Check that the items are valid
             if(!Array.isArray(ingredients) ||  !("ingredientName" in ingredients[i] && "totalAmount" in ingredients[i] && "ingredientUnit" in ingredients[i])){
                 throw new Error('ingredients malformed!');
             }
@@ -20,13 +22,13 @@ export function genMailList (ingredients) {
         return(stringBuilder);
         
     }
-
+//Display shopping list and buttons
 export default function ShoppingList() {
     const [genButtonText, setGenButtonText] = useState("Generate Shopping List");
     const [ingredientsVar, setIngredientsVar] = useState([]);
     
     
-    
+    //Handle mail button pressed
     const mailList = () => {
 
         window.open(genMailList(ingredientsVar), "_blank");
@@ -36,8 +38,10 @@ export default function ShoppingList() {
 
         setIngredientsVar(newList);
     }
+
+    //Handle generate button pressed
     const genList = () => {
-        setGenButtonText("Loading...")
+        setGenButtonText("Loading...") //Give the user some feedback
         axios.get("http://" + window.location.hostname + ":3000/recipes/viewShoppingList", { withCredentials: true })
             .then((response) => {
 

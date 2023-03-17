@@ -3,7 +3,7 @@ import React from "react";
 import axios from 'axios';
 
 export default function Logout() {
-    const logOut = () => {
+    const logOut = () => { //Post to logout and lose the cookie
         axios.post("http://" + window.location.hostname + ":3000/auth/logout", { data: "data" }, { withCredentials: true });
         setTimeout(() => { window.location.reload(); }, 2000);
 

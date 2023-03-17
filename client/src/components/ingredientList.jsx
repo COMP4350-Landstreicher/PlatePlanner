@@ -3,7 +3,7 @@ import {  List, Container, ListItem, ListItemText } from '@mui/material';
 
 
 export default function IngredientList(props) {
-
+    //Component to create table to list ingredients
     return (
         <Container>
             <List sx={{borderBottom:'3px solid #A0B8A5', color: "#FFFFFE"}} >

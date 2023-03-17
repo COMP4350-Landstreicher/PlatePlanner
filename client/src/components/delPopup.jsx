@@ -2,7 +2,7 @@ import { Box, Button, Dialog, DialogActions, CssBaseline, DialogContent, Typogra
 import React from 'react';
 
 export default function DelPopup(props) {
-
+  //Ask the user if they really want to delete. yes() if true and true returned in setResponse, and no()/false otherwise
   const yes = () => {
     props.setResponse(true);
     props.handleClose();
