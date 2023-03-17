@@ -32,6 +32,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+// find all the recipes has the keyword in name
 export function search(recipeList, value) {
     return recipeList.filter((recipe) => recipe.recipeName.toLowerCase().includes(value.toLowerCase()));
 }
