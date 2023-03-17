@@ -3,6 +3,14 @@ import React, { useState } from 'react';
 import logo from '../img/logo-white.png'
 import axios from 'axios';
 
+//Check that entered passwords are identical
+export function checkPasswords(p1, p2)
+{
+		if(p1 === p2)return true;
+		else return false;
+}
+
+//Render create account popup
 export default function CreateAccountPopup(props) {
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
@@ -12,8 +20,20 @@ export default function CreateAccountPopup(props) {
 	const [password2, setPassword2] = useState("");
 	const [error, setError] = useState("");
 
+
 	const createAccount = () => {
-		axios.post("http://" + window.location.hostname + ":3000/auth/register", { email: email, password: password, userName: username, firstName: firstname, lastName: lastname })
+		//Check that passwords are identical and tell the user if they are not
+		if(!checkPasswords(password, password2))
+		{
+			
+			setError("Passwords are not the same!");
+			setTimeout(() => { setError(""); }, 5000);
+	
+		}
+		else
+		{
+			//Register them and check for success
+			axios.post("http://" + window.location.hostname + ":3000/auth/register", { email: email, password: password, userName: username, firstName: firstname, lastName: lastname })
 			.then((response) => {
 				if (response.status === 200) {
 					setError("Successful Signup!");
@@ -21,22 +41,23 @@ export default function CreateAccountPopup(props) {
 					setTimeout(() => { setError(""); }, 3000);
 				}
 				else {
-					console.log("Signup failed");
+					console.log("Signup failed"); //They screwed up
 				}
 
 			})
-			.catch(error => {
+			.catch(error => { //They screwed up
 				if (error.response) {
 					console.log(error.response);
 					setError("Signup failed!");
 					setTimeout(() => { setError(""); }, 5000);
 				}
-				else {
+				else { //We screwed up
 					console.error('Error Signing Up:', error.message);
 					setError("Signup failed!");
 					setTimeout(() => { setError(""); }, 5000);
 				}
 			});
+		}
 	}
 	return (
 		<Dialog
@@ -51,7 +72,7 @@ export default function CreateAccountPopup(props) {
 
 			<CssBaseline />
 			<DialogContent sx={{ background: '#A0B8A5' }}>
-				<Box width='100%' minHeight='50%' maxHeight='600px' sx={{
+				<Box width='100%' minHeight='50%' maxHeight='800px' sx={{
 					m: 'auto',
 					width: '100%',
 					padding: '1pc',

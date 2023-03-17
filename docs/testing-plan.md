@@ -1,3 +1,4 @@
+
 # Test Plan for Plateplanner
 
 Testing plan for the COMP4350 W23 Group Project "PlatePlanner"
@@ -9,6 +10,8 @@ Testing plan for the COMP4350 W23 Group Project "PlatePlanner"
 | 1.0             | 2023-02-11    | David Dyck  | Initial Draft for Review        |
 | 1.1             | 2023-02-16    | David Dyck  | Added Unit test details         |
 | 1.2             | 2023-02-17    | Tuan D. Le  | Added Unit test details         |
+| 1.3             | 2023-03-16    | David Dyck  | Added Unit and Acceptance tests |
+| 1.4             | 2023-03-16    | Trang Pham  | Added Unit and Acceptance tests |
 
 ## 1. Introduction:
 
@@ -45,16 +48,32 @@ And the non-functional requirement:
 	3. Backend validateUser() validate non-existent user - Should not succeed
 	4. Backend getUser() get existing user - Should receive proper user back
 	5. Backend getUser() get nonexistent user - Should not receive a user back
-	6. Frontend create user API with valid data - should create user successfully
-	7. Frontend create user API with invalid data - should not create user successfully
-	8. Frontend login API with valid user - Should log in successfully
-	9. Frontend login API with invalid user - Should return error
-	10. Frontend logout API - Should successfully unset cookie 
+	6. Frontend render login page - Should succeed
+	7. Frontend render signup window - Should succeed
+	8. Frontend test failure validating different passwords - Should return false
+	9. Frontend test failure vaildating same passwords with different case - Should return false
+	10. Frontend test success validating identical passwords - Should return true
 
 	**Integration Testing - TBD**
 
-	**Acceptance Testing - TBD**
+    **Acceptance Testing - Per User Story:**
+	
+	1.  As a new user, I want to be able to create an account with a username and a password so that the system can recognize me and store my information.
+		1. Navigate to the home page
+		2. Click "Create new account" 
+		3. Enter a valid email, username, first name, last name, and password (twice) and hit "create account"
 
+    2. As a registered user, I want to be able to log in to my account using my registered credentials so that I can access my information on the web app.
+		1. Sign up as in the first acceptance test
+		2. Log in with email and invalid password, it should not work
+		3. Log in with email and valid password, it should work
+		
+		
+    3. As a logged-in user, I want to be able to log out of the web app so that only those with my credentials can access my account.
+		1. Log in as in the second acceptance test
+		2. Press the log out button 
+		3. Verify that user is no longer logged in by trying to navigate to /recipes and be redirected back to the login
+	
 	**Regression Testing - TBD**
 
 	**Load Testing - TBD**
@@ -80,14 +99,48 @@ And the non-functional requirement:
 	15. Frontend sorting by date ascending - Recipes should be sorted by date ascending
 	16. Frontend sorting by date descending - Recipes should be sorted by date descending
 
-**Integration Testing - TBD**
-	**Acceptance Testing - TBD**
+    **Integration Testing - TBD**
 
-	**Regression Testing - TBD**
+    **Acceptance Testing - Per User Story:**
+	
+	1.  As a logged-in user, I want to be able to view all available recipes on my homepage.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Repeat step 1-3 for creating recipe named "b", "c"
+		5. Should have 3 recipes named "a", "b", "c" on the page right now
+		6. Click on recipe "a"
+		7. Should have the name "a", direction "a" and ingredient "1 a"
 
-	**Load Testing - TBD**
+    2. As a logged-in user, I want to be able to retrieve a recipe by name.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Repeat step 1-3 for creating recipe named "b", "c"
+		5. Type in search bar "a"
+		6. The page should only have recipe "a"
+		7. Click on "x" button on search bar
+		8. The search bar should be empty and the page should display 3 recipes "a", "b" and "c"
+		
+    3. As a logged-in user, I want to be able to organize recipes by name or by date added.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Repeat step 1-3 for creating recipe named "b", "c"
+		5. Click sort dropdown and choose "Name: Z to A"
+		6. The recipes should be display in order of "c", "b", "a"
+		7. Click sort dropdown and choose "Name: A to Z"
+		8. The recipes should be display in order of "a", "b", "c"
+		9. Click sort dropdown and choose "Latest"
+		10. The recipes should be display in order of "c", "b", "a"
+		11. Click sort dropdown and choose "Oldest"
+		12. The recipes should be display in order of "a", "b", "c"
 
-4. Recipe Management
+    **Regression Testing - TBD**
+
+    **Load Testing - TBD**
+
+3. Recipe Management
 
 	**Unit Testing**
 	1. Backend unit test to create a new recipe - Should return the newly created recipe
@@ -111,25 +164,84 @@ And the non-functional requirement:
     8. Backend integration test to update a recipe whose ID does not exist - should fail to update recipe
     9. Backend integration test to delete a recipe whose ID does not exist - should fail to delete recipe by ID
 
-	**Acceptance Testing - TBD**
+	**Acceptance Testing - Per User Story:**
+	
+	1.  As a logged-in user, I want to be able to upload new recipes.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Click Add button
+		5. Enter all required field "a"
+		6. Click Save button
+		7. Should have a snack bar "Recipe name already exists"
+		8. Delete recipe name
+		9. Should have "Required" validation and the Save button is disabled
+		10. Click Close button
+		11. The page should only have 1 recipe "a"
+
+    2. As a logged-in user, I want to be able to make changes to the recipes that I uploaded.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Click recipe "a"
+		5. Click Edit button
+		6. Change recipe name to "d"
+		7. Click Save button
+		8. The page should have 1 recipe named "d" only
+		
+		
+    3. As a logged-in user, I want to be able to delete recipes that I uploaded.
+		1. After logging in, click add button to create recipe
+		2. Enter all required field "a"
+		3. Click Save buttton
+		4. Click recipe "a"
+		5. Click Delete button
+		6. Should have a confirmation popup
+		7. Click "No, keep"
+		8. Click "Close"
+		9. The page should still have 1 recipe named "a"
+		10. Repeat step 4-6
+		11. Click "Yes, delete"
+		12. The page should have no recipe
+
 
 	**Regression Testing - TBD**
 
 	**Load Testing - TBD**
 
-5. Shopping List
+4. Shopping List
 
-    **Unit Testing - TBD**
+    **Unit Testing**
+
+    1. Frontend test rendering shopping list main page - Should succeed
+    2. Frontend test rendering ingredient list - Should succeed
+    3. Frontend test generating an email with an empty list - body should be empty but subject etc should exist
+    4. Frontend test generating an email with malformed data - should throw an error
+    5. Frontend test generating an email with valid data - Body should contain list
 
 	**Integration Testing - TBD**
 
-	**Acceptance Testing - TBD**
+	**Acceptance Testing - Per User Story:**
+    1. As a logged-in user, I want to be able to choose recipes and portion sizes to add to the shopping list.
+		1. After logging in, create at least one recipe
+		2. Click the utensil icon on the recipe to add it to the week plan
+		3. Go to the week plan
+		4. Select the number of portions you'd like to make of each added recipe
+		
+    2. As a logged-in user, I want to be able to generate a shopping list of ingredients based on my chosen recipes.
+		1. Add recipes to the week plan and chosing portion counts as in acceptance test 1
+		2. Go to the shopping list 
+		3. click "Generate Shopping List", and ensure the right ingredients are listed
+		
+    3. As a logged-in user, I want to be able to send the shopping list to my email address.
+		1. Generate a shopping list as in acceptance test 2
+		2. Click "Send via Email" and verify your email client opens with the right data
 
 	**Regression Testing - TBD**
 
 	**Load Testing - TBD**
 
-6. Load Requirement (100 concurrent users with 1000 requests per minute)
+5. Load Requirement (100 concurrent users with 1000 requests per minute)
 
 	**Load Testing - TBD**
 
@@ -150,7 +262,7 @@ Automation - Jenkins/Github
 Unit Testing - Mocha, Jest, Supertest
 
 ### 3.2. Test Environment
-Tests will be run automatically in the CI/CD process on the Jenkins server using Mocha and Jest (unit testing), and to be determined software for the other sets of tests. 
+Tests will be run automatically in the CI/CD process on the Jenkins server using Mocha and Jest (unit and integration testing), and to be determined software for the other sets of tests. 
 The Jenkins server has two vCPUs and 8 GiB of RAM.
 
 ## 4. Terms/Acronyms
