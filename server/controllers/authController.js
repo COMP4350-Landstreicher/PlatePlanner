@@ -12,7 +12,7 @@ const login = asyncHandler( async (req, res) =>  {
 	}
 	
 
-	if(await validateUser(email, password, User)){
+	if(await validateUser(email, password, User)){ //If valid user, return a session cookie
 		res.cookie("token", jwt.sign({ email }, process.env.JWT_SECRET , { expiresIn: '7d' }), {httpOnly: true})
 		res.json({"message": "Logged in successfully"})
 	}
@@ -35,7 +35,7 @@ const register = asyncHandler( async (req, res) => {
 		throw new Error("Please include a valid email")
 	}
 
-	if(!(await getUser(email, User))){
+	if(!(await getUser(email, User))){ //Check if the user exists
 
 
 		if(await createUser(email, userName, password, firstName, lastName, User)){

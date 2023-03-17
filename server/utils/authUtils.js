@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs")
 const asyncHandler = require("express-async-handler")
 
+
+//Login function
 const validateUser = asyncHandler(async (email, password, User) => {
         await User.sync()
         const user = await User.findOne({ where: {email:email} })

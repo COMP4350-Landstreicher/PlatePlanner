@@ -102,18 +102,22 @@ const updateRecipe = asyncHandler( async (req, res) => {
 
 })
 
+
+//Get the shopping list with ingredients for the week
 const viewShoppingList = asyncHandler( async (req, res) => {
 	const shoppingList = await getShoppingList(req.user.dataValues.id, Recipe, Ingredient);
 
 	res.send(shoppingList);
 })
 
+//Get the recipes with portion sizes > 0
 const viewShoppingListRecipes = asyncHandler( async (req, res) => {
 	const recipeList = await getShoppingListRecipes(req.user.dataValues.id, Recipe);
 
 	res.send(recipeList)
 })
 
+//Manually set the number of portion
 const setNumPortions = asyncHandler( async (req, res) => {
 	const {recipeId} = req.params
 	const {portion} = req.body
@@ -134,6 +138,7 @@ const setNumPortions = asyncHandler( async (req, res) => {
 	}
 })
 
+//Resets the portion size to 0
 const emptyShoppingList = asyncHandler(async (req, res) => {
 	await resetPortions(req.user.dataValues.id, Recipe)
 	res.json({"message": "Shopping list successfully emptied"})
