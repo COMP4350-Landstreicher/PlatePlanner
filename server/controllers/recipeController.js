@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { getIngredients, addIngredients, removeIngredients } = require("../utils/ingredientUtils");
-const {getAllRecipe, getByName, getByID, getShoppingList, getShoppingListRecipes, setPortion, resetPortions, createNewRecipe, removeRecipe, updateRecipeByID} = require("../utils/recipeUtils")
+const {getAllRecipe, getByName, getByID, getShoppingList, getShoppingListRecipes, setPortion, resetPortions, createNewRecipe, removeRecipe, updateRecipeByID, emptyRecipe} = require("../utils/recipeUtils")
 const {Recipe} = require("../models/recipeModel");
 const {Ingredient} = require("../models/ingredientModel");
 
@@ -102,6 +102,16 @@ const updateRecipe = asyncHandler( async (req, res) => {
 
 })
 
+const removeAllRecipes = asyncHandler( async (req, res) => {
+    if (await emptyRecipe(Recipe)) {
+        res.status(200).json({ message: "All recipes is deleted successfully."})
+    }
+    else{
+        res.status(400)
+        throw new Error("Fail to delete all recipes.")
+    }
+})
+
 const viewShoppingList = asyncHandler( async (req, res) => {
 	const shoppingList = await getShoppingList(req.user.dataValues.id, Recipe, Ingredient);
 
@@ -109,7 +119,6 @@ const viewShoppingList = asyncHandler( async (req, res) => {
 })
 
 const viewShoppingListRecipes = asyncHandler( async (req, res) => {
-	console.log(req.user)
 	const recipeList = await getShoppingListRecipes(req.user.dataValues.id, Recipe);
 
 	res.send(recipeList)
@@ -151,4 +160,5 @@ module.exports = {
     addRecipe,
     deleteRecipe,
     updateRecipe,
+    removeAllRecipes,
 }

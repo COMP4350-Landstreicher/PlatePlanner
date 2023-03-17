@@ -1,5 +1,3 @@
-const { STRING } = require("sequelize");
-
 class RecipeMock{
 	constructor(){
         this.recipe = null

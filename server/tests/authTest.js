@@ -9,72 +9,69 @@ var request = require('supertest');
 request = request(process.env.WEB_SERVER_URI); 
 let session = null;
 
-var email = "";
+var email = Math.random().toString(36).slice(2)+"@test.com";
 
 describe("Backend authentication unit tests", () => {
-it("Testing creating a user", async () => {
-	const User = new UserMock()
-	const user = await createUser(email, "username", "password", "firstName", "lastName", User);
-	
-	expect(user.email).to.equal(email);
-	expect(user.userName).to.equal("username");
-	expect(user.firstName).to.equal("firstName");
-	expect(user.lastName).to.equal("lastName");
+	it("Testing creating a user", async () => {
+		const User = new UserMock()
+		const user = await createUser(email, "username", "password", "firstName", "lastName", User);
+		
+		expect(user.email).to.equal(email);
+		expect(user.userName).to.equal("username");
+		expect(user.firstName).to.equal("firstName");
+		expect(user.lastName).to.equal("lastName");
 
-	expect(user.password).to.not.equal("password");
+		expect(user.password).to.not.equal("password");
 
-	const comparison = await bcrypt.compare("password", user.password)
+		const comparison = await bcrypt.compare("password", user.password)
 
-	expect(comparison).to.equal(true);
-});
+		expect(comparison).to.equal(true);
+	});
 
-it("Testing validating an existing user", async () => {
-	const User = new UserMock()
-	const user = await createUser(email, "username", "password", "firstName", "lastName", User);
-	
-	const result = await validateUser(email, "password", User)
+	it("Testing validating an existing user", async () => {
+		const User = new UserMock()
+		const user = await createUser(email, "username", "password", "firstName", "lastName", User);
+		
+		const result = await validateUser(email, "password", User)
 
-	expect(result).to.equal(true);
-});
+		expect(result).to.equal(true);
+	});
 
-it("Testing validating a non-existant user", async () => {
-	const User = new UserMock()
-	
-	const result = await validateUser(email, "password", User)
-	expect(result).to.equal(null);
-});
+	it("Testing validating a non-existant user", async () => {
+		const User = new UserMock()
+		
+		const result = await validateUser(email, "password", User)
+		expect(result).to.equal(null);
+	});
 
-it("Testing getting an existing user", async () => {
-	const User = new UserMock()
-	await createUser(email, "username", "password", "firstName", "lastName", User);
-	
-	const user = await getUser(email, User)
+	it("Testing getting an existing user", async () => {
+		const User = new UserMock()
+		await createUser(email, "username", "password", "firstName", "lastName", User);
+		
+		const user = await getUser(email, User)
 
-	expect(user.email).to.equal(email);
-	expect(user.userName).to.equal("username");
-	expect(user.firstName).to.equal("firstName");
-	expect(user.lastName).to.equal("lastName");
+		expect(user.email).to.equal(email);
+		expect(user.userName).to.equal("username");
+		expect(user.firstName).to.equal("firstName");
+		expect(user.lastName).to.equal("lastName");
 
-	expect(user.password).to.not.equal("password");
-	const comparison = await bcrypt.compare("password", user.password)
-	expect(comparison).to.equal(true);
+		expect(user.password).to.not.equal("password");
+		const comparison = await bcrypt.compare("password", user.password)
+		expect(comparison).to.equal(true);
 
-});
+	});
 
-it("Testing getting an existing user", async () => {
-	const User = new UserMock()
-	await createUser(email, "username", "password", "firstName", "lastName", User);
-	
-	const user = await getUser("test2@test.com", User)
-	
-	expect(user).to.equal(null);
+	it("Testing getting an existing user", async () => {
+		const User = new UserMock()
+		await createUser(email, "username", "password", "firstName", "lastName", User);
+		
+		const user = await getUser("test2@test.com", User)
+		
+		expect(user).to.equal(null);
 
-});
+	});
 
 })
-
-
-
 
 describe("Backend authentication integration tests", () => { 
 it("should fail to authorize", async () => {
@@ -91,7 +88,7 @@ it("should succeed to create user", async () => {
 	
 	var data = 
 	{
-		email:email = Math.random().toString(36).slice(2)+"@test.com",
+		email:email,
 		password:"password",
 		userName:"username",
 		firstName:"FirstName",
@@ -112,7 +109,6 @@ it("should fail to create user", async () => {
 	
 	var data = 
 	{
-		
 		password:"password",
 		userName:"username",
 		firstName:"FirstName",
@@ -133,7 +129,6 @@ it("should succeed to login", async () => {
 	{
 		email:email,
 		password:"password",
-
 	}
 	
     await request
@@ -141,7 +136,6 @@ it("should succeed to login", async () => {
       .then((response) => {
         expect(response.status).to.equal(200);
       })
-      
 })
 
 it("should fail to login", async () => {
@@ -161,3 +155,5 @@ it("should fail to login", async () => {
       
 })
 })
+
+module.exports = { email }
