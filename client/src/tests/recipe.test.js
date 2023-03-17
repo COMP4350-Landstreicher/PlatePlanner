@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { search } from 'components/searchBar';
+import { validateForm } from 'components/addRecipePopup';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import Recipes, { sortByDate, sortByName } from "../components/recipes";
@@ -96,4 +97,74 @@ it("should return sorted list by date descending", () => {
     ];
     expect(sortByDate(false, recipes)).toHaveLength(3);
     expect(sortByDate(false, recipes)).toEqual(result);
+})
+
+it("the form should be invalid when required field is blank", () => {
+    const recipe = {
+        name: "a",
+        ingredients: [{
+            ingredientName: "",
+            ingredientUnit: "count",
+            ingredientAmount: "1"
+        }],
+        directions: ["first step"]
+    }
+    expect(validateForm(recipe.name, recipe.directions, recipe.ingredients)).toEqual(true);
+})
+
+it("the form should be invalid when ingredient name is duplicated", () => {
+    const recipe = {
+        name: "a",
+        ingredients: [{
+            ingredientName: "sugar",
+            ingredientUnit: "g",
+            ingredientAmount: "2"
+        },
+        {
+            ingredientName: "sugar",
+            ingredientUnit: "count",
+            ingredientAmount: "1"
+        }],
+        directions: ["first step"]
+    }
+    expect(validateForm(recipe.name, recipe.directions, recipe.ingredients)).toEqual(true);
+})
+
+it("the form should be invalid when ingredient amount is equal 0", () => {
+    const recipe = {
+        name: "a",
+        ingredients: [{
+            ingredientName: "sugar",
+            ingredientUnit: "g",
+            ingredientAmount: "0"
+        }],
+        directions: ["first step"]
+    }
+    expect(validateForm(recipe.name, recipe.directions, recipe.ingredients)).toEqual(true);
+})
+
+it("the form should be invalid when ingredient amount is smaller than 0", () => {
+    const recipe = {
+        name: "a",
+        ingredients: [{
+            ingredientName: "sugar",
+            ingredientUnit: "g",
+            ingredientAmount: "-1"
+        }],
+        directions: ["first step"]
+    }
+    expect(validateForm(recipe.name, recipe.directions, recipe.ingredients)).toEqual(true);
+})
+
+it("the form should be valid when fields are correct", () => {
+    const recipe = {
+        name: "a",
+        ingredients: [{
+            ingredientName: "sugar",
+            ingredientUnit: "g",
+            ingredientAmount: "2"
+        }],
+        directions: ["first step"]
+    }
+    expect(validateForm(recipe.name, recipe.directions, recipe.ingredients)).toEqual(false);
 })

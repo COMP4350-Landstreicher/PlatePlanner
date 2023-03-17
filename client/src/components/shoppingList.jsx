@@ -1,4 +1,4 @@
-import { Button,  createTheme, CssBaseline, ThemeProvider, Grid } from "@mui/material";
+import { Button, createTheme, CssBaseline, ThemeProvider, Grid } from "@mui/material";
 import React from "react";
 import NavBar from "./navbar";
 import axios from "axios";
@@ -7,21 +7,20 @@ import IngredientList from './ingredientList'
 
 
 //Function to take ingredients and generate an email based off of them
-export function genMailList (ingredients) {
+export function genMailList(ingredients) {
 
-        var stringBuilder = 'mailto:?subject=Shopping%20List&body=' + encodeURIComponent('Shopping List: \r\n');
+    var stringBuilder = 'mailto:?subject=Shopping%20List&body=' + encodeURIComponent('Shopping List: \r\n');
 
-        for(var i in ingredients)
-        { // Check that the items are valid
-            if(!Array.isArray(ingredients) ||  !("ingredientName" in ingredients[i] && "totalAmount" in ingredients[i] && "ingredientUnit" in ingredients[i])){
-                throw new Error('ingredients malformed!');
-            }
-            stringBuilder+= encodeURIComponent(ingredients[i]["ingredientName"] + " - " + ingredients[i]["totalAmount"] + " " + ingredients[i]["ingredientUnit"] + "\r\n");
+    for (var i in ingredients) { // Check that the items are valid
+        if (!Array.isArray(ingredients) || !("ingredientName" in ingredients[i] && "totalAmount" in ingredients[i] && "ingredientUnit" in ingredients[i])) {
+            throw new Error('ingredients malformed!');
         }
-
-        return(stringBuilder);
-        
+        stringBuilder += encodeURIComponent(ingredients[i]["ingredientName"] + " - " + ingredients[i]["totalAmount"] + " " + ingredients[i]["ingredientUnit"] + "\r\n");
     }
+
+    return (stringBuilder);
+
+}
 //Display shopping list and buttons
 export default function ShoppingList() {
     const [genButtonText, setGenButtonText] = useState("Generate Shopping List");
@@ -76,33 +75,33 @@ export default function ShoppingList() {
                 </Grid>
                 <Grid item xs={4}>
                     <Button
-                    variant="text"
-                    sx={{
-                        bgcolor: '#ECF3A3',
-                        '&:hover': {bgcolor: "#A0B8A5"},
-                        color: '#547958',
-                        padding: '1pc',
-                        margin: 'auto',
-                        mt: '3pc',
-                        border: 'none',
-                        borderRadius: '5px',
-                        width: '30%', alignItems: 'center', justifyContent: 'center'
-                    }}
-                    onClick={genList}>{genButtonText}</Button><br />
+                        variant="text"
+                        sx={{
+                            bgcolor: '#ECF3A3',
+                            '&:hover': { bgcolor: "#A0B8A5" },
+                            color: '#547958',
+                            padding: '1pc',
+                            margin: 'auto',
+                            mt: '3pc',
+                            border: 'none',
+                            borderRadius: '5px',
+                            width: '30%', alignItems: 'center', justifyContent: 'center'
+                        }}
+                        onClick={genList}>{genButtonText}</Button><br />
                     <Button
-                    variant="text"
-                    sx={{
-                        bgcolor: '#ECF3A3',
-                        '&:hover': {bgcolor: "#A0B8A5"},
-                        color: '#547958',
-                        padding: '1pc',
-                        margin: 'auto',
-                        mt: '3pc',
-                        border: 'none',
-                        borderRadius: '5px',
-                        width: '30%', alignItems: 'center', justifyContent: 'center'
-                    }}
-                    onClick={mailList}>Send via Email</Button><br />
+                        variant="text"
+                        sx={{
+                            bgcolor: '#ECF3A3',
+                            '&:hover': { bgcolor: "#A0B8A5" },
+                            color: '#547958',
+                            padding: '1pc',
+                            margin: 'auto',
+                            mt: '3pc',
+                            border: 'none',
+                            borderRadius: '5px',
+                            width: '30%', alignItems: 'center', justifyContent: 'center'
+                        }}
+                        onClick={mailList}>Send via Email</Button><br />
                 </Grid>
             </Grid>
             

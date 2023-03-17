@@ -3,6 +3,29 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormCon
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Add } from '@mui/icons-material';
 
+// validate if the form has been filled with correct value
+export function validateForm(name, directions, ingredients) {
+  if (
+    name === "" ||
+    directions.filter((dir) => dir === "").length !== 0 ||
+    ingredients.filter(
+      (ing) =>
+        ing.ingredientName === "" || ing.ingredientAmount === "" || parseFloat(ing.ingredientAmount) <= 0
+    ).length !== 0 ||
+    ingredients.filter(
+      (ing) =>
+        ing.ingredientName !== "" &&
+        ingredients.filter(
+          (ingCheck) => ingCheck.ingredientName?.trim() === ing.ingredientName?.trim()
+        ).length > 1
+    ).length !== 0
+  ) {
+    return true; //return true when form has invalid fields
+  } else {
+    return false;
+  }
+}
+
 export default function EditRecipePopup(props) {
   const [directions, setDirections] = useState(props.editRecipe.instructions.split("\n"));
   const [ingredients, setIngredients] = useState(props.editRecipe.ingredients);
@@ -12,6 +35,7 @@ export default function EditRecipePopup(props) {
   const [disabledSave, setDisabledSave] = React.useState(false);
   const inputRef = useRef(null);
 
+  // get form input data to recipe object
   const saveRecipe = () => {
     const ingredientList = ingredients.filter(ing => ing.ingredientAmount !== "" && ing.ingredientUnit !== "" && ing.ingredientName !== "").map(ing => {
       return {
@@ -31,26 +55,12 @@ export default function EditRecipePopup(props) {
     };
   };
 
+  // validate form on form value changes
   useEffect(() => {
-    if (
-      name === "" ||
-      directions.filter((dir) => dir === "").length !== 0 ||
-      ingredients.filter(
-        (ing) =>
-          ing.ingredientName === "" || ing.ingredientAmount === "" || parseFloat(ing.ingredientAmount) <= 0
-      ).length !== 0 ||
-      ingredients.filter(
-        (ing) =>
-          ing.ingredientName !== "" &&
-          ingredients.filter(
-            (ingCheck) => ingCheck.ingredientName.trim() === ing.ingredientName.trim()
-          ).length > 1
-      ).length !== 0
-    )
-      setDisabledSave(true);
-    else setDisabledSave(false);
-  }, [name, directions, ingredients]);
+    setDisabledSave(validateForm(name, directions, ingredients));
+  }, [name, directions, ingredients]);// eslint-disable-line react-hooks/exhaustive-deps
 
+  // reset all value when close/open popup
   const resetForm = () => {
     setDirections(props.editRecipe.instructions.split("\n"));
     setIngredients(props.editRecipe.ingredients);
@@ -63,17 +73,20 @@ export default function EditRecipePopup(props) {
     resetForm();
   }, [props.open]);// eslint-disable-line react-hooks/exhaustive-deps
 
+  //add direction row
   const addDirection = () => {
     setDirections([...directions, ""]);
     setTimeout(() => inputRef?.current?.focus());
   };
 
+  //remove direction row
   const removeDirection = (index) => {
     const rows = [...directions];
     rows.splice(index, 1);
     setDirections(rows);
   };
 
+  //add ingredient row
   const addIngredient = () => {
     setIngredients([...ingredients, {
       ingredientName: '',
@@ -83,12 +96,14 @@ export default function EditRecipePopup(props) {
     setTimeout(() => inputRef?.current?.focus());
   };
 
+  //remove ingredient row
   const removeIngredient = (index) => {
     const rows = [...ingredients];
     rows.splice(index, 1);
     setIngredients(rows);
   };
 
+  //update ingredients when input changes
   const handleChangeIngredient = (index, event) => {
     const { name, value } = event.target;
     const list = [...ingredients];
@@ -96,12 +111,14 @@ export default function EditRecipePopup(props) {
     setIngredients(list);
   };
 
+  //update directions when input changes
   const handleChangeDirection = (index, event) => {
     const list = [...directions];
     list[index] = event.target.value;
     setDirections(list);
   };
 
+  //get label for direction step
   const stepLabel = (index) => {
     const number = index + 1;
     return "Step " + number;
