@@ -54,7 +54,6 @@ const emptyRecipe = asyncHandler(async (Recipe) => {
 	await Recipe.sync()
 
 	return await Recipe.destroy({
-		where: {},
 		force: true,
 		truncate: true,
 	}).then(() => {

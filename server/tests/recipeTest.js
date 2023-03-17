@@ -1,4 +1,4 @@
-const {getAllRecipe, getByName, getByID, createNewRecipe, removeRecipe, updateRecipeByID, getShoppingList, getShoppingListRecipes, setPortion, resetPortions} = require("../utils/recipeUtils")
+const {getAllRecipe, getByName, getByID, createNewRecipe, removeRecipe, updateRecipeByID, getShoppingList, getShoppingListRecipes, setPortion, resetPortions, emptyRecipe} = require("../utils/recipeUtils")
 const {addIngredients} = require("../utils/ingredientUtils")
 const {RecipeMock} = require("./mocks/recipeMock")
 const {IngredientMock} = require("./mocks/ingredientsMock")
@@ -10,6 +10,7 @@ request = request(process.env.WEB_SERVER_URI);
 let session = null;
 const {email} = require("./authTest")
 const jwt = require('jsonwebtoken');
+const { Recipe } = require("../models/recipeModel");
 const token = jwt.sign({ email: email }, process.env.JWT_SECRET);
 
 describe("Backend recipe unit tests", () => {
@@ -277,11 +278,7 @@ describe("Backend recipe management integration tests", () => {
 	
 	it("should succeed to create recipe", async () => {
 
-		await request
-			.delete("/recipes/deleteAllRecipes")
-			.then((response) => {
-			expect(response.status).to.equal(200);
-			})
+		await emptyRecipe(Recipe).then(response => expect(response).to.equal(true));
 
 		var data = 
 		{

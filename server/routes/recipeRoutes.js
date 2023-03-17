@@ -32,9 +32,6 @@ router.post('/addRecipe', authenticate, addRecipe);
 // delete recipe
 router.delete('/deleteRecipe/:id', authenticate, deleteRecipe);
 
-// remove all recipes
-router.delete('/deleteAllRecipes', removeAllRecipes);
-
 // update recipe
 router.put('/updateRecipe/:id', authenticate, updateRecipe)
 
