@@ -1,21 +1,21 @@
 // initialize the express app
 const express = require('express');
+// eslint-disable-next-line new-cap
 const router = express.Router();
 const {authenticate} = require('../middleware/authMiddleware');
 
 const {
-	viewAllRecipe,
-	searchByName,
-	selectRecipe,
-	viewShoppingList,
-	setNumPortions,
-	emptyShoppingList,
-	viewShoppingListRecipes,
-	addRecipe,
-	deleteRecipe,
-	updateRecipe,
-	removeAllRecipes,
-} = require('../controllers/recipeController')
+  viewAllRecipe,
+  searchByName,
+  selectRecipe,
+  viewShoppingList,
+  setNumPortions,
+  emptyShoppingList,
+  viewShoppingListRecipes,
+  addRecipe,
+  deleteRecipe,
+  updateRecipe,
+} = require('../controllers/recipeController');
 
 // get all recipes
 router.get('/getAll', authenticate, viewAllRecipe);
@@ -33,7 +33,7 @@ router.post('/addRecipe', authenticate, addRecipe);
 router.delete('/deleteRecipe/:id', authenticate, deleteRecipe);
 
 // update recipe
-router.put('/updateRecipe/:id', authenticate, updateRecipe)
+router.put('/updateRecipe/:id', authenticate, updateRecipe);
 
 router.get('/viewShoppingList', authenticate, viewShoppingList);
 
