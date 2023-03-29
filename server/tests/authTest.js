@@ -13,7 +13,7 @@ describe('Backend authentication unit tests', () => {
   it('Testing creating a user', async () => {
     const User = new UserMock();
     const user = await createUser(
-        email, 'username', 'password', 'firstName', 'lastName', User,
+      email, 'username', 'password', 'firstName', 'lastName', User,
     );
 
     expect(user.email).to.equal(email);
@@ -31,7 +31,7 @@ describe('Backend authentication unit tests', () => {
   it('Testing validating an existing user', async () => {
     const User = new UserMock();
     await createUser(
-        email, 'username', 'password', 'firstName', 'lastName', User,
+      email, 'username', 'password', 'firstName', 'lastName', User,
     );
 
     const result = await validateUser(email, 'password', User);
@@ -49,7 +49,7 @@ describe('Backend authentication unit tests', () => {
   it('Testing getting an existing user', async () => {
     const User = new UserMock();
     await createUser(
-        email, 'username', 'password', 'firstName', 'lastName', User,
+      email, 'username', 'password', 'firstName', 'lastName', User,
     );
 
     const user = await getUser(email, User);
@@ -67,7 +67,7 @@ describe('Backend authentication unit tests', () => {
   it('Testing getting an existing user', async () => {
     const User = new UserMock();
     await createUser(
-        email, 'username', 'password', 'firstName', 'lastName', User,
+      email, 'username', 'password', 'firstName', 'lastName', User,
     );
 
     const user = await getUser('test2@test.com', User);
@@ -79,13 +79,13 @@ describe('Backend authentication unit tests', () => {
 describe('Backend authentication integration tests', () => {
   it('should fail to authorize', async () => {
     await request
-        .get('/test')
-        .then((response) => {
-          expect(response.status).to.equal(401);
-        })
-        .catch((err) => {
-          expect(err.response.status).to.equal(401); ;
-        });
+      .get('/test')
+      .then((response) => {
+        expect(response.status).to.equal(401);
+      })
+      .catch((err) => {
+        expect(err.response.status).to.equal(401);
+      });
   });
   it('should succeed to create user', async () => {
     const data = {
@@ -97,10 +97,10 @@ describe('Backend authentication integration tests', () => {
     };
 
     await request
-        .post('/auth/register', data).send(data)
-        .then((response) => {
-          expect(response.status).to.equal(200);
-        });
+      .post('/auth/register', data).send(data)
+      .then((response) => {
+        expect(response.status).to.equal(200);
+      });
   });
 
   it('should fail to create user', async () => {
@@ -112,10 +112,10 @@ describe('Backend authentication integration tests', () => {
     };
 
     await request
-        .post('/auth/register').send(data)
-        .then((response) => {
-          expect(response.status).to.equal(400);
-        });
+      .post('/auth/register').send(data)
+      .then((response) => {
+        expect(response.status).to.equal(400);
+      });
   });
 
   it('should succeed to login', async () => {
@@ -125,10 +125,10 @@ describe('Backend authentication integration tests', () => {
     };
 
     await request
-        .post('/auth/login').send(data)
-        .then((response) => {
-          expect(response.status).to.equal(200);
-        });
+      .post('/auth/login').send(data)
+      .then((response) => {
+        expect(response.status).to.equal(200);
+      });
   });
 
   it('should fail to login', async () => {
@@ -139,10 +139,10 @@ describe('Backend authentication integration tests', () => {
     };
 
     await request
-        .post('/auth/login').send(data)
-        .then((response) => {
-          expect(response.status).to.equal(400);
-        });
+      .post('/auth/login').send(data)
+      .then((response) => {
+        expect(response.status).to.equal(400);
+      });
   });
 });
 

@@ -80,8 +80,8 @@ function Login() {
 				/><br />
 				<Box
 					component="input"
-					type="text" 
-					placeholder="Username" 
+					type="text"
+					placeholder="Username"
 					value={username}
 					onChange={e => setUsername(e.target.value)}
 					sx={{

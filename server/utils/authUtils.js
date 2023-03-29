@@ -15,18 +15,18 @@ const getUser = asyncHandler(async (email, User) => {
 });
 
 const createUser = asyncHandler(
-    async (email, userName, password, firstName, lastName, User) => {
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(password, salt);
+  async (email, userName, password, firstName, lastName, User) => {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
 
-      return await User.create({
-        email: email,
-        userName: userName,
-        password: hash,
-        firstName: firstName,
-        lastName: lastName,
-      });
+    return await User.create({
+      email: email,
+      userName: userName,
+      password: hash,
+      firstName: firstName,
+      lastName: lastName,
     });
+  });
 
 module.exports = {
   validateUser,

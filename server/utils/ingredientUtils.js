@@ -10,16 +10,16 @@ const getIngredients = asyncHandler(async (recipeID, Ingredient) => {
 });
 
 const addIngredients = asyncHandler(
-    async (ingredients, recipeID, Ingredient) => {
-      await Ingredient.sync();
+  async (ingredients, recipeID, Ingredient) => {
+    await Ingredient.sync();
 
-      ingredients = ingredients.map((ingredient) => ({
-        ...ingredient,
-        recipeID: `${recipeID}`,
-      }));
+    ingredients = ingredients.map((ingredient) => ({
+      ...ingredient,
+      recipeID: `${recipeID}`,
+    }));
 
-      return await Ingredient.bulkCreate(ingredients);
-    });
+    return await Ingredient.bulkCreate(ingredients);
+  });
 
 const removeIngredients = asyncHandler(async (recipeID, Ingredient) => {
   await Ingredient.sync();
