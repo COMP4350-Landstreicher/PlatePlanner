@@ -1,8 +1,8 @@
-import { Box, Drawer, Tab, Tabs, Toolbar } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
-import logo from '../img/logo-white.png'
-import Logout from "./logout";
+import {Box, Drawer, Tab, Tabs, Toolbar} from '@mui/material';
+import React from 'react';
+import {Link} from 'react-router-dom';
+import logo from '../img/logo-white.png';
+import Logout from './logout';
 
 export default function NavBar(props) {
   const [value, setValue] = React.useState(props.value);
@@ -14,13 +14,13 @@ export default function NavBar(props) {
   return (
     <Drawer
       sx={{
-        width: 250,
-        flexShrink: 0,
+        'width': 250,
+        'flexShrink': 0,
         '& .MuiDrawer-paper': {
           width: 250,
           boxSizing: 'border-box',
           backgroundColor: '#547958',
-          borderColor: '#FFFFFE'
+          borderColor: '#FFFFFE',
         },
       }}
       variant="permanent"
@@ -31,13 +31,13 @@ export default function NavBar(props) {
           component="img"
           sx={{
             height: 64,
-            my: '30px'
+            my: '30px',
           }}
           alt="Your logo."
           src={logo}
         />
       </Toolbar>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{width: '100%'}}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -50,18 +50,18 @@ export default function NavBar(props) {
               backgroundColor: '#ECF3A3',
             },
             '.MuiTab-wrapped': {
-              alignItems: "self-start",
-              justifyContent: "flex-start",
-              color: "#FFFFFE",
-              textTransform: "none",
-              fontSize: "18px",
-              fontWeight: "medium",
-              pl: "30px",
-              py: "20px"
+              alignItems: 'self-start',
+              justifyContent: 'flex-start',
+              color: '#FFFFFE',
+              textTransform: 'none',
+              fontSize: '18px',
+              fontWeight: 'medium',
+              pl: '30px',
+              py: '20px',
             },
             '.Mui-selected': {
-              color: "#ECF3A3 !important",
-              fontWeight: "bold"
+              color: '#ECF3A3 !important',
+              fontWeight: 'bold',
             },
           }}
         >
