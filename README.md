@@ -21,6 +21,8 @@ Repository for the COMP4350 W23 Group Project "PlatePlanner"
 
 [DockerHub](https://hub.docker.com/u/landstreicher)
 
+[Coding Style and Naming Convention](./docs/coding-style-and-naming-convention.md)
+
 ## Project Proposal
 
 ### Vision
