@@ -30,7 +30,7 @@ const getByID = asyncHandler(async (recipeID, Recipe) => {
 
 // create a new recipe
 const createNewRecipe = asyncHandler(async (
-    recipeName, description, instructions, imageURL, userID, Recipe) => {
+  recipeName, description, instructions, imageURL, userID, Recipe) => {
   await Recipe.sync();
 
   return await Recipe.create({
@@ -75,7 +75,7 @@ const emptyRecipe = asyncHandler(async (Recipe) => {
 
 // Update the recipe that match the provided ID
 const updateRecipeByID = asyncHandler(async (
-    recipeID, recipeName, description, instructions, imageURL, Recipe) => {
+  recipeID, recipeName, description, instructions, imageURL, Recipe) => {
   await Recipe.sync();
 
   return await Recipe.update({

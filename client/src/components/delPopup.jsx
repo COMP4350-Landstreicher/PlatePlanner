@@ -27,23 +27,23 @@ export default function DelPopup(props) {
       <CssBaseline />
       <DialogContent>
         <Typography variant="h6" width="90%" marginTop='40px' color="#283d25">
-                                <Box component="span" fontWeight='fontWeightBold'>Really delete?</Box>
+          <Box component="span" fontWeight='fontWeightBold'>Really delete?</Box>
         </Typography>
       </DialogContent>
 
       <DialogActions>
-                <Button
-                    onClick={yes}
-                    variant="outlined"
-                    color="secondary"
-                    sx={{ marginRight: "30px", marginBottom: "10px", borderColor: "#FF0000", color:"#FF0000" }}
-                >Yes, delete</Button>
-                <Button
-                    onClick={no}
-                    variant="outlined"
-                    color="secondary"
-                    sx={{ marginRight: "30px", marginBottom: "10px" }}
-                >No, keep</Button>
+        <Button
+          onClick={yes}
+          variant="outlined"
+          color="secondary"
+          sx={{ marginRight: "30px", marginBottom: "10px", borderColor: "#FF0000", color: "#FF0000" }}
+        >Yes, delete</Button>
+        <Button
+          onClick={no}
+          variant="outlined"
+          color="secondary"
+          sx={{ marginRight: "30px", marginBottom: "10px" }}
+        >No, keep</Button>
 
       </DialogActions>
     </Dialog>

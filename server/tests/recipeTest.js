@@ -29,8 +29,8 @@ describe('Backend recipe unit tests', () => {
   it('Create a new recipe', async () => {
     const Recipe = new RecipeMock();
     const recipe = await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
 
     expect(recipe).to.be.an('object');
@@ -46,12 +46,12 @@ describe('Backend recipe unit tests', () => {
   it('Create a duplicated recipe', async () => {
     const Recipe = new RecipeMock();
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     const recipe = await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
 
     expect(recipe).to.equal(null);
@@ -61,8 +61,8 @@ describe('Backend recipe unit tests', () => {
     const Recipe = new RecipeMock();
     const mockUserID = 10;
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     const recipes = await getAllRecipe(mockUserID, Recipe);
 
@@ -80,8 +80,8 @@ describe('Backend recipe unit tests', () => {
   it('Get all recipes belong to an invalid user', async () => {
     const Recipe = new RecipeMock();
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     const recipes = await getAllRecipe(2, Recipe);
 
@@ -91,8 +91,8 @@ describe('Backend recipe unit tests', () => {
   it('Get a recipe by Name', async () => {
     const Recipe = new RecipeMock();
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     const recipe = await getByName('roasted_eggplant', 10, Recipe);
 
@@ -109,8 +109,8 @@ describe('Backend recipe unit tests', () => {
   it('Get a recipe by Name that does not exist', async () => {
     const Recipe = new RecipeMock();
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     const recipe = await getByName('roasted_tomato', 10, Recipe);
 
@@ -120,8 +120,8 @@ describe('Backend recipe unit tests', () => {
   it('Get a recipe with a valid recipeID', async () => {
     const Recipe = new RecipeMock();
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     const recipe = await getByID(1, Recipe);
 
@@ -137,8 +137,8 @@ describe('Backend recipe unit tests', () => {
   it('Get a recipe with an invalid recipeID', async () => {
     const Recipe = new RecipeMock();
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     const recipe = await getByID(2, Recipe);
 
@@ -148,8 +148,8 @@ describe('Backend recipe unit tests', () => {
   it('Remove a recipe with a valid recipeID', async () => {
     const Recipe = new RecipeMock();
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     const recipe = await getByID(1, Recipe);
 
@@ -177,8 +177,8 @@ describe('Backend recipe unit tests', () => {
   it('Update a recipe', async () => {
     const Recipe = new RecipeMock();
     const recipe = await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
 
     expect(recipe).to.be.an('object');
@@ -191,8 +191,8 @@ describe('Backend recipe unit tests', () => {
     expect(recipe.userID).to.equal(10);
 
     const updatedRecipe = await updateRecipeByID(
-        1, 'vietnamese_pho', 'more_tasty_dish', 'mix all the good food',
-        'def', Recipe,
+      1, 'vietnamese_pho', 'more_tasty_dish', 'mix all the good food',
+      'def', Recipe,
     );
 
     expect(updatedRecipe).to.be.an('object');
@@ -208,12 +208,12 @@ describe('Backend recipe unit tests', () => {
   it('Update a non-existing recipe', async () => {
     const Recipe = new RecipeMock();
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     const updatedRecipe = await updateRecipeByID(
-        2, 'vietnamese_pho', 'more_tasty_dish', 'mix all the good food',
-        'def', Recipe,
+      2, 'vietnamese_pho', 'more_tasty_dish', 'mix all the good food',
+      'def', Recipe,
     );
 
     expect(updatedRecipe).to.equal(null);
@@ -275,8 +275,8 @@ describe('Backend shopping list unit tests', () => {
     const Recipe = new RecipeMock();
 
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     const recipes = await getShoppingListRecipes(2, Recipe);
 
@@ -287,8 +287,8 @@ describe('Backend shopping list unit tests', () => {
     const Recipe = new RecipeMock();
 
     await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     await setPortion(1, 1, 10, Recipe);
     const recipes = await getShoppingListRecipes(10, Recipe);
@@ -312,8 +312,8 @@ describe('Backend shopping list unit tests', () => {
     const Recipe = new RecipeMock();
 
     recipe = await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     await setPortion(1, 2, 10, Recipe);
 
@@ -325,8 +325,8 @@ describe('Backend shopping list unit tests', () => {
     const Recipe = new RecipeMock();
 
     recipe = await createNewRecipe(
-        'roasted_eggplant', 'tasty_dish', 'mix all the good food',
-        'abc', 10, Recipe,
+      'roasted_eggplant', 'tasty_dish', 'mix all the good food',
+      'abc', 10, Recipe,
     );
     await setPortion(1, 2, 10, Recipe);
 
@@ -340,27 +340,27 @@ describe('Backend shopping list unit tests', () => {
 describe('Backend recipe management integration tests', () => {
   it('should fail to authorize', async () => {
     await request
-        .get('/recipes/getAll')
-        .then((response) => {
-          expect(response.status).to.equal(401);
-        })
-        .catch((err) => {
-          expect(err.response.status).to.equal(401);
-        });
+      .get('/recipes/getAll')
+      .then((response) => {
+        expect(response.status).to.equal(401);
+      })
+      .catch((err) => {
+        expect(err.response.status).to.equal(401);
+      });
   });
 
   it('should succeed to get all recipes', async () => {
     await request
-        .get('/recipes/getAll')
-        .set('Cookie', `token=${token}`)
-        .then((response) => {
-          expect(response.status).to.equal(200);
-        });
+      .get('/recipes/getAll')
+      .set('Cookie', `token=${token}`)
+      .then((response) => {
+        expect(response.status).to.equal(200);
+      });
   });
 
   it('should succeed to create recipe', async () => {
     await emptyRecipe(Recipe).then(
-        (response) => expect(response).to.equal(true),
+      (response) => expect(response).to.equal(true),
     );
 
     const data = {
@@ -382,11 +382,11 @@ describe('Backend recipe management integration tests', () => {
     };
 
     await request
-        .post('/recipes/addRecipe').send(data)
-        .set('Cookie', `token=${token}`)
-        .then((response) => {
-          expect(response.status).to.equal(200);
-        });
+      .post('/recipes/addRecipe').send(data)
+      .set('Cookie', `token=${token}`)
+      .then((response) => {
+        expect(response.status).to.equal(200);
+      });
   });
 
   it('should fail to create recipe', async () => {
@@ -409,20 +409,20 @@ describe('Backend recipe management integration tests', () => {
     };
 
     await request
-        .post('/recipes/addRecipe').send(data)
-        .set('Cookie', `token=${token}`)
-        .then((response) => {
-          expect(response.status).to.equal(400);
-        });
+      .post('/recipes/addRecipe').send(data)
+      .set('Cookie', `token=${token}`)
+      .then((response) => {
+        expect(response.status).to.equal(400);
+      });
   });
 
   it('should succeed to get recipe by ID', async () => {
     await request
-        .get('/recipes/getOne/1')
-        .set('Cookie', `token=${token}`)
-        .then((response) => {
-          expect(response.status).to.equal(200);
-        });
+      .get('/recipes/getOne/1')
+      .set('Cookie', `token=${token}`)
+      .then((response) => {
+        expect(response.status).to.equal(200);
+      });
   });
 
   it('should succeed to update recipe', async () => {
@@ -445,29 +445,29 @@ describe('Backend recipe management integration tests', () => {
     };
 
     await request
-        .put('/recipes/updateRecipe/1').send(data)
-        .set('Cookie', `token=${token}`)
-        .then((response) => {
-          expect(response.status).to.equal(200);
-        });
+      .put('/recipes/updateRecipe/1').send(data)
+      .set('Cookie', `token=${token}`)
+      .then((response) => {
+        expect(response.status).to.equal(200);
+      });
   });
 
   it('should succeed to delete recipe by ID', async () => {
     await request
-        .delete('/recipes/deleteRecipe/1')
-        .set('Cookie', `token=${token}`)
-        .then((response) => {
-          expect(response.status).to.equal(200);
-        });
+      .delete('/recipes/deleteRecipe/1')
+      .set('Cookie', `token=${token}`)
+      .then((response) => {
+        expect(response.status).to.equal(200);
+      });
   });
 
   it('should fail to get recipe by ID', async () => {
     await request
-        .get('/recipes/getOne/1')
-        .set('Cookie', `token=${token}`)
-        .then((response) => {
-          expect(response.status).to.equal(400);
-        });
+      .get('/recipes/getOne/1')
+      .set('Cookie', `token=${token}`)
+      .then((response) => {
+        expect(response.status).to.equal(400);
+      });
   });
 
   it('should fail to update recipe', async () => {
@@ -490,20 +490,20 @@ describe('Backend recipe management integration tests', () => {
     };
 
     await request
-        .put('/recipes/updateRecipe/1').send(data)
-        .set('Cookie', `token=${token}`)
-        .then((response) => {
-          expect(response.status).to.equal(400);
-        });
+      .put('/recipes/updateRecipe/1').send(data)
+      .set('Cookie', `token=${token}`)
+      .then((response) => {
+        expect(response.status).to.equal(400);
+      });
   });
 
   it('should fail to delete recipe by ID', async () => {
     await request
-        .delete('/recipes/deleteRecipe/1')
-        .set('Cookie', `token=${token}`)
-        .then((response) => {
-          expect(response.status).to.equal(400);
-        });
+      .delete('/recipes/deleteRecipe/1')
+      .set('Cookie', `token=${token}`)
+      .then((response) => {
+        expect(response.status).to.equal(400);
+      });
   });
 });
 
@@ -511,16 +511,16 @@ describe('Backend grocery list integration tests', ()=>{
   it('should return an empty shopping list', async () => {
     await emptyRecipe(Recipe);
     await request.get('/recipes/viewShoppingList')
-        .set('Cookie', ['token='+token]).send({}).then((response) => {
-          expect(response.body).to.eql([]);
-        });
+      .set('Cookie', ['token='+token]).send({}).then((response) => {
+        expect(response.body).to.eql([]);
+      });
   });
 
   it('should return an empty list of recipes', async () => {
     await emptyRecipe(Recipe);
     await request.get('/recipes/viewShoppingListRecipes')
-        .set('Cookie', ['token='+token]).send({}).then((response) => {
-          expect(response.body).to.eql([]);
-        });
+      .set('Cookie', ['token='+token]).send({}).then((response) => {
+        expect(response.body).to.eql([]);
+      });
   });
 });

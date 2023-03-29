@@ -44,7 +44,7 @@ export default function EditRecipePopup(props) {
         ingredientUnit: ing.ingredientUnit
       };
     });
-  
+
     const directionList = directions.filter(dir => dir !== "").join("\n");
     return {
       recipeName: name,
@@ -194,7 +194,7 @@ export default function EditRecipePopup(props) {
                     Ingredients
                   </Box>
                 </Typography>
-                <Button onClick={addIngredient} sx = {{ width: 80, mr: 1, borderRadius: 4 }} variant="contained">
+                <Button onClick={addIngredient} sx={{ width: 80, mr: 1, borderRadius: 4 }} variant="contained">
                   <Add sx={{ stroke: "#547958", strokeWidth: 1 }} />
                   Add
                 </Button>
@@ -214,8 +214,8 @@ export default function EditRecipePopup(props) {
                             parseFloat(ingredientAmount) <= 0
                               ? "Should be > 0"
                               : ingredientAmount === ""
-                              ? "Required"
-                              : null
+                                ? "Required"
+                                : null
                           }
                           sx={{
                             width: '20%',
@@ -257,10 +257,10 @@ export default function EditRecipePopup(props) {
                             ingredientName.trim() === ""
                               ? "Required"
                               : ingredients.filter(
-                                  (ing) => ing.ingredientName.trim() === ingredientName.trim()
-                                ).length > 1
-                              ? "Ingredient has already existed"
-                              : null
+                                (ing) => ing.ingredientName.trim() === ingredientName.trim()
+                              ).length > 1
+                                ? "Ingredient has already existed"
+                                : null
                           }
                           label="Name"
                           name="ingredientName"
@@ -268,9 +268,9 @@ export default function EditRecipePopup(props) {
                           onChange={(event) => handleChangeIngredient(index, event)}
                         />
                         {ingredients.length !== 1 && (
-                              <IconButton onClick={() => removeIngredient(index)} aria-label="delete" sx={{ maxHeight: "70px" }}>
-                                <DeleteIcon />
-                              </IconButton>
+                          <IconButton onClick={() => removeIngredient(index)} aria-label="delete" sx={{ maxHeight: "70px" }}>
+                            <DeleteIcon />
+                          </IconButton>
                         )}
                       </Box>
                     )
@@ -290,7 +290,7 @@ export default function EditRecipePopup(props) {
                     Directions
                   </Box>
                 </Typography>
-                <Button onClick={addDirection} sx = {{ width: 80, borderRadius: 4 }} variant="contained">
+                <Button onClick={addDirection} sx={{ width: 80, borderRadius: 4 }} variant="contained">
                   <Add sx={{ stroke: "#547958", strokeWidth: 1 }} />
                   Add
                 </Button>

@@ -57,8 +57,8 @@ const addRecipe = asyncHandler( async (req, res) => {
 
   if ((await getByName(recipeName, req.user.dataValues.id, Recipe)) == null) {
     const newRecipe = await createNewRecipe(
-        recipeName, description, instructions,
-        imageURL, req.user.dataValues.id, Recipe,
+      recipeName, description, instructions,
+      imageURL, req.user.dataValues.id, Recipe,
     );
     if (newRecipe) {
       if (await addIngredients(ingredients, newRecipe.id, Ingredient)) {
@@ -107,7 +107,7 @@ const updateRecipe = asyncHandler( async (req, res) => {
 
   if (await getByID(id, Recipe)) {
     if (await updateRecipeByID(
-        id, recipeName, description, instructions, imageURL, Recipe,
+      id, recipeName, description, instructions, imageURL, Recipe,
     )) {
       if (await removeIngredients(id, Ingredient)) {
         if (await addIngredients(ingredients, id, Ingredient)) {
@@ -131,7 +131,7 @@ const updateRecipe = asyncHandler( async (req, res) => {
 // Get the shopping list with ingredients for the week
 const viewShoppingList = asyncHandler( async (req, res) => {
   const shoppingList = await getShoppingList(
-      req.user.dataValues.id, Recipe, Ingredient,
+    req.user.dataValues.id, Recipe, Ingredient,
   );
 
   res.send(shoppingList);
@@ -140,7 +140,7 @@ const viewShoppingList = asyncHandler( async (req, res) => {
 // Get the recipes with portion sizes > 0
 const viewShoppingListRecipes = asyncHandler( async (req, res) => {
   const recipeList = await getShoppingListRecipes(
-      req.user.dataValues.id, Recipe,
+    req.user.dataValues.id, Recipe,
   );
 
   res.send(recipeList);
