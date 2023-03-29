@@ -27,15 +27,23 @@
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "react/jsx-indent": [
-      "error",
-      2
-    ],
     "indent": [
       "error",
       2
     ],
     "new-cap": 0,
-    "no-undef": 0
+    "no-undef": 0,
+    "require-jsdoc": 0,
+    "max-len": [
+      1,
+      120,
+      2,
+      {
+        "ignorePattern": "^import\\s.+\\sfrom\\s.+;$",
+        "ignoreUrls": true
+      }
+    ],
+    "react/prop-types": 0,
+    "react-hooks/exhaustive-deps": 0
   }
 }
