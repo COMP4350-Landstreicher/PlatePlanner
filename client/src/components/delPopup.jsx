@@ -1,18 +1,18 @@
-import { Box, Button, Dialog, DialogActions, CssBaseline, DialogContent, Typography } from '@mui/material';
+import {Box, Button, Dialog, DialogActions, CssBaseline, DialogContent, Typography} from '@mui/material';
 import React from 'react';
 
 export default function DelPopup(props) {
-  //Ask the user if they really want to delete. yes() if true and true returned in setResponse, and no()/false otherwise
+  // Ask the user if they really want to delete.
+  // yes() if true and true returned in setResponse, and no()/false otherwise
   const yes = () => {
     props.setResponse(true);
     props.handleClose();
-  }
+  };
 
   const no = () => {
     props.setResponse(false);
     props.handleClose();
-
-  }
+  };
   return (
     <Dialog
       open={props.open}
@@ -36,13 +36,13 @@ export default function DelPopup(props) {
           onClick={yes}
           variant="outlined"
           color="secondary"
-          sx={{ marginRight: "30px", marginBottom: "10px", borderColor: "#FF0000", color: "#FF0000" }}
+          sx={{marginRight: '30px', marginBottom: '10px', borderColor: '#FF0000', color: '#FF0000'}}
         >Yes, delete</Button>
         <Button
           onClick={no}
           variant="outlined"
           color="secondary"
-          sx={{ marginRight: "30px", marginBottom: "10px" }}
+          sx={{marginRight: '30px', marginBottom: '10px'}}
         >No, keep</Button>
 
       </DialogActions>

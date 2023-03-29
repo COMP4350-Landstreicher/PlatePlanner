@@ -1,33 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import React, {useEffect, useRef, useState} from 'react';
+import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Add } from '@mui/icons-material';
+import {Add} from '@mui/icons-material';
 
 // validate if the form has been filled with correct value
 export function validateForm(name, directions, ingredients) {
   if (
-    name === "" ||
-    directions.filter((dir) => dir === "").length !== 0 ||
+    name === '' ||
+    directions.filter((dir) => dir === '').length !== 0 ||
     ingredients.filter(
       (ing) =>
-        ing.ingredientName === "" || ing.ingredientAmount === "" || parseFloat(ing.ingredientAmount) <= 0
+        ing.ingredientName === '' || ing.ingredientAmount === '' || parseFloat(ing.ingredientAmount) <= 0,
     ).length !== 0 ||
     ingredients.filter(
       (ing) =>
-        ing.ingredientName !== "" &&
+        ing.ingredientName !== '' &&
         ingredients.filter(
-          (ingCheck) => ingCheck.ingredientName?.trim() === ing.ingredientName?.trim()
-        ).length > 1
+          (ingCheck) => ingCheck.ingredientName?.trim() === ing.ingredientName?.trim(),
+        ).length > 1,
     ).length !== 0
   ) {
-    return true; //return true when form has invalid fields
+    return true; // return true when form has invalid fields
   } else {
     return false;
   }
 }
 
 export default function EditRecipePopup(props) {
-  const [directions, setDirections] = useState(props.editRecipe.instructions.split("\n"));
+  const [directions, setDirections] = useState(props.editRecipe.instructions.split('\n'));
   const [ingredients, setIngredients] = useState(props.editRecipe.ingredients);
   const [name, setName] = useState(props.editRecipe.recipeName);
   const [imageURL, setImageURL] = useState(props.editRecipe.imageURL);
@@ -37,32 +37,33 @@ export default function EditRecipePopup(props) {
 
   // get form input data to recipe object
   const saveRecipe = () => {
-    const ingredientList = ingredients.filter(ing => ing.ingredientAmount !== "" && ing.ingredientUnit !== "" && ing.ingredientName !== "").map(ing => {
+    const ingredientList = ingredients.filter((ing) =>
+      ing.ingredientAmount !== '' && ing.ingredientUnit !== '' && ing.ingredientName !== '').map((ing) => {
       return {
         ingredientName: ing.ingredientName,
         ingredientAmount: ing.ingredientAmount,
-        ingredientUnit: ing.ingredientUnit
+        ingredientUnit: ing.ingredientUnit,
       };
     });
 
-    const directionList = directions.filter(dir => dir !== "").join("\n");
+    const directionList = directions.filter((dir) => dir !== '').join('\n');
     return {
       recipeName: name,
       description: description,
       imageURL: imageURL,
       ingredients: ingredientList,
-      instructions: directionList
+      instructions: directionList,
     };
   };
 
   // validate form on form value changes
   useEffect(() => {
     setDisabledSave(validateForm(name, directions, ingredients));
-  }, [name, directions, ingredients]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [name, directions, ingredients]);
 
   // reset all value when close/open popup
   const resetForm = () => {
-    setDirections(props.editRecipe.instructions.split("\n"));
+    setDirections(props.editRecipe.instructions.split('\n'));
     setIngredients(props.editRecipe.ingredients);
     setName(props.editRecipe.recipeName);
     setImageURL(props.editRecipe.imageURL);
@@ -71,57 +72,57 @@ export default function EditRecipePopup(props) {
 
   useEffect(() => {
     resetForm();
-  }, [props.open]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [props.open]);
 
-  //add direction row
+  // add direction row
   const addDirection = () => {
-    setDirections([...directions, ""]);
+    setDirections([...directions, '']);
     setTimeout(() => inputRef?.current?.focus());
   };
 
-  //remove direction row
+  // remove direction row
   const removeDirection = (index) => {
     const rows = [...directions];
     rows.splice(index, 1);
     setDirections(rows);
   };
 
-  //add ingredient row
+  // add ingredient row
   const addIngredient = () => {
     setIngredients([...ingredients, {
       ingredientName: '',
       ingredientAmount: '1',
-      ingredientUnit: 'count'
+      ingredientUnit: 'count',
     }]);
     setTimeout(() => inputRef?.current?.focus());
   };
 
-  //remove ingredient row
+  // remove ingredient row
   const removeIngredient = (index) => {
     const rows = [...ingredients];
     rows.splice(index, 1);
     setIngredients(rows);
   };
 
-  //update ingredients when input changes
+  // update ingredients when input changes
   const handleChangeIngredient = (index, event) => {
-    const { name, value } = event.target;
+    const {name, value} = event.target;
     const list = [...ingredients];
     list[index][name] = value;
     setIngredients(list);
   };
 
-  //update directions when input changes
+  // update directions when input changes
   const handleChangeDirection = (index, event) => {
     const list = [...directions];
     list[index] = event.target.value;
     setDirections(list);
   };
 
-  //get label for direction step
+  // get label for direction step
   const stepLabel = (index) => {
     const number = index + 1;
-    return "Step " + number;
+    return 'Step ' + number;
   };
 
   return (
@@ -136,7 +137,7 @@ export default function EditRecipePopup(props) {
       <DialogTitle marginLeft="20px">
         <Typography color="#283d25" component="span" variant="h5">
           <Box component="span" fontWeight="fontWeightBold">
-            {props.editRecipe.recipeName === "" ? "Add Recipe" : "Edit Recipe"}
+            {props.editRecipe.recipeName === '' ? 'Add Recipe' : 'Edit Recipe'}
           </Box>
         </Typography>
       </DialogTitle>
@@ -147,10 +148,10 @@ export default function EditRecipePopup(props) {
               display: 'flex',
               m: 1,
               ml: '20px',
-              mr: '20px'
+              mr: '20px',
             }}
-            error={name.trim() === ""}
-            helperText={name.trim() === "" ? "Required" : null}
+            error={name.trim() === ''}
+            helperText={name.trim() === '' ? 'Required' : null}
             value={name}
             onChange={(e) => setName(e.target.value)}
             label="Recipe Name"
@@ -162,7 +163,7 @@ export default function EditRecipePopup(props) {
                 sx={{
                   display: 'flex',
                   m: 1,
-                  ml: 0
+                  ml: 0,
                 }}
                 value={imageURL}
                 onChange={(e) => setImageURL(e.target.value)}
@@ -173,7 +174,7 @@ export default function EditRecipePopup(props) {
                 sx={{
                   display: 'flex',
                   m: 1,
-                  ml: 0
+                  ml: 0,
                 }}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -194,40 +195,47 @@ export default function EditRecipePopup(props) {
                     Ingredients
                   </Box>
                 </Typography>
-                <Button onClick={addIngredient} sx={{ width: 80, mr: 1, borderRadius: 4 }} variant="contained">
-                  <Add sx={{ stroke: "#547958", strokeWidth: 1 }} />
+                <Button onClick={addIngredient} sx={{width: 80, mr: 1, borderRadius: 4}} variant="contained">
+                  <Add sx={{stroke: '#547958', strokeWidth: 1}} />
                   Add
                 </Button>
               </Box>
-              <Box sx={{ maxHeight: '350px', overflowY: "auto", overflowX: "hidden" }}>
+              <Box sx={{maxHeight: '350px', overflowY: 'auto', overflowX: 'hidden'}}>
                 {
                   ingredients.map((data, index) => {
-                    const { ingredientUnit, ingredientAmount, ingredientName } = data;
+                    const {ingredientUnit, ingredientAmount, ingredientName} = data;
                     return (
-                      <Box key={index} width='100%' display='flex' justifyContent="space-between" flexDirection='row' sx={{ m: 1, ml: 0 }}>
+                      <Box
+                        key={index}
+                        width='100%'
+                        display='flex'
+                        justifyContent="space-between"
+                        flexDirection='row'
+                        sx={{m: 1, ml: 0}}
+                      >
                         <TextField
                           value={ingredientAmount}
                           name="ingredientAmount"
                           inputRef={inputRef}
-                          error={parseFloat(ingredientAmount) <= 0 || ingredientAmount === ""}
+                          error={parseFloat(ingredientAmount) <= 0 || ingredientAmount === ''}
                           helperText={
-                            parseFloat(ingredientAmount) <= 0
-                              ? "Should be > 0"
-                              : ingredientAmount === ""
-                                ? "Required"
-                                : null
+                            parseFloat(ingredientAmount) <= 0 ?
+                              'Should be > 0' :
+                              ingredientAmount === '' ?
+                                'Required' :
+                                null
                           }
                           sx={{
                             width: '20%',
                             my: 1,
-                            mr: 1
+                            mr: 1,
                           }}
                           type="number"
                           label="Amount"
                           variant="filled"
                           onChange={(event) => handleChangeIngredient(index, event)}
                         />
-                        <FormControl variant="filled" sx={{ minWidth: '75px', my: 1, mr: 6 }}>
+                        <FormControl variant="filled" sx={{minWidth: '75px', my: 1, mr: 6}}>
                           <InputLabel>Unit</InputLabel>
                           <Select
                             value={ingredientUnit}
@@ -235,32 +243,32 @@ export default function EditRecipePopup(props) {
                             name="ingredientUnit"
                             onChange={(event) => handleChangeIngredient(index, event)}
                           >
-                            <MenuItem value={"count"}>x</MenuItem>
-                            <MenuItem value={"ml"}>ml</MenuItem>
-                            <MenuItem value={"g"}>g</MenuItem>
+                            <MenuItem value={'count'}>x</MenuItem>
+                            <MenuItem value={'ml'}>ml</MenuItem>
+                            <MenuItem value={'g'}>g</MenuItem>
                           </Select>
                         </FormControl>
                         <TextField
                           value={ingredientName}
                           sx={{
-                            width: ingredients.length !== 1 ? "50%" : "57%",
+                            width: ingredients.length !== 1 ? '50%' : '57%',
                             my: 1,
-                            mr: 1
+                            mr: 1,
                           }}
                           error={
-                            ingredientName.trim() === "" ||
+                            ingredientName.trim() === '' ||
                             ingredients.filter(
-                              (ing) => ing.ingredientName.trim() === ingredientName.trim()
+                              (ing) => ing.ingredientName.trim() === ingredientName.trim(),
                             ).length > 1
                           }
                           helperText={
-                            ingredientName.trim() === ""
-                              ? "Required"
-                              : ingredients.filter(
-                                (ing) => ing.ingredientName.trim() === ingredientName.trim()
-                              ).length > 1
-                                ? "Ingredient has already existed"
-                                : null
+                            ingredientName.trim() === '' ?
+                              'Required' :
+                              ingredients.filter(
+                                (ing) => ing.ingredientName.trim() === ingredientName.trim(),
+                              ).length > 1 ?
+                                'Ingredient has already existed' :
+                                null
                           }
                           label="Name"
                           name="ingredientName"
@@ -268,12 +276,16 @@ export default function EditRecipePopup(props) {
                           onChange={(event) => handleChangeIngredient(index, event)}
                         />
                         {ingredients.length !== 1 && (
-                          <IconButton onClick={() => removeIngredient(index)} aria-label="delete" sx={{ maxHeight: "70px" }}>
+                          <IconButton
+                            onClick={() => removeIngredient(index)}
+                            aria-label="delete"
+                            sx={{maxHeight: '70px'}}
+                          >
                             <DeleteIcon />
                           </IconButton>
                         )}
                       </Box>
-                    )
+                    );
                   })
                 }
               </Box>
@@ -290,12 +302,12 @@ export default function EditRecipePopup(props) {
                     Directions
                   </Box>
                 </Typography>
-                <Button onClick={addDirection} sx={{ width: 80, borderRadius: 4 }} variant="contained">
-                  <Add sx={{ stroke: "#547958", strokeWidth: 1 }} />
+                <Button onClick={addDirection} sx={{width: 80, borderRadius: 4}} variant="contained">
+                  <Add sx={{stroke: '#547958', strokeWidth: 1}} />
                   Add
                 </Button>
               </Box>
-              <Box sx={{ maxHeight: '540px', overflow: "auto" }}>
+              <Box sx={{maxHeight: '540px', overflow: 'auto'}}>
                 {
                   directions.map((data, index) => {
                     return (
@@ -308,22 +320,26 @@ export default function EditRecipePopup(props) {
                           sx={{
                             display: 'flex',
                             flex: 1,
-                            my: 1
+                            my: 1,
                           }}
-                          error={data.trim() === ""}
-                          helperText={data.trim() === "" ? "Required" : null}
+                          error={data.trim() === ''}
+                          helperText={data.trim() === '' ? 'Required' : null}
                           label={stepLabel(index)}
                           variant="filled"
                           multiline
                           rows={3}
                         />
                         {directions.length !== 1 && (
-                          <IconButton onClick={() => removeDirection(index)} aria-label="delete" sx={{ maxHeight: "210px" }}>
+                          <IconButton
+                            onClick={() => removeDirection(index)}
+                            aria-label="delete"
+                            sx={{maxHeight: '210px'}}
+                          >
                             <DeleteIcon />
                           </IconButton>
                         )}
                       </Box>
-                    )
+                    );
                   })
                 }
               </Box>
@@ -335,13 +351,15 @@ export default function EditRecipePopup(props) {
         <Button
           disabled={disabledSave}
           onClick={() => props.saveRecipe(saveRecipe())}
-          variant="outlined"
-          sx={{ marginRight: "5px", marginBottom: "10px" }}
+          variant="contained"
+          color="secondary"
+          sx={{marginRight: '5px', marginBottom: '10px'}}
         >Save</Button>
         <Button
           onClick={props.handleClose}
           variant="outlined"
-          sx={{ marginRight: "30px", marginBottom: "10px" }}
+          color="secondary"
+          sx={{marginRight: '30px', marginBottom: '10px'}}
         >Close</Button>
       </DialogActions>
     </Dialog>
