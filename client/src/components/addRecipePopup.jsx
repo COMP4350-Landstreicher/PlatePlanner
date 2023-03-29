@@ -335,12 +335,14 @@ export default function EditRecipePopup(props) {
         <Button
           disabled={disabledSave}
           onClick={() => props.saveRecipe(saveRecipe())}
-          variant="outlined"
+          variant="contained"
+          color="secondary"
           sx={{ marginRight: "5px", marginBottom: "10px" }}
         >Save</Button>
         <Button
           onClick={props.handleClose}
           variant="outlined"
+          color="secondary"
           sx={{ marginRight: "30px", marginBottom: "10px" }}
         >Close</Button>
       </DialogActions>

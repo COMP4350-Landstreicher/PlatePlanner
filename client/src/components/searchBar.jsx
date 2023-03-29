@@ -50,7 +50,6 @@ export default function SearchBar(props) {
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Finding any recipe?"
-        type="search"
         inputProps={{ 'aria-label': 'search' }}
         onChange={(event) => props.filterRecipe(searchRecipe(event))}
       />

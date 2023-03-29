@@ -63,10 +63,10 @@ export default function RecipePopup(props) {
                   e.currentTarget.src = noImageDefault;
                 }}
               />
-              <Typography variant="h4" width="90%" color="#283d25">
+              <Typography variant="h4" width="90%" color="#283d25" sx={{ wordWrap: "break-word" }}>
                 <Box component="span" fontWeight='fontWeightBold'>{props.value.recipeName}</Box>
               </Typography>
-              <Typography variant="body1" width="90%" marginTop='15px'>
+              <Typography variant="body1" width="90%" marginTop='15px' style={{ wordWrap: "break-word" }}>
                 <Box component="span" fontWeight='fontWeightMedium'>{props.value.description}</Box>
               </Typography>
             </Box>
@@ -109,14 +109,15 @@ export default function RecipePopup(props) {
         <Button
           onClick={handleDeleteButton}
           variant="outlined"
-          color="secondary"
-          sx={{ marginRight: "30px", marginBottom: "10px", borderColor: "#FF0000", color: "#FF0000" }}
+          color="error"
+          sx={{ marginLeft: "30px", marginBottom: "10px" }}
         >Delete</Button>
+        <div style={{ flex: '1 0 0' }} />
         <Button
           onClick={props.switchToEdit}
           variant="outlined"
           color="secondary"
-          sx={{ marginRight: "30px", marginBottom: "10px" }}
+          sx={{ marginRight: "5px", marginBottom: "10px" }}
         >Edit</Button>
         <Button
           onClick={props.handleClose}

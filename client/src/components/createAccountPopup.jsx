@@ -1,6 +1,5 @@
 import { Box, Button, Dialog, DialogActions, CssBaseline, DialogContent, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import logo from '../img/logo-white.png'
 import axios from 'axios';
 
 //Check that entered passwords are identical
@@ -35,7 +34,7 @@ export default function CreateAccountPopup(props) {
 				.then((response) => {
 					if (response.status === 200) {
 						setError("Successful Signup!");
-						setTimeout(() => { props.handleClose(); }, 5000);
+						setTimeout(() => { props.handleClose(); }, 3000);
 						setTimeout(() => { setError(""); }, 3000);
 					}
 					else {
@@ -64,8 +63,10 @@ export default function CreateAccountPopup(props) {
 			scroll='paper'
 			aria-labelledby="dialog"
 			fullWidth={true}
-			maxWidth='md'
-
+			maxWidth='sm'
+			PaperProps={{
+				style: { borderRadius: 30 }
+			}}
 		>
 
 			<CssBaseline />
@@ -77,28 +78,21 @@ export default function CreateAccountPopup(props) {
 					align: 'center',
 					textAlign: 'center'
 				}}>
-					<Box
-						component="img"
-						sx={{
-							height: '20vh'
-						}}
-						alt="PlatePlanner Logo"
-						src={logo}
-					/>
 					<Typography variant="h1"
 						sx={{
-							color: "#547958",
+							color: "#232946",
 							fontSize: "2rem",
-							m: "0"
+							m: "0",
+							mt: "20px"
 						}}
 					>
 						<b>Create Account</b>
 					</Typography>
 					<Typography variant="h1"
 						sx={{
-							color: "#547958",
+							color: "#232946",
 							fontSize: "2rem",
-							mb: "0"
+							mb: "20px"
 						}}
 					>
 						to get started now!
@@ -111,10 +105,10 @@ export default function CreateAccountPopup(props) {
 						onChange={e => setEmail(e.target.value)}
 						sx={{
 							m: '.5pc',
-							padding: '5px',
+							padding: '10px',
 							border: '2px solid #547958',
-							borderRadius: '5px',
-							width: '30%'
+							borderRadius: '10px',
+							width: '50%'
 						}} />
 					<br />
 					<Box
@@ -125,10 +119,10 @@ export default function CreateAccountPopup(props) {
 						onChange={e => setUsername(e.target.value)}
 						sx={{
 							m: '.5pc',
-							padding: '5px',
+							padding: '10px',
 							border: '2px solid #547958',
-							borderRadius: '5px',
-							width: '30%'
+							borderRadius: '10px',
+							width: '50%'
 						}} />
 					<br />
 					<Box
@@ -139,10 +133,10 @@ export default function CreateAccountPopup(props) {
 						onChange={e => setFirstName(e.target.value)}
 						sx={{
 							m: '.5pc',
-							padding: '5px',
+							padding: '10px',
 							border: '2px solid #547958',
-							borderRadius: '5px',
-							width: '30%'
+							borderRadius: '10px',
+							width: '50%'
 						}} />
 					<br />
 					<Box
@@ -153,10 +147,10 @@ export default function CreateAccountPopup(props) {
 						onChange={e => setLastName(e.target.value)}
 						sx={{
 							m: '.5pc',
-							padding: '5px',
+							padding: '10px',
 							border: '2px solid #547958',
-							borderRadius: '5px',
-							width: '30%'
+							borderRadius: '10px',
+							width: '50%'
 						}} />
 					<br />
 					<Box
@@ -167,10 +161,10 @@ export default function CreateAccountPopup(props) {
 						onChange={e => setPassword(e.target.value)}
 						sx={{
 							m: '.5pc',
-							padding: '5px',
+							padding: '10px',
 							border: '2px solid #547958',
-							borderRadius: '5px',
-							width: '30%'
+							borderRadius: '10px',
+							width: '50%'
 						}} />
 					<br />
 					<Box
@@ -181,10 +175,10 @@ export default function CreateAccountPopup(props) {
 						onChange={e => setPassword2(e.target.value)}
 						sx={{
 							m: '.5pc',
-							padding: '5px',
+							padding: '10px',
 							border: '2px solid #547958',
-							borderRadius: '5px',
-							width: '30%'
+							borderRadius: '10px',
+							width: '50%'
 						}} />
 					<br />
 					<Button
@@ -194,8 +188,9 @@ export default function CreateAccountPopup(props) {
 							color: '#547958',
 							padding: '5px',
 							margin: '.5pc',
+							mt: '1pc',
 							border: '2px solid #547958',
-							borderRadius: '5px',
+							borderRadius: '10px',
 							width: '30%'
 						}}
 						onClick={createAccount}>Create Account</Button><br />
@@ -208,16 +203,19 @@ export default function CreateAccountPopup(props) {
 			<DialogActions sx={{ background: '#A0B8A5' }}>
 				<Button
 					onClick={props.handleClose}
-
+					variant="outlined"
 					sx={{
 						marginRight: "30px",
 						marginBottom: "10px",
-						bgcolor: '#ECF3A3',
 						color: '#547958',
+						"&:hover": {
+							color: '#ECF3A3',
+							border: '2px solid #ECF3A3'
+						},
 						padding: '5px',
-						margin: '.5pc',
+						margin: '1pc',
 						border: '2px solid #547958',
-						borderRadius: '5px'
+						borderRadius: '10px'
 					}}
 				>Close</Button>
 			</DialogActions>

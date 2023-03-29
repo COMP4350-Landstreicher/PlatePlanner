@@ -139,7 +139,17 @@ export default function RecipeList(props) {
                 </Box>
                 <Box sx={{ width: 250 }}>
                   <CardContent sx={{ pl: 0, pr: 1, display: "flex", justifyContent: "space-between" }}>
-                    <Typography variant="h6" component="h2">
+                    <Typography
+                      variant="h6"
+                      component="h2"
+                      sx={{
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: '2',
+                        WebkitBoxOrient: 'vertical'
+                      }}
+                    >
                       <Box component="span" fontWeight='fontWeightBold'>{card.recipeName}</Box>
                     </Typography>
                     <Tooltip title={card.portion === 0 ? "Not in week plan" : "In week plan"}>
