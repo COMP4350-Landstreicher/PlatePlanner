@@ -15,6 +15,12 @@ function Login() {
 
 	const theme = createTheme({
 		palette: {
+			primary: {
+				main: '#ECF3A3'
+			},
+			secondary: {
+				main: '#547958'
+			},
 			background: {
 				default: '#547958'
 			}
@@ -63,7 +69,7 @@ function Login() {
 			<CssBaseline />
 			<Box sx={{
 				m: 'auto',
-				mt: '10vh',
+				mt: '20vh',
 				width: '50%',
 				padding: '1pc',
 				align: 'center',
@@ -73,11 +79,15 @@ function Login() {
 					component="img"
 					sx={{
 						align: 'center',
-						height: '20vh'
+						height: '15vh',
+						mb: '40px',
+						ml: 'auto',
+						mr: 'auto',
+						display: 'block'
 					}}
 					alt="PlatePlanner Logo"
 					src={logo}
-				/><br />
+				/>
 				<Box
 					component="input"
 					type="text"
@@ -86,9 +96,9 @@ function Login() {
 					onChange={e => setUsername(e.target.value)}
 					sx={{
 						m: '.5pc',
-						padding: '5px',
+						padding: '10px',
 						border: 'none',
-						borderRadius: '5px',
+						borderRadius: '10px',
 						width: '30%'
 					}} />
 				<br />
@@ -100,22 +110,22 @@ function Login() {
 					onChange={e => setPassword(e.target.value)}
 					sx={{
 						m: '.5pc',
-						padding: '5px',
+						mb: '1pc',
+						padding: '10px',
 						border: 'none',
-						borderRadius: '5px',
+						borderRadius: '10px',
 						width: '30%'
 					}} />
 				<br />
 				<Button
-					variant="text"
+					variant="contained"
+					color="primary"
 					sx={{
-						bgcolor: '#ECF3A3',
-						color: '#547958',
-						padding: '5px',
+						padding: '4px',
 						margin: '.5pc',
 						border: 'none',
-						borderRadius: '5px',
-						width: '30%'
+						borderRadius: '10px',
+						width: '20%'
 					}}
 					onClick={logIn}>Log in</Button><br />
 				<Typography variant="body1"
@@ -127,7 +137,8 @@ function Login() {
 					onClick={createAccount}
 					sx={{
 						fontSize: "1rem",
-						color: '#ECF3A3'
+						color: '#ECF3A3',
+						fontWeight: "fontWeightBold"
 					}}>
 					Create new account
 				</Link><br />
