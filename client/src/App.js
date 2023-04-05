@@ -21,7 +21,6 @@ function AuthCheck() {
   return exists;
 }
 function App() {
-  // TODO: implement a function to check the cookie session
   // if it's still has the token => redirect to Recipes when path = "/"
 
   return (
@@ -33,8 +32,7 @@ function App() {
         ) : (
           <Login />
         )} />
-        <Route path="recipes" element={
-          AuthCheck() ? (
+        <Route path="recipes" element={AuthCheck() ? (
             <Recipes />
           ) : (
             <Navigate to="/login" />
