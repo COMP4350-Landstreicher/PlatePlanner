@@ -12,6 +12,7 @@ Testing plan for the COMP4350 W23 Group Project "PlatePlanner"
 | 1.2             | 2023-02-17    | Tuan D. Le  | Added Unit test details         |
 | 1.3             | 2023-03-16    | David Dyck  | Added Unit and Acceptance tests |
 | 1.4             | 2023-03-16    | Trang Pham  | Added Unit and Acceptance tests |
+| 1.5             | 2023-04-04    | Trang Pham  | Update Acceptance tests         |
 
 ## 1. Introduction:
 
@@ -67,18 +68,26 @@ And the non-functional requirement:
 	1.  As a new user, I want to be able to create an account with a username and a password so that the system can recognize me and store my information.
 		1. Navigate to the home page
 		2. Click "Create new account" 
-		3. Enter a valid email, username, first name, last name, and password (twice) and hit "create account"
+		3. Enter a valid email "abc@gmail.com"
+		4. Enter "abc" for username, first name, last name "abc"
+		5. Enter password (twice) "1234567"
+		6. Hit "create account"
+		7. Should have "Successful Signup" and the popup should be closed after 3 seconds
 
     2. As a registered user, I want to be able to log in to my account using my registered credentials so that I can access my information on the web app.
 		1. Sign up as in the first acceptance test
-		2. Log in with email and invalid password, it should not work
-		3. Log in with email and valid password, it should work
+		2. Log in with email "abc@gmail.com" and invalid password "123456"
+		3. Should have "Login failed!"
+		4. Log in with email "abc@gmail.com" and valid password "1234567"
+		5. Should navigate to homepage
 		
 		
     3. As a logged-in user, I want to be able to log out of the web app so that only those with my credentials can access my account.
 		1. Log in as in the second acceptance test
-		2. Press the log out button 
-		3. Verify that user is no longer logged in by trying to navigate to /recipes and be redirected back to the login
+		2. Press the log out button
+		3. Should navigate to the login screen
+		4. Change the URL to /recipes instead of /login
+		5. Should be redirected back to login screen
 
 2. Viewing and Retrieving Recipes
 
@@ -231,15 +240,25 @@ And the non-functional requirement:
 
 	**Acceptance Testing - Per User Story:**
     1. As a logged-in user, I want to be able to choose recipes and portion sizes to add to the shopping list.
-		1. After logging in, create at least one recipe
-		2. Click the utensil icon on the recipe to add it to the week plan
-		3. Go to the week plan
-		4. Select the number of portions you'd like to make of each added recipe
+		1. After logging in, create a recipe with name "a", ingredient name "a", direction "a" and everything else left as default
+		2. Click the utensil icon on the recipe "a"
+		4. Go to the "Week Plan" tab
+		5. Should have a recipe image named "a"
+		6. Hover the mouse to the image, it should display "1 servings"
+		7. Click "+" button
+		8. Should display "2 servings"
+		9. Click "-" button
+		10. Should display "1 servings"
 		
     2. As a logged-in user, I want to be able to generate a shopping list of ingredients based on my chosen recipes.
-		1. Add recipes to the week plan and chosing portion counts as in acceptance test 1
-		2. Go to the shopping list 
-		3. click "Generate Shopping List", and ensure the right ingredients are listed
+		1. After logging in, create a recipe with name "a", ingredient name "a", direction "a" and everything else left as default
+		2. Click the utensil icon on the recipe "a"
+		3. Do step 1 and 2 but recipe name "b"
+		4. Go to the "Week Plan" tab
+		5. Should have a recipe images named "a" and "b"
+		6. Go to "Shopping List" tab
+		7. Click "Generate Shopping List"
+		8. Should have item "a", quantity "2", unit "count"
 		
     3. As a logged-in user, I want to be able to send the shopping list to my email address.
 		1. Generate a shopping list as in acceptance test 2
@@ -247,7 +266,7 @@ And the non-functional requirement:
 
 5. Load Requirement (100 concurrent users with 1000 requests per minute)
 
-	**Load Testing - TBD**
+	Test with JMeter
 
 ### 2.2. Test Completeness
 Tests will be considered complete when: 
@@ -263,13 +282,15 @@ Bug Tracking - Github/Jira
 
 Automation - Jenkins/Github
 
-Unit Testing - Mocha, Jest, Supertest
+Unit Testing - Mocha, Jest
+
+Integration Testing - Supertest
+
+Load Testing - JMeter
 
 ### 3.2. Test Environment
-Tests will be run automatically in the CI/CD process on the Jenkins server using Mocha and Jest (unit and integration testing), and to be determined software for the other sets of tests. 
-The Jenkins server has two vCPUs and 8 GiB of RAM.
+Tests will be run automatically in the CI/CD process on the Jenkins server using Mocha and Jest (unit testing), SuperTest (integration testing), manual acceptance testing and JMeter for load testing.
 
-## 4. Terms/Acronyms
-TBD - To be determined
+The Jenkins server has two vCPUs and 8 GiB of RAM.
 
 
